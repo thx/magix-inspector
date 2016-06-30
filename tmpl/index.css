@@ -1,0 +1,75 @@
+.icon:before{
+    width:12px;
+    content:'M';
+    height:12px;
+    border-radius:6px;
+    position:absolute;
+    background-color:#008B00;
+    opacity:.4;
+    font-size:10px;
+    line-height:12px;
+    text-align:center;
+    color:#fff;
+    z-index:10
+}
+.tab{
+    background:#eee;
+    cursor: move;
+}
+.main{
+    position:fixed;
+    right:20px;
+    top:20px;
+    width:550px;
+    height:470px;
+    z-index:100000;
+    box-shadow:0 0 10px #b9b9b9;
+    background-color:#fff;
+    font-size:12px;
+    line-height:1.5;
+}
+.main ul{list-style:none;padding:0;}
+.m5{margin-left:5px;}
+.fl{
+    float:left
+}
+.fr{
+    float:right
+}
+.cp{
+    cursor:pointer;
+}
+.p8{
+    padding:8px;
+}
+.move{
+    cursor:move
+}
+.red{color:red}
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+.bar{
+    height: 1px;
+    border: 0;
+    padding: 0;
+    margin:5px;
+    background: rgba(0,0,0,0.20);
+    background: -webkit-gradient(linear, left top, right top, from(rgba(165, 69, 243, 0.0)), color-stop(0.5, rgba(125, 118, 132, 0.33)), to(rgba(165, 69, 243, 0.0)));
+}
+#mx_moreinfo,#mx_manager_moreinfo{
+    position:absolute;
+    background-color:#eee;
+    padding:8px;
+    width:440px;
+    display:none;
+    box-shadow:0 5px 10px #b9b9b9
+}

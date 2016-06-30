@@ -1,0 +1,29 @@
+{
+  "name": "magix-inspector",
+  "version": "1.0.0",
+  "description": "magix项目调试分析工具",
+  "main": "build/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thx/magix-inspector.git"
+  },
+  "keywords": [
+    "magix",
+    "view",
+    "inspector"
+  ],
+  "dependencies": {
+    "gulp": "",
+    "gulp-watch": "",
+    "gulp-uglify": "",
+    "gulp-cssnano": "",
+    "del": "",
+    "magix-combine": ""
+  },
+  "author": "xinglie <xinglie.lkf@taobao.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thx/magix-inspector/issues"
+  },
+  "homepage": "https://github.com/thx/magix-inspector#readme"
+}

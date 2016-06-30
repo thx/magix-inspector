@@ -1,0 +1,24 @@
+<div class="main" id="mx">
+    <ul class="clearfix tab" id="mx_tabs">
+        <li class="fl p8 cp">VOM</li>
+        <li class="fl p8 cp">Tracer</li>
+        <li class="fl p8 cp">Manager</li>
+        <li class="fr p8 cp" id="mx_min">△</li>
+    </ul>
+    <div id="mx_painter">
+        <canvas width="{width}" height="{canvasHeight}" id="mx_view_canvas"></canvas>
+        <ul class="clearfix p8" id="mx_view_total"></ul>
+    </div>
+    <div id="mx_trancer" style="height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px;">
+    </div>
+    <div id="mx_manager" style="height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none">
+        <canvas width="{canvasWidth}" height="{canvasHeight}" id="mx_manager_canvas"></canvas>
+        <ul class="clearfix p8" id="mx_manager_total"></ul>
+    </div>
+    <div id="mx_moreinfo">
+
+    </div>
+    <div id="mx_manager_moreinfo">
+
+    </div>
+</div>
