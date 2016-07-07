@@ -4,7 +4,7 @@ Magix项目的调试分析工具，直观的展示view间的层级关系，实�
 
 # 使用
 
-`npm install magix-inspector'
+`npm install magix-inspector`
 
 然后在html页面中通过script引入，如
 
