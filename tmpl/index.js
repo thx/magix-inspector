@@ -1091,6 +1091,12 @@ for (var p in RequireEnv) {
     SeajsEnv[p] = SeajsSEnv[p] = MagixEnv[p] = RequireEnv[p];
 }
 SeajsEnv.getMod = function(key) {
+    try {
+        var entity = seajs.require(key);//seajs有别名，优先使用内置的require获取
+        return entity;
+    } catch (e) {
+        console.log(e);
+    }
     var mods = seajs.cache;
     for (var p in mods) {
         var mod = mods[p];
