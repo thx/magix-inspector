@@ -1,14 +1,9 @@
-
 var wrapNoDepsTMPL = '(function(){\r\n${content}\r\n})();';
 
 var tmplFolder = 'tmpl'; //template folder
 var srcFolder = 'src'; //source folder
 var buildFolder = 'build'; //build folder
 var excludeTmplFolders = [];
-var onlyAllows = {
-    '.html': 1,
-    '.css': 1
-};
 
 var gulp = require('gulp');
 var watch = require('gulp-watch');
@@ -16,21 +11,30 @@ var fs = require('fs');
 var combineTool = require('magix-combine');
 var del = require('del');
 
-
+combineTool.addProcessor('file:loader', function() {
+    return {
+        process: function(o) {
+            var tmpl = wrapNoDepsTMPL;
+            for (var p in o) {
+                var reg = new RegExp('\\$\\{' + p + '\\}', 'g');
+                tmpl = tmpl.replace(reg, (o[p] + '').replace(/\$/g, '$$$$'));
+            }
+            return tmpl;
+        }
+    };
+});
 combineTool.config({
     tmplFolder: tmplFolder,
     srcFolder: srcFolder,
     buildFolder: buildFolder,
     excludeTmplFolders: excludeTmplFolders,
-    onlyAllows: onlyAllows,
-    prefix:'i-',
-    generateJSFile: function(o) {
-        var tmpl =  wrapNoDepsTMPL;
-        for (var p in o) {
-            var reg = new RegExp('\\$\\{' + p + '\\}', 'g');
-            tmpl = tmpl.replace(reg, (o[p] + '').replace(/\$/g, '$$$$'));
-        }
-        return tmpl;
+    prefix: 'i-',
+    nanoOptions: {
+        safe: true
+    },
+    onlyAllows: {
+        '.html': 1,
+        '.css': 1
     }
 });
 
