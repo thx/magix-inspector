@@ -41,7 +41,7 @@ var ManagerColors = {
 };
 var ApplyStyle = function(x, h) {
     var i = document.createElement('style');
-    document.body.appendChild(i);
+    document.documentElement.appendChild(i);
     if (i.styleSheet) {
         i.styleSheet.cssText = h;
     } else {
@@ -999,7 +999,7 @@ var RequireEnv = {
                             var z = parseInt(nodes.css('z-index')) || 1;
                             if (z && z > zIndex) zIndex = z;
                             nodes = nodes.parent();
-                        } while (nodes.size() && $.contains(document.body, nodes[0]));
+                        } while (nodes.length && $.contains(document.body, nodes[0]));
                         style.zIndex = zIndex + 1;
                     }
                     break;
@@ -1016,7 +1016,7 @@ var RequireEnv = {
                 var z = parseInt(node.css('z-index')) || 1;
                 if (z && z > zIndex) zIndex = z;
                 node = node.parent();
-            } while (node.size() && $.contains(document.body, node[0]));
+            } while (node.length && $.contains(document.body, node[0]));
             style.zIndex = zIndex + 1;
         }
 
