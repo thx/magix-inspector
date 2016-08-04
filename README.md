@@ -1,4 +1,4 @@
-# Magix Inspector
+# Magix Inspector [![Version Number](https://img.shields.io/npm/v/magix-inspector.svg)](https://github.com/thx/magix-inspector/ "Version Number") [![THX Team](https://img.shields.io/badge/team-THX-green.svg)](https://thx.github.io/ "THX Team") [![License](https://img.shields.io/badge/license-MIT-orange.svg)](https://opensource.org/licenses/MIT "License")
 
 Magix项目的调试分析工具，直观的展示区块间的层级关系，实时以不同颜色显示渲染情况，渲染不正确的区块飘红
 
