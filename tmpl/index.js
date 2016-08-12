@@ -36,7 +36,6 @@ var Consts = {
 var Lines = [
     'FFC125',
     'C71585',
-    '0000AA',
     'CDBA96',
     'FF7F00',
     'BA55D3',
@@ -193,10 +192,18 @@ var UI = {
                 case 'id':
                     return item.id;
                 case 'view':
-                    return vf ? (vf.path || vf.view && vf.view.path || '') : '';
+                    if (vf) {
+                        if (vf.$v) {
+                            return vf.path;
+                        }
+                        if (vf.view) {
+                            return vf.view.path;
+                        }
+                    }
+                    return '';
                 case 'events':
                     var evts = Helper.getEvents(vf);
-                    return evts.length ? '<li><b class="tle">events:</b>' + evts + '</li>' : '';
+                    return evts.total ? '<li><b class="tle">listen:</b>' + evts.list + '</li>' : '';
                 case 'share':
                     var s = Helper.getShared(vf);
                     return s.length ? '<li><b class="tle">share:</b>' + s + '</li>' : '';
@@ -1249,14 +1256,51 @@ var Helper = {
         throw new Error('unsupport');
     },
     getEvents: function(vf) {
-        var evts = [];
+        var evts = [],
+            total = 0;
         if (vf) {
             var evto = (vf.view && (vf.view.events || vf.view.$evts)) || (vf.$v && vf.$v.$eo);
+            var commons = [];
             for (var p in evto) {
-                evts.push(p);
+                total++;
+                commons.push(p);
+            }
+            if (commons.length) {
+                evts.push('&lt;' + commons + '&gt;');
+            }
+            var list = vf.$v && vf.$v.$el;
+            var globalWins = [],
+                globalDocs = [],
+                selectors = [];
+            if (list) {
+                for (var i = 0, one; i < list.length; i++) {
+                    one = list[i];
+                    total++;
+                    if (one.e) {
+                        if (one.e == window) {
+                            globalWins.push(one.n);
+                        } else if (one.e == document) {
+                            globalDocs.push(one.n);
+                        }
+                    } else {
+                        selectors.push('$' + one.s + '&lt;' + one.n + '&gt;');
+                    }
+                }
+            }
+            if (globalWins.length) { //1 3 4
+                evts.push('<span style="color:#' + Lines[1] + '">$win&lt;' + globalWins + '&gt;</span>');
+            }
+            if (globalDocs.length) {
+                evts.push('<span style="color:#' + Lines[3] + '">$doc&lt;' + globalDocs + '&gt;</span>');
+            }
+            if (selectors.length) {
+                evts.push('<span style="color:#' + Lines[4] + '">' + selectors + '</span>');
             }
         }
-        return evts;
+        return {
+            list: evts,
+            total: total
+        };
     },
     getShared: function(vf) {
         var shares = [];
@@ -1300,7 +1344,7 @@ var Helper = {
                     info.status = Status.init;
                 }
                 var evts = Helper.getEvents(vf);
-                var total = evts.length;
+                var total = evts.total;
                 if (total) {
                     var cc = Consts.eventsCommonCount;
                     total = Math.min(total, cc);
@@ -1309,9 +1353,9 @@ var Helper = {
                     var rs = (ec.r - sc.r) / cc;
                     var gs = (ec.g - sc.g) / cc;
                     var bs = (ec.b - sc.b) / cc;
-                    var hexr = ('0' + parseInt(sc.r + evts.length * rs).toString(16)).slice(-2);
-                    var hexg = ('0' + parseInt(sc.g + evts.length * gs).toString(16)).slice(-2);
-                    var hexb = ('0' + parseInt(sc.b + evts.length * bs).toString(16)).slice(-2);
+                    var hexr = ('0' + parseInt(sc.r + total * rs).toString(16)).slice(-2);
+                    var hexg = ('0' + parseInt(sc.g + total * gs).toString(16)).slice(-2);
+                    var hexb = ('0' + parseInt(sc.b + total * bs).toString(16)).slice(-2);
                     info.event = '#' + hexr + hexg + hexb;
                 }
                 var shared = Helper.getShared(vf);
