@@ -10,7 +10,10 @@
     line-height:12px;
     text-align:center;
     color:#fff;
-    z-index:10
+    z-index:2147483645
+}
+.tle{
+    padding-right:5px;
 }
 .tab{
     background:#eee;
@@ -22,14 +25,18 @@
     top:20px;
     width:550px;
     height:470px;
-    z-index:100000;
+    z-index:2147483647;
     box-shadow:0 0 10px #b9b9b9;
     background-color:#fff;
     font-size:12px;
     line-height:1.5;
 }
+.mask{
+    position:absolute;opacity:0.7;background-color:#90EE90;
+}
 .main ul{list-style:none;padding:0;}
 .m5{margin-left:5px;}
+.binfo{padding:5px;}
 .fl{
     float:left
 }

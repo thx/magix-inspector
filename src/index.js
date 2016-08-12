@@ -17,10 +17,22 @@ var Consts = {
     moreInfoWidth: 490,
     titleHeight: 34,
     circleMargin: 6,
+    minCircleRadius: 15,
     managerCols: 5,
     managerMargin: 5,
     managerHeight: 40,
-    managerGroupSpace: 40
+    managerGroupSpace: 40,
+    eventsStartColor: {
+        r: 0,
+        g: 153,
+        b: 102
+    },
+    eventsEndColor: {
+        r: 255,
+        g: 255,
+        b: 0
+    },
+    eventsCommonCount: 15
 };
 var Lines = [
     'FFC125',
@@ -49,13 +61,13 @@ var ApplyStyle = function(x, h) {
         i.appendChild(document.createTextNode(h));
     }
 };
-ApplyStyle('i-bca',".i-bca-icon:before{width:12px;content:'M';height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff;z-index:10}.i-bca-tab{background:#eee;cursor:move}.i-bca-main{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:100000;box-shadow:0 0 10px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.i-bca-main ul{list-style:none;padding:0}.i-bca-m5{margin-left:5px}.i-bca-fl{float:left}.i-bca-fr{float:right}.i-bca-cp{cursor:pointer}.i-bca-p8{padding:8px}.i-bca-move{cursor:move}.i-bca-red{color:red}.i-bca-clearfix:after,.i-bca-clearfix:before{content:\"\";display:table}.i-bca-clearfix:after{clear:both}.i-bca-clearfix{*zoom:1}.i-bca-bar{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 5px 10px #b9b9b9}");
+ApplyStyle('i-bca',".i-bca-icon:before{width:12px;content:'M';height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff;z-index:2147483645}.i-bca-tle{padding-right:5px}.i-bca-tab{background:#eee;cursor:move}.i-bca-main{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 10px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.i-bca-mask{position:absolute;opacity:.7;background-color:#90ee90}.i-bca-main ul{list-style:none;padding:0}.i-bca-m5{margin-left:5px}.i-bca-binfo{padding:5px}.i-bca-fl{float:left}.i-bca-fr{float:right}.i-bca-cp{cursor:pointer}.i-bca-p8{padding:8px}.i-bca-move{cursor:move}.i-bca-red{color:red}.i-bca-clearfix:after,.i-bca-clearfix:before{content:\"\";display:table}.i-bca-clearfix:after{clear:both}.i-bca-clearfix{*zoom:1}.i-bca-bar{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 5px 10px #b9b9b9}");
 var UI = {
-    main: "<div class=\"i-bca-main\" id=\"mx\"><ul class=\"i-bca-clearfix i-bca-tab\" id=\"mx_tabs\"><li class=\"i-bca-fl i-bca-p8 i-bca-cp\">VOM</li><li class=\"i-bca-fl i-bca-p8 i-bca-cp\">Tracer</li><li class=\"i-bca-fl i-bca-p8 i-bca-cp\">Manager</li><li class=\"i-bca-fr i-bca-p8 i-bca-cp\" id=\"mx_min\">△</li></ul><div id=\"mx_painter\"><canvas width=\"{width}\" height=\"{canvasHeight}\" id=\"mx_view_canvas\"></canvas><ul class=\"i-bca-clearfix i-bca-p8\" id=\"mx_view_total\"></ul></div><div id=\"mx_trancer\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"mx_manager\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none\"><canvas width=\"{canvasWidth}\" height=\"{canvasHeight}\" id=\"mx_manager_canvas\"></canvas><ul class=\"i-bca-clearfix i-bca-p8\" id=\"mx_manager_total\"></ul></div><div id=\"mx_moreinfo\"></div><div id=\"mx_manager_moreinfo\"></div></div>",
-    moreInfo: "<ul><li><b>id:</b>{id}</li><li><b>view:</b>{view}</li><li class=\"i-bca-red\">{ex}</li><li><b>resources:</b></li><li style=\"{moreInfoWidth}px;overflow:auto;max-height:200px\">{res}</li></ul>",
+    main: "<div class=\"i-bca-main\" id=\"mx\"><ul class=\"i-bca-clearfix i-bca-tab\" id=\"mx_tabs\"><li class=\"i-bca-fl i-bca-p8 i-bca-cp\">VOM</li><li class=\"i-bca-fl i-bca-p8 i-bca-cp\">Tracer</li><li class=\"i-bca-fl i-bca-p8 i-bca-cp\">Manager</li><li class=\"i-bca-fr i-bca-p8 i-bca-cp\" id=\"mx_min\">△</li></ul><div id=\"mx_painter\"><div style=\"width:{width}px;height:{canvasHeight}px;overflow-x:auto;overflow-y:hidden\" id=\"mx_view_cnt\"><canvas width=\"{width}\" height=\"{canvasHeight}\" id=\"mx_view_canvas\"></canvas></div><ul class=\"i-bca-clearfix i-bca-p8\" id=\"mx_view_total\"></ul></div><div id=\"mx_trancer\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"mx_manager\" style=\"display:none\"><div style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto\" id=\"mx_manager_cnt\"><canvas width=\"{canvasWidth}\" height=\"{canvasHeight}\" id=\"mx_manager_canvas\"></canvas></div><ul class=\"i-bca-clearfix i-bca-p8\" id=\"mx_manager_total\"></ul></div><div id=\"mx_moreinfo\"></div><div id=\"mx_manager_moreinfo\"></div></div>",
+    moreInfo: "<ul><li><b class=\"i-bca-tle\">id:</b>{id}</li><li><b class=\"i-bca-tle\">view:</b>{view}</li>{events} {share}<li class=\"i-bca-red\">{ex}</li><li><b class=\"i-bca-tle\">resources:</b></li><li style=\"{moreInfoWidth}px;overflow:auto;max-height:200px\">{res}</li></ul>",
     moreManagerInfo: "<ul><li><b>key:</b>{id}</li><li><b>url:</b>{url}</li><li><b>描述:</b>{desc}</li><li><b>缓存:</b>{cache}</li><li><b>清理缓存:</b>{cleans}</li><li><b>预处理:</b>{hasAfter}</li></ul>",
-    total: "<li class=\"i-bca-fl\">共{total}个view</li><li class=\"i-bca-fl ml5 i-bca-red\">{ex}</li>",
-    managerTotal: "<li class=\"i-bca-fl\">{groups}个接口文件，共{total}个接口</li>",
+    total: "<li class=\"i-bca-fl i-bca-binfo\">共{total}个view</li><li class=\"i-bca-fl ml5 i-bca-red i-bca-binfo\">{ex}</li>",
+    managerTotal: "<li class=\"i-bca-fl i-bca-binfo\">{groups}个接口文件，共{total}个接口</li>",
     setup: function() {
         var div = D.createElement('div');
         div.innerHTML = UI.main.replace(/\{(\w+)\}/g, function(m, v) {
@@ -163,14 +175,14 @@ var UI = {
         var cover = D.getElementById('mx_cover');
         if (!cover) {
             cover = D.createElement('div');
-            cover.style.cssText = 'position:absolute;opacity:0.7;background-color:#90EE90;z-index:99999;';
+            cover.className = 'i-bca-mask';
             cover.id = 'mx_cover';
             D.body.appendChild(cover);
         }
 
         var node = D.getElementById('mx_moreinfo');
         node.style.display = 'block';
-        var left = item.center.x - Consts.moreInfoWidth / 2;
+        var left = item.center.x - Consts.moreInfoWidth / 2 - D.getElementById('mx_view_cnt').scrollLeft;
         node.style.left = left + 'px';
         node.style.top = item.center.y + item.radius + Consts.titleHeight + 5 + 'px';
         var env = Helper.getEnv();
@@ -183,6 +195,12 @@ var UI = {
                     return item.id;
                 case 'view':
                     return vf ? (vf.path || vf.view && vf.view.path || '') : '';
+                case 'events':
+                    var evts = Helper.getEvents(vf);
+                    return evts.length ? '<li><b class="tle">events:</b>' + evts + '</li>' : '';
+                case 'share':
+                    var s = Helper.getShared(vf);
+                    return s.length ? '<li><b class="tle">share:</b>' + s + '</li>' : '';
                 case 'ex':
                     if (item.il) {
                         return '被孤立的节点，好可怜……';
@@ -215,11 +233,7 @@ var UI = {
                 case 'res':
                     var t = [];
                     var res = vf && vf.view && vf.view.$res;
-                    var nKey;
-                    if (!res) {
-                        nKey = true;
-                        res = vf && vf.$v && vf.$v.$res;
-                    }
+                    res = res || vf && vf.$v && vf.$v.$r;
                     if (res) {
                         var hasRrs;
                         for (var p in res) {
@@ -254,7 +268,7 @@ var UI = {
         node.style.display = 'block';
         node.style.left = item.rect[0] + 'px';
         var top = item.rect[1] + item.rect[3] + Consts.titleHeight;
-        var st = D.getElementById('mx_manager').scrollTop;
+        var st = D.getElementById('mx_manager_cnt').scrollTop;
         top -= st;
         node.style.top = top + 'px';
         node.innerHTML = UI.moreManagerInfo.replace(/\{(\w+)\}/g, function(m, v) {
@@ -299,6 +313,11 @@ var UI = {
     },
     updateManagerCanvasHeight: function(height) {
         D.getElementById('mx_manager_canvas').height = height | 0;
+    },
+    updateVOMCanvansWidth: function(width) {
+        var c = D.getElementById('mx_view_canvas');
+        c.width = width | 0;
+        c.parentNode.scrollLeft = (c.width - Consts.canvasWidth) / 2;
     },
     onMousemove: function(e) {
         console.log(e);
@@ -434,12 +453,30 @@ var Graphics = {
         };
         walk(tree, 1);
         maxChildren = Math.max(maxChildren, tree.isolated.length + 1);
+        var hRadius = width / maxChildren - Consts.circleMargin;
+        var vRadius = height / deep - Consts.circleMargin;
+        var tw = width;
+        var dMinRadius = 2 * Consts.minCircleRadius;
+        if (hRadius < dMinRadius) {
+            hRadius = dMinRadius;
+            tw = dMinRadius * maxChildren + (maxChildren + 1) * Consts.circleMargin;
+            if (tw > 30000) {
+                tw = 30000;
+            }
+            UI.updateVOMCanvansWidth(tw);
+        } else {
+            UI.updateVOMCanvansWidth(tw);
+        }
+        var radius = Math.floor(Math.min(vRadius, hRadius) / 2);
+        var band = (radius / 20).toFixed(1);
         return {
+            width: tw,
             max: maxChildren,
             maxOne: maxOneChildren,
             deep: deep,
             margin: Consts.circleMargin,
-            radius: Math.floor(Math.min(height / deep - Consts.circleMargin, width / maxChildren - Consts.circleMargin) / 2)
+            radius: radius,
+            band: band
         };
     },
     getChildrenCountByDeep: function(tree, deep) {
@@ -463,11 +500,10 @@ var Graphics = {
                 g = Graphics;
             g.captureItmes();
             var params = g.getBestParams(tree, width, height);
+            width = params.width;
             var ctx = D.getElementById('mx_view_canvas').getContext('2d');
             ctx.clearRect(0, 0, width, height);
-            var band = (params.radius / 20).toFixed(1);
-            if (params.radius < 2) params.radius = 2;
-            var max = params.radius * 2 - 2 * (band + 1) - 1;
+            var max = params.radius * 2 - 2 * (params.band + 1) - 1;
             if (!g.$tWidth) g.$tWidth = {};
             var getWidth = function(text) {
                 if (!g.$tWidth[text]) {
@@ -490,7 +526,7 @@ var Graphics = {
                 return text;
             };
             var linecolorIndex = 0;
-            var drawCircle = function(item, pos, ppos, lineColor) {
+            var drawLine = function(item, pos, ppos, lineColor) {
                 if (ppos) {
                     ctx.beginPath();
                     var deg = Math.atan((pos.y - ppos.y) / (pos.x - ppos.x)) * 180 / Math.PI;
@@ -505,18 +541,57 @@ var Graphics = {
                     ctx.strokeStyle = lineColor;
                     ctx.stroke(); // 进行线的着色，这时整条线才变得可见
                 }
-
+                var count = Graphics.getChildrenCountByDeep(tree, item.deep);
+                if (count) {
+                    var space = (width - (count * params.radius * 2 + (count - 1) * params.margin)) / 2;
+                    var lcolor = '#' + Lines[linecolorIndex++ % Lines.length]; // Lines[Math.floor(Math.random() * (Lines.length - 1))];
+                    for (var i = 0; i < item.children.length; i++) {
+                        drawLine(item.children[i], {
+                            x: space + (i + item.leftIndex) * (params.radius * 2 + params.margin) + params.radius,
+                            y: pos.y + params.margin + 2 * params.radius
+                        }, pos, lcolor);
+                    }
+                }
+            };
+            var drawCircle = function(item, pos) {
+                if (pos.x < 0) {
+                    console.log(item, pos);
+                }
                 ctx.moveTo(pos.x, pos.y);
                 ctx.beginPath();
                 ctx.arc(pos.x, pos.y, params.radius, 0, Math.PI * 2, true);
                 ctx.fillStyle = item.status;
                 ctx.fill();
 
+                //bottom small cicle
+                var radius = Math.max(0.5, params.radius / 10);
+                var ly = pos.y + params.radius / 2;
+                //left
+                if (item.event) {
+                    var lx = pos.x - params.radius / 2 + radius;
+                    ctx.moveTo(lx, ly);
+                    ctx.beginPath();
+                    ctx.arc(lx, ly, radius, 0, Math.PI * 2, true);
+                    ctx.fillStyle = item.event;
+                    ctx.fill();
+                }
+                //right
+                if (item.shared) {
+                    var rx = pos.x + params.radius / 2 - radius;
+
+                    ctx.moveTo(rx, ly);
+                    ctx.beginPath();
+                    ctx.arc(rx, ly, radius, 0, Math.PI * 2, true);
+                    ctx.fillStyle = item.shared;
+                    ctx.fill();
+                }
+
                 ctx.moveTo(pos.x, pos.y);
                 ctx.beginPath();
 
-                ctx.arc(pos.x, pos.y, params.radius - band - 1, 0, Math.PI * 2, true);
-                ctx.lineWidth = band;
+                //white slot
+                ctx.arc(pos.x, pos.y, params.radius - params.band - 1, 0, Math.PI * 2, true);
+                ctx.lineWidth = params.band;
                 ctx.strokeStyle = '#fff';
                 ctx.stroke();
 
@@ -538,12 +613,11 @@ var Graphics = {
                 var count = Graphics.getChildrenCountByDeep(tree, item.deep);
                 if (count) {
                     var space = (width - (count * params.radius * 2 + (count - 1) * params.margin)) / 2;
-                    var lcolor = '#' + Lines[linecolorIndex++ % Lines.length]; // Lines[Math.floor(Math.random() * (Lines.length - 1))];
                     for (var i = 0; i < item.children.length; i++) {
                         drawCircle(item.children[i], {
                             x: space + (i + item.leftIndex) * (params.radius * 2 + params.margin) + params.radius,
                             y: pos.y + params.margin + 2 * params.radius
-                        }, pos, lcolor);
+                        });
                     }
                 }
             };
@@ -559,7 +633,10 @@ var Graphics = {
                 }
                 space += params.radius;
             }
-
+            drawLine(tree, {
+                x: space,
+                y: params.margin + params.radius
+            });
             drawCircle(tree, {
                 x: space,
                 y: params.margin + params.radius
@@ -726,30 +803,31 @@ var Graphics = {
         }
     }
 };
+var S = window.KISSY;
 var KISSYEnv = {
     prepare: function() {
-        KISSY.use('node');
+        S.use('node');
     },
     getRootId: function() {
-        var old = KISSY.Env.mods['magix/magix'];
+        var old = S.Env.mods['magix/magix'];
         var magix;
         if (old) {
-            magix = KISSY.require('magix/magix');
+            magix = S.require('magix/magix');
         } else {
-            magix = KISSY.require('magix');
+            magix = S.require('magix');
         }
         return magix.config('rootId');
     },
     getVOM: function() {
-        var old = KISSY.Env.mods['magix/magix'];
+        var old = S.Env.mods['magix/magix'];
         if (old) {
-            return KISSY.require('magix/vom');
+            return S.require('magix/vom');
         }
-        var magix = KISSY.require('magix');
+        var magix = S.require('magix');
         return magix.VOM || magix.Vframe;
     },
     getMangerMods: function() {
-        var mods = KISSY.Env.mods;
+        var mods = S.Env.mods;
         var result = [];
         for (var p in mods) {
             var v = mods[p].exports || mods[p].value;
@@ -763,18 +841,18 @@ var KISSYEnv = {
         return result;
     },
     isReady: function() {
-        var magix = KISSY.Env.mods['magix/magix'];
-        var node = KISSY.Env.mods.node;
+        var magix = S.Env.mods['magix/magix'];
+        var node = S.Env.mods.node;
         if (magix) {
-            var vom = KISSY.Env.mods['magix/vom'];
-            return magix.status === KISSY.Loader.Status.ATTACHED && vom && vom.status === KISSY.Loader.Status.ATTACHED && node && node.status === KISSY.Loader.Status.ATTACHED;
+            var vom = S.Env.mods['magix/vom'];
+            return magix.status === S.Loader.Status.ATTACHED && vom && vom.status === S.Loader.Status.ATTACHED && node && node.status === S.Loader.Status.ATTACHED;
         } else {
-            magix = KISSY.Env.mods.magix;
-            return magix && magix.status === KISSY.Loader.Status.ATTACHED && node && node.status === KISSY.Loader.Status.ATTACHED;
+            magix = S.Env.mods.magix;
+            return magix && magix.status === S.Loader.Status.ATTACHED && node && node.status === S.Loader.Status.ATTACHED;
         }
     },
     updateDOMStyle: function(style, id) {
-        var node = KISSY.require('node').one('#' + id);
+        var node = S.require('node').one('#' + id);
         if (!node) return;
         var n = node;
         var size = {
@@ -841,29 +919,31 @@ var KISSYEnv = {
         style.height = size.height + 'px';
     },
     getDOMOffset: function(id) {
-        var node = KISSY.require('node');
+        var node = S.require('node');
         return node.one('#' + id).offset();
     },
     bind: function(id, type, fn) {
-        var node = KISSY.require('node');
-        if (KISSY.isString(id)) id = '#' + id;
+        var node = S.require('node');
+        if (S.isString(id)) id = '#' + id;
         return node.one(id).on(type, fn);
     },
     unbind: function(id, type, fn) {
-        var node = KISSY.require('node');
-        if (KISSY.isString(id)) id = '#' + id;
+        var node = S.require('node');
+        if (S.isString(id)) id = '#' + id;
         return node.one(id).detach(type, fn);
     },
     getResType: function(r) {
         var type = '';
         var e = r.res || r.e;
         if (e) {
-            if (e.fetchAll || (e.all && e.one && e.next && e.then)) {
+            if (e.all && e.constructor && e.constructor.cached) {
+                type = 'Magix.Service';
+            } else if (e.fetchAll || (e.all && e.one && e.next && e.then)) {
                 type = 'Model Manager';
             } else if (e.bricks) {
                 type = 'Pagelet';
             } else if (e.__attrs && e.__attrVals && e.constructor) {
-                var mods = KISSY.Env.mods,
+                var mods = S.Env.mods,
                     found;
                 for (var p in mods) {
                     var info = mods[p];
@@ -878,28 +958,28 @@ var KISSYEnv = {
                     if (e.hasOwnProperty('pagelet')) {
                         type = 'Brick';
                     } else {
-                        type = 'extend KISSY Attribute';
+                        type = 'extend S Attribute';
                     }
                 }
-            } else if (!KISSY.isFunction(e)) {
-                type = KISSY.type(e);
+            } else if (!S.isFunction(e)) {
+                type = S.type(e);
             } else {
                 type = '函数或构造器';
             }
         } else {
-            type = KISSY.type(e);
+            type = S.type(e);
         }
         return type;
     },
     hookAttachMod: function(callback) {
-        var old = KISSY.Loader.Utils.attachMod;
-        KISSY.Loader.Utils.attachMod = function() {
-            old.apply(KISSY.Loader.Utils, arguments);
+        var old = S.Loader.Utils.attachMod;
+        S.Loader.Utils.attachMod = function() {
+            old.apply(S.Loader.Utils, arguments);
             callback();
         };
     },
     dragIt: function(node, handler) {
-        KISSY.use('dd', function(S, DD) {
+        S.use('dd', function(S, DD) {
             new DD.Draggable({
                 node: node,
                 move: true,
@@ -910,7 +990,7 @@ var KISSYEnv = {
     drawIcons: function() {
         var vfs = this.getVOM().all();
         for (var p in vfs) {
-            var root = KISSY.one('#' + p);
+            var root = S.one('#' + p);
             root.addClass('i-bca-icon');
         }
     }
@@ -1043,7 +1123,9 @@ var RequireEnv = {
         var $ = this.getDL();
         var type = $.type(r);
         if (e) {
-            if (e.fetchAll || (e.all && e.one && e.next && e.then)) {
+            if (e.all && e.constructor && e.constructor.cached) {
+                type = 'Magix.Service';
+            } else if (e.fetchAll || (e.all && e.one && e.next && e.then)) {
                 type = 'Model Manager';
             } else if (e.bricks) {
                 type = 'Pagelet';
@@ -1093,7 +1175,7 @@ for (var p in RequireEnv) {
 }
 SeajsEnv.getMod = function(key) {
     try {
-        var entity = seajs.require(key);//seajs有别名，优先使用内置的require获取
+        var entity = seajs.require(key); //seajs有别名，优先使用内置的require获取
         return entity;
     } catch (e) {
         console.log(e);
@@ -1167,6 +1249,28 @@ var Helper = {
         }
         throw new Error('unsupport');
     },
+    getEvents: function(vf) {
+        var evts = [];
+        if (vf) {
+            var evto = (vf.view && (vf.view.events || vf.view.$evts)) || (vf.$v && vf.$v.$eo);
+            for (var p in evto) {
+                evts.push(p);
+            }
+        }
+        return evts;
+    },
+    getShared: function(vf) {
+        var shares = [];
+        if (vf && vf.$v) {
+            var sd = vf.$v.$sd;
+            if (sd) {
+                for (var p in sd) {
+                    shares.push(p);
+                }
+            }
+        }
+        return shares;
+    },
     getTree: function(env) {
         var rootId = env.getRootId();
         var vom = env.getVOM();
@@ -1195,6 +1299,25 @@ var Helper = {
                     info.status = Status.alter;
                 } else {
                     info.status = Status.init;
+                }
+                var evts = Helper.getEvents(vf);
+                var total = evts.length;
+                if (total) {
+                    var cc = Consts.eventsCommonCount;
+                    total = Math.min(total, cc);
+                    var sc = Consts.eventsStartColor;
+                    var ec = Consts.eventsEndColor;
+                    var rs = (ec.r - sc.r) / cc;
+                    var gs = (ec.g - sc.g) / cc;
+                    var bs = (ec.b - sc.b) / cc;
+                    var hexr = ('0' + parseInt(sc.r + evts.length * rs).toString(16)).slice(-2);
+                    var hexg = ('0' + parseInt(sc.g + evts.length * gs).toString(16)).slice(-2);
+                    var hexb = ('0' + parseInt(sc.b + evts.length * bs).toString(16)).slice(-2);
+                    info.event = '#' + hexr + hexg + hexb;
+                }
+                var shared = Helper.getShared(vf);
+                if (shared.length) {
+                    info.shared = '#009966';
                 }
                 var cm = vf.cM || vf.$c;
                 for (var p in cm) {
