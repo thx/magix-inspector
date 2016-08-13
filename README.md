@@ -17,7 +17,11 @@ Magix项目的调试分析工具，直观的展示区块间的层级关系，实
 或通过书签的方式添加一段js代码：
 
 ```js
-javascript:void((function(d,s){s=d.createElement('script');s.src='//thx.github.io/magix/assets/helper.js';s.charset='utf-8';d.body.appendChild(s)}(document)))
+javascript:void((function(d,s){s=d.createElement('script');s.src='//thx.github.io/magix-inspector/index.js';s.charset='utf-8';d.body.appendChild(s)}(document)))
 ```
 
 在运行Magix的页面上点击添加的书签，既可使用线上的代码来查看区块间关系
+
+## 安装chrome扩展
+
+详情请访问这里：https://github.com/qiu-deqing/magix-helper
