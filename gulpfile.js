@@ -64,7 +64,7 @@ gulp.task('build', ['cleanBuild'], function() {
     combineTool.build();
     gulp.src(buildFolder + '/**/*.js')
         .pipe(uglify({
-            banner: '/*Magix' + pkg.version + ' Licensed MIT*/',
+            banner: '/*' + pkg.version + ' xinglie.lkf@taobao.com*/',
             compress: {
                 drop_console: true
             },
