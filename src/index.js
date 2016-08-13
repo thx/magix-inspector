@@ -1272,7 +1272,8 @@ var Helper = {
             var list = vf.$v && vf.$v.$el;
             var globalWins = [],
                 globalDocs = [],
-                selectors = [];
+                selectors = [],
+                selectorsMap = {};
             if (list) {
                 for (var i = 0, one; i < list.length; i++) {
                     one = list[i];
@@ -1284,8 +1285,16 @@ var Helper = {
                             globalDocs.push(one.n);
                         }
                     } else {
-                        selectors.push('$' + one.s + '&lt;' + one.n + '&gt;');
+                        var coll = selectorsMap[one.s];
+                        if (!coll) {
+                            selectorsMap[one.s] = [one.n];
+                        } else {
+                            coll.push(one.n);
+                        }
                     }
+                }
+                for (p in selectorsMap) {
+                    selectors.push('$' + p + '&lt;' + selectorsMap[p] + '&gt;');
                 }
             }
             if (globalWins.length) { //1 3 4
@@ -1341,6 +1350,9 @@ var Helper = {
                     info.status = Status.created;
                 } else if (vf.fca || vf.$ca) {
                     info.status = Status.alter;
+                    if ((vf.cM && !vf.view) || (vf.$c && !vf.$v)) {
+                        info.status = Status.init;
+                    }
                 } else {
                     info.status = Status.init;
                 }
