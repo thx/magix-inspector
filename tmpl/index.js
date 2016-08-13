@@ -355,6 +355,28 @@ var Tracer = {
         }, 1500);
     }
 };
+var Festival = {
+    range: [new Date('2016-9-12'), new Date('2016-9-16')],
+    path: '//thx.github.io/magix-inspector/f.png',
+    bg: '#F2E7D6',
+    pos: [100, 80, 275, 279],
+    fetch: function() {
+        var me = this;
+        var now = new Date();
+        if (me.range[0] <= now && now <= me.range[1]) {
+            if (!me.$img) {
+                me.$img = new Image();
+                me.$img.onload = function() {
+                    me.$loaded = true;
+                };
+                me.$img.src = me.path;
+            }
+        }
+        if (me.$loaded) {
+            return me.$img;
+        }
+    }
+};
 var Graphics = {
     captureItmes: function() {
         var g = Graphics;
@@ -509,6 +531,12 @@ var Graphics = {
             width = params.width;
             var ctx = D.getElementById('mx_view_canvas').getContext('2d');
             ctx.clearRect(0, 0, width, height);
+            var img = Festival.fetch();
+            if (img) {
+                ctx.fillStyle = Festival.bg;
+                ctx.fillRect(0, 0, width, height);
+                ctx.drawImage(img, Festival.pos[0], Festival.pos[1], Festival.pos[2], Festival.pos[3], 0, 0, Festival.pos[2] / 2, Festival.pos[3] / 2);
+            }
             var max = params.radius * 2 - 2 * (params.band + 1) - 1;
             if (!g.$tWidth) g.$tWidth = {};
             var getWidth = function(text) {

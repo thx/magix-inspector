@@ -1,5 +1,6 @@
 var wrapNoDepsTMPL = '(function(){\r\n${content}\r\n})();';
 
+var pkg = require('./package.json');
 var tmplFolder = 'tmpl'; //template folder
 var srcFolder = 'src'; //source folder
 var buildFolder = 'build'; //build folder
@@ -56,7 +57,6 @@ gulp.task('watch', ['combine'], function() {
 });
 
 var uglify = require('gulp-uglify');
-var cssnano = require('gulp-cssnano');
 gulp.task('cleanBuild', function() {
     return del(buildFolder);
 });
@@ -64,13 +64,13 @@ gulp.task('build', ['cleanBuild'], function() {
     combineTool.build();
     gulp.src(buildFolder + '/**/*.js')
         .pipe(uglify({
+            banner: '/*Magix' + pkg.version + ' Licensed MIT*/',
             compress: {
                 drop_console: true
+            },
+            output: {
+                ascii_only: true
             }
         }))
-        .pipe(gulp.dest(buildFolder));
-
-    gulp.src(buildFolder + '/**/*.css')
-        .pipe(cssnano())
         .pipe(gulp.dest(buildFolder));
 });
