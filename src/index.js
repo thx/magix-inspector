@@ -194,7 +194,7 @@ var UI = {
                     return item.id;
                 case 'view':
                     if (vf) {
-                        if (vf.$v) {
+                        if (vf.$v || vf.path) {
                             return vf.path;
                         }
                         if (vf.view) {
