@@ -29,7 +29,7 @@ combineTool.config({
     srcFolder: srcFolder,
     buildFolder: buildFolder,
     excludeTmplFolders: excludeTmplFolders,
-    prefix: 'i-',
+    prefix: 'mx_ispt_',
     nanoOptions: {
         safe: true
     },

@@ -10,7 +10,12 @@
     line-height:12px;
     text-align:center;
     color:#fff;
-    z-index:2147483645
+}
+.icon-bad:before{
+    background-color:#FF3030;
+}
+.icon-alter:before{
+    background-color:#BC8F8F;
 }
 .tle{
     padding-right:5px;
@@ -18,6 +23,8 @@
 .tab{
     background:#eee;
     cursor: move;
+    margin:0;
+    padding:0;
 }
 .main{
     position:fixed;

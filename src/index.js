@@ -60,13 +60,13 @@ var ApplyStyle = function(x, h) {
         i.appendChild(document.createTextNode(h));
     }
 };
-ApplyStyle('i-bca',".i-bca-icon:before{width:12px;content:'M';height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff;z-index:2147483645}.i-bca-tle{padding-right:5px}.i-bca-tab{background:#eee;cursor:move}.i-bca-main{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.i-bca-mask{position:absolute;opacity:.7;background-color:#90ee90}.i-bca-main ul{list-style:none;padding:0}.i-bca-m5{margin-left:5px}.i-bca-binfo{padding:5px}.i-bca-fl{float:left}.i-bca-fr{float:right}.i-bca-cp{cursor:pointer}.i-bca-p8{padding:8px}.i-bca-move{cursor:move}.i-bca-red{color:red}.i-bca-clearfix:after,.i-bca-clearfix:before{content:\"\";display:table}.i-bca-clearfix:after{clear:both}.i-bca-clearfix{*zoom:1}.i-bca-bar{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9}");
+ApplyStyle('mx_ispt_bca',".mx_ispt_bca-icon:before{width:12px;content:'M';height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mx_ispt_bca-icon-bad:before{background-color:#ff3030}.mx_ispt_bca-icon-alter:before{background-color:#bc8f8f}.mx_ispt_bca-tle{padding-right:5px}.mx_ispt_bca-tab{background:#eee;cursor:move;margin:0;padding:0}.mx_ispt_bca-main{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mx_ispt_bca-mask{position:absolute;opacity:.7;background-color:#90ee90}.mx_ispt_bca-main ul{list-style:none;padding:0}.mx_ispt_bca-m5{margin-left:5px}.mx_ispt_bca-binfo{padding:5px}.mx_ispt_bca-fl{float:left}.mx_ispt_bca-fr{float:right}.mx_ispt_bca-cp{cursor:pointer}.mx_ispt_bca-p8{padding:8px}.mx_ispt_bca-move{cursor:move}.mx_ispt_bca-red{color:red}.mx_ispt_bca-clearfix:after,.mx_ispt_bca-clearfix:before{content:\"\";display:table}.mx_ispt_bca-clearfix:after{clear:both}.mx_ispt_bca-clearfix{*zoom:1}.mx_ispt_bca-bar{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9}");
 var UI = {
-    main: "<div class=\"i-bca-main\" id=\"mx\"><ul class=\"i-bca-clearfix i-bca-tab\" id=\"mx_tabs\"><li class=\"i-bca-fl i-bca-p8 i-bca-cp\">VOM</li><li class=\"i-bca-fl i-bca-p8 i-bca-cp\">Tracer</li><li class=\"i-bca-fl i-bca-p8 i-bca-cp\">Manager</li><li class=\"i-bca-fr i-bca-p8 i-bca-cp\" id=\"mx_min\">△</li></ul><div id=\"mx_painter\"><div style=\"width:{width}px;height:{canvasHeight}px;overflow-x:auto;overflow-y:hidden\" id=\"mx_view_cnt\"><canvas width=\"{width}\" height=\"{canvasHeight}\" id=\"mx_view_canvas\"></canvas></div><ul class=\"i-bca-clearfix i-bca-p8\" id=\"mx_view_total\"></ul></div><div id=\"mx_trancer\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"mx_manager\" style=\"display:none\"><div style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto\" id=\"mx_manager_cnt\"><canvas width=\"{canvasWidth}\" height=\"{canvasHeight}\" id=\"mx_manager_canvas\"></canvas></div><ul class=\"i-bca-clearfix i-bca-p8\" id=\"mx_manager_total\"></ul></div><div id=\"mx_moreinfo\"></div><div id=\"mx_manager_moreinfo\"></div></div>",
-    moreInfo: "<ul><li><b class=\"i-bca-tle\">id:</b>{id}</li><li><b class=\"i-bca-tle\">view:</b>{view}</li>{events} {share}<li class=\"i-bca-red\">{ex}</li><li><b class=\"i-bca-tle\">resources:</b></li><li style=\"{moreInfoWidth}px;overflow:auto;max-height:200px\">{res}</li></ul>",
+    main: "<div class=\"mx_ispt_bca-main\" id=\"mx\"><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-tab\" id=\"mx_tabs\"><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">VOM</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">Tracer</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">Manager</li><li class=\"mx_ispt_bca-fr mx_ispt_bca-p8 mx_ispt_bca-cp\" id=\"mx_min\">△</li></ul><div id=\"mx_painter\"><div style=\"width:{width}px;height:{canvasHeight}px;overflow-x:auto;overflow-y:hidden\" id=\"mx_view_cnt\"><canvas width=\"{width}\" height=\"{canvasHeight}\" id=\"mx_view_canvas\"></canvas></div><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-p8\" id=\"mx_view_total\"></ul></div><div id=\"mx_trancer\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"mx_manager\" style=\"display:none\"><div style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto\" id=\"mx_manager_cnt\"><canvas width=\"{canvasWidth}\" height=\"{canvasHeight}\" id=\"mx_manager_canvas\"></canvas></div><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-p8\" id=\"mx_manager_total\"></ul></div><div id=\"mx_moreinfo\"></div><div id=\"mx_manager_moreinfo\"></div></div>",
+    moreInfo: "<ul><li><b class=\"mx_ispt_bca-tle\">id:</b>{id}</li><li><b class=\"mx_ispt_bca-tle\">view:</b>{view}</li>{events} {share}<li class=\"mx_ispt_bca-red\">{ex}</li><li><b class=\"mx_ispt_bca-tle\">resources:</b></li><li style=\"{moreInfoWidth}px;overflow:auto;max-height:200px\">{res}</li></ul>",
     moreManagerInfo: "<ul><li><b>key:</b>{id}</li><li><b>url:</b>{url}</li><li><b>描述:</b>{desc}</li><li><b>缓存:</b>{cache}</li><li><b>清理缓存:</b>{cleans}</li><li><b>预处理:</b>{hasAfter}</li></ul>",
-    total: "<li class=\"i-bca-fl i-bca-binfo\">共{total}个view</li><li class=\"i-bca-fl ml5 i-bca-red i-bca-binfo\">{ex}</li>",
-    managerTotal: "<li class=\"i-bca-fl i-bca-binfo\">{groups}个接口文件，共{total}个接口</li>",
+    total: "<li class=\"mx_ispt_bca-fl mx_ispt_bca-binfo\">共{total}个view</li><li class=\"mx_ispt_bca-fl ml5 mx_ispt_bca-red mx_ispt_bca-binfo\">{ex}</li>",
+    managerTotal: "<li class=\"mx_ispt_bca-fl mx_ispt_bca-binfo\">{groups}个接口文件，共{total}个接口</li>",
     setup: function() {
         var div = D.createElement('div');
         div.innerHTML = UI.main.replace(/\{(\w+)\}/g, function(m, v) {
@@ -174,7 +174,7 @@ var UI = {
         var cover = D.getElementById('mx_cover');
         if (!cover) {
             cover = D.createElement('div');
-            cover.className = 'i-bca-mask';
+            cover.className = 'mx_ispt_bca-mask';
             cover.id = 'mx_cover';
             D.body.appendChild(cover);
         }
@@ -338,7 +338,7 @@ var Tracer = {
         var node = D.getElementById('mx_trancer');
         if (Tracer.idle) {
             var t = D.createElement('hr');
-            t.className = 'i-bca-bar';
+            t.className = 'mx_ispt_bca-bar';
             node.insertBefore(t, node.firstChild);
             delete Tracer.idle;
         }
@@ -1022,11 +1022,14 @@ var KISSYEnv = {
             });
         });
     },
-    drawIcons: function() {
-        var vfs = this.getVOM().all();
-        for (var p in vfs) {
-            var root = S.one('#' + p);
-            root.addClass('i-bca-icon');
+    drawIcons: function(flattened) {
+        for (var i = flattened.length - 1; i >= 0; i--) {
+            var f = flattened[i];
+            var root = S.one('#' + f.id);
+            root.removeClass('mx_ispt_bca-icon-bad').removeClass('mx_ispt_bca-icon-alter').addClass('mx_ispt_bca-icon');
+            if (f.cls) {
+                root.addClass('icon-' + f.cls);
+            }
         }
     }
 };
@@ -1174,6 +1177,7 @@ var RequireEnv = {
         var $ = this.getDL();
         var root = $(node);
         $(handle).on('mousedown', function(e) {
+            if (e.target.id != handle.slice(1)) return;
             var right = parseInt(root.css('right'), 10);
             var top = parseInt(root.css('top'), 10);
             var x = e.pageX;
@@ -1181,6 +1185,7 @@ var RequireEnv = {
             var move = function(e) {
                 var fx = e.pageX - x,
                     fy = e.pageY - y;
+                if (top + fy < 0) fy = -top;
                 root.css({
                     right: right - fx,
                     top: top + fy
@@ -1193,12 +1198,15 @@ var RequireEnv = {
             doc.on('mousemove', move).on('mouseup', up);
         });
     },
-    drawIcons: function() {
-        var vfs = this.getVOM().all();
+    drawIcons: function(flattened) {
         var $ = this.getDL();
-        for (var p in vfs) {
-            var root = $('#' + p);
-            root.addClass('i-bca-icon');
+        for (var i = flattened.length - 1; i >= 0; i--) {
+            var f = flattened[i];
+            var root = $('#' + f.id);
+            root.removeClass('mx_ispt_bca-icon-bad').removeClass('mx_ispt_bca-icon-alter').addClass('mx_ispt_bca-icon');
+            if (f.cls) {
+                root.addClass('mx_ispt_bca-icon' + '-' + f.cls);
+            }
         }
     }
 };
@@ -1355,6 +1363,7 @@ var Helper = {
     getTree: function(env) {
         var rootId = env.getRootId();
         var vom = env.getVOM();
+        var flattened = [];
         var tree = {
             total: 0,
             vomTotal: 0,
@@ -1370,20 +1379,27 @@ var Helper = {
         }
         var walk = function(id, info) {
             var vf = vom.get(id);
+            var finfo = {};
             if (vf) {
                 tree.total++;
                 info.id = vf.id;
+                finfo.id = vf.id;
                 delete allMap[vf.id];
                 if (vf.fcc || vf.$cr) {
                     info.status = Status.created;
+                    finfo.cls = '';
                 } else if (vf.fca || vf.$ca) {
                     info.status = Status.alter;
+                    finfo.cls = 'alter';
                     if ((vf.cM && !vf.view) || (vf.$c && !vf.$v)) {
                         info.status = Status.init;
+                        finfo.cls = 'bad';
                     }
                 } else {
                     info.status = Status.init;
+                    finfo.cls = 'bad';
                 }
+                flattened.push(finfo);
                 var evts = Helper.getEvents(vf);
                 var total = evts.total;
                 if (total) {
@@ -1424,9 +1440,16 @@ var Helper = {
                 status: Status.isolated,
                 children: []
             });
+            flattened.push({
+                id: p,
+                cls: 'bad'
+            });
         }
         tree.isolated = il;
-        return tree;
+        return {
+            tree: tree,
+            flattened: flattened
+        };
     },
     getManagerTree: function(env) {
         var managers = env.getMangerMods();
@@ -1479,7 +1502,7 @@ var Helper = {
                         desc: info.desc || '',
                         cleans: info.cleans || '',
                         cleaned: cleanedMap[p] || '',
-                        hasAfter: !!info.after
+                        hasAfter: (info.after ? (info.after + '').substr(0, 200) : '')
                     };
                     if (info.cleans) {
                         c = ManagerColors.cleans;
@@ -1543,25 +1566,33 @@ var Helper = {
         Helper.prepare(function() {
             UI.setup();
             var env = Helper.getEnv();
+            var vom = env.getVOM();
             var drawTimer;
             var attachVframe = function(vf) {
                 vf.on('created', function() {
-                    Tracer.log('vframe:' + vf.id + '(' + (vf.path || vf.view.path || '') + ')渲染完毕', Status.created);
+                    Tracer.log('vframe:' + vf.id + '[' + (vf.path || vf.view.path || '') + ']渲染完毕', Status.created);
                     drawTree();
                 });
                 vf.on('alter', function(e) {
-                    Tracer.log('vframe:' + vf.id + '或子(孙)view' + (e.id ? '(' + e.id + ')' : '') + '正在更改', Status.alter);
+                    if (e.id && !e.logged) {
+                        e.logged = 1;
+                        var f = vom.get(e.id);
+                        if (f) {
+                            Tracer.log('从vframe:' + f.id + '[' + (f.path || f.view.path || '') + '] 发起界面变更', Status.build);
+                        }
+                    }
+                    Tracer.log('vframe:' + vf.id + '收到变更消息', Status.alter);
                     drawTree();
                 });
                 vf.on('viewInited', function() {
-                    Tracer.log('vframe:' + vf.id + '的view(' + vf.view.path + ')，init调用完毕', Status.created);
+                    Tracer.log('vframe:' + vf.id + '的view[' + vf.view.path + ']，init调用完毕', Status.created);
                 });
                 vf.on('viewUnmounted', function() {
-                    Tracer.log('vframe:' + vf.id + '的view(' + (vf.path || (vf.view && vf.view.path || '')) + ')销毁完毕', Status.isolated);
+                    Tracer.log('vframe:' + vf.id + '的view[' + (vf.path || (vf.view && vf.view.path || '')) + ']销毁完毕', Status.isolated);
                 });
                 vf.on('viewMounted', function() {
-                    Tracer.log('vframe:' + vf.id + '的view(' + (vf.path || vf.view.path ||
-                        '') + ')，首次渲染完毕', Status.created);
+                    Tracer.log('vframe:' + vf.id + '的view[' + (vf.path || vf.view.path ||
+                        '') + ']，首次渲染完毕', Status.created);
                 });
                 vf.___mh = true;
             };
@@ -1597,12 +1628,11 @@ var Helper = {
                 }
                 clearTimeout(drawTimer);
                 drawTimer = setTimeout(function() {
-                    var tree = Helper.getTree(env);
-                    Graphics.drawTree(tree);
-                    env.drawIcons();
+                    var treeInfo = Helper.getTree(env);
+                    Graphics.drawTree(treeInfo.tree);
+                    env.drawIcons(treeInfo.flattened);
                 }, 0);
             };
-            var vom = env.getVOM();
             vom.on('add', function(e) {
                 drawTree();
                 if (e.vframe.pId) {

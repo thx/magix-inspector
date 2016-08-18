@@ -1021,11 +1021,14 @@ var KISSYEnv = {
             });
         });
     },
-    drawIcons: function() {
-        var vfs = this.getVOM().all();
-        for (var p in vfs) {
-            var root = S.one('#' + p);
-            root.addClass('@index.css:icon');
+    drawIcons: function(flattened) {
+        for (var i = flattened.length - 1; i >= 0; i--) {
+            var f = flattened[i];
+            var root = S.one('#' + f.id);
+            root.removeClass('@index.css:icon-bad').removeClass('@index.css:icon-alter').addClass('@index.css:icon');
+            if (f.cls) {
+                root.addClass('@index.css:icon-' + f.cls);
+            }
         }
     }
 };
@@ -1173,6 +1176,7 @@ var RequireEnv = {
         var $ = this.getDL();
         var root = $(node);
         $(handle).on('mousedown', function(e) {
+            if (e.target.id != handle.slice(1)) return;
             var right = parseInt(root.css('right'), 10);
             var top = parseInt(root.css('top'), 10);
             var x = e.pageX;
@@ -1180,6 +1184,7 @@ var RequireEnv = {
             var move = function(e) {
                 var fx = e.pageX - x,
                     fy = e.pageY - y;
+                if (top + fy < 0) fy = -top;
                 root.css({
                     right: right - fx,
                     top: top + fy
@@ -1192,12 +1197,15 @@ var RequireEnv = {
             doc.on('mousemove', move).on('mouseup', up);
         });
     },
-    drawIcons: function() {
-        var vfs = this.getVOM().all();
+    drawIcons: function(flattened) {
         var $ = this.getDL();
-        for (var p in vfs) {
-            var root = $('#' + p);
-            root.addClass('@index.css:icon');
+        for (var i = flattened.length - 1; i >= 0; i--) {
+            var f = flattened[i];
+            var root = $('#' + f.id);
+            root.removeClass('@index.css:icon-bad').removeClass('@index.css:icon-alter').addClass('@index.css:icon');
+            if (f.cls) {
+                root.addClass('@index.css:icon' + '-' + f.cls);
+            }
         }
     }
 };
@@ -1354,6 +1362,7 @@ var Helper = {
     getTree: function(env) {
         var rootId = env.getRootId();
         var vom = env.getVOM();
+        var flattened = [];
         var tree = {
             total: 0,
             vomTotal: 0,
@@ -1369,20 +1378,27 @@ var Helper = {
         }
         var walk = function(id, info) {
             var vf = vom.get(id);
+            var finfo = {};
             if (vf) {
                 tree.total++;
                 info.id = vf.id;
+                finfo.id = vf.id;
                 delete allMap[vf.id];
                 if (vf.fcc || vf.$cr) {
                     info.status = Status.created;
+                    finfo.cls = '';
                 } else if (vf.fca || vf.$ca) {
                     info.status = Status.alter;
+                    finfo.cls = 'alter';
                     if ((vf.cM && !vf.view) || (vf.$c && !vf.$v)) {
                         info.status = Status.init;
+                        finfo.cls = 'bad';
                     }
                 } else {
                     info.status = Status.init;
+                    finfo.cls = 'bad';
                 }
+                flattened.push(finfo);
                 var evts = Helper.getEvents(vf);
                 var total = evts.total;
                 if (total) {
@@ -1423,9 +1439,16 @@ var Helper = {
                 status: Status.isolated,
                 children: []
             });
+            flattened.push({
+                id: p,
+                cls: 'bad'
+            });
         }
         tree.isolated = il;
-        return tree;
+        return {
+            tree: tree,
+            flattened: flattened
+        };
     },
     getManagerTree: function(env) {
         var managers = env.getMangerMods();
@@ -1478,7 +1501,7 @@ var Helper = {
                         desc: info.desc || '',
                         cleans: info.cleans || '',
                         cleaned: cleanedMap[p] || '',
-                        hasAfter: !!info.after
+                        hasAfter: (info.after ? (info.after + '').substr(0, 200) : '')
                     };
                     if (info.cleans) {
                         c = ManagerColors.cleans;
@@ -1542,25 +1565,33 @@ var Helper = {
         Helper.prepare(function() {
             UI.setup();
             var env = Helper.getEnv();
+            var vom = env.getVOM();
             var drawTimer;
             var attachVframe = function(vf) {
                 vf.on('created', function() {
-                    Tracer.log('vframe:' + vf.id + '(' + (vf.path || vf.view.path || '') + ')渲染完毕', Status.created);
+                    Tracer.log('vframe:' + vf.id + '[' + (vf.path || vf.view.path || '') + ']渲染完毕', Status.created);
                     drawTree();
                 });
                 vf.on('alter', function(e) {
-                    Tracer.log('vframe:' + vf.id + '或子(孙)view' + (e.id ? '(' + e.id + ')' : '') + '正在更改', Status.alter);
+                    if (e.id && !e.logged) {
+                        e.logged = 1;
+                        var f = vom.get(e.id);
+                        if (f) {
+                            Tracer.log('从vframe:' + f.id + '[' + (f.path || f.view.path || '') + '] 发起界面变更', Status.build);
+                        }
+                    }
+                    Tracer.log('vframe:' + vf.id + '收到变更消息', Status.alter);
                     drawTree();
                 });
                 vf.on('viewInited', function() {
-                    Tracer.log('vframe:' + vf.id + '的view(' + vf.view.path + ')，init调用完毕', Status.created);
+                    Tracer.log('vframe:' + vf.id + '的view[' + vf.view.path + ']，init调用完毕', Status.created);
                 });
                 vf.on('viewUnmounted', function() {
-                    Tracer.log('vframe:' + vf.id + '的view(' + (vf.path || (vf.view && vf.view.path || '')) + ')销毁完毕', Status.isolated);
+                    Tracer.log('vframe:' + vf.id + '的view[' + (vf.path || (vf.view && vf.view.path || '')) + ']销毁完毕', Status.isolated);
                 });
                 vf.on('viewMounted', function() {
-                    Tracer.log('vframe:' + vf.id + '的view(' + (vf.path || vf.view.path ||
-                        '') + ')，首次渲染完毕', Status.created);
+                    Tracer.log('vframe:' + vf.id + '的view[' + (vf.path || vf.view.path ||
+                        '') + ']，首次渲染完毕', Status.created);
                 });
                 vf.___mh = true;
             };
@@ -1596,12 +1627,11 @@ var Helper = {
                 }
                 clearTimeout(drawTimer);
                 drawTimer = setTimeout(function() {
-                    var tree = Helper.getTree(env);
-                    Graphics.drawTree(tree);
-                    env.drawIcons();
+                    var treeInfo = Helper.getTree(env);
+                    Graphics.drawTree(treeInfo.tree);
+                    env.drawIcons(treeInfo.flattened);
                 }, 0);
             };
-            var vom = env.getVOM();
             vom.on('add', function(e) {
                 drawTree();
                 if (e.vframe.pId) {
