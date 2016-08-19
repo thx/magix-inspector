@@ -589,9 +589,6 @@ var Graphics = {
                 }
             };
             var drawCircle = function(item, pos) {
-                if (pos.x < 0) {
-                    console.log(item, pos);
-                }
                 ctx.moveTo(pos.x, pos.y);
                 ctx.beginPath();
                 ctx.arc(pos.x, pos.y, params.radius, 0, Math.PI * 2, true);
@@ -1301,6 +1298,11 @@ var Helper = {
             for (var p in evto) {
                 total++;
                 commons.push(p);
+            }
+            var evetnsList = (vf.view && vf.view.tmplEvents); //2.0
+            if (evetnsList && evetnsList.length) {
+                commons = commons.concat(evetnsList);
+                total += evetnsList.length;
             }
             if (commons.length) {
                 evts.push('&lt;' + commons + '&gt;');

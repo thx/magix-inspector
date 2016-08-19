@@ -24,4 +24,4 @@ javascript:void((function(d,s){s=d.createElement('script');s.src='//thx.github.i
 
 ## 安装chrome扩展
 
-详情请访问这里：https://github.com/qiu-deqing/magix-helper
+感谢邱德清同学提供的代码，详情请访问这里：https://github.com/qiu-deqing/magix-helper
