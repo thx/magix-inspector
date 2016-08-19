@@ -85,5 +85,6 @@
     padding:8px;
     width:440px;
     display:none;
-    box-shadow:0 2px 2px 2px #b9b9b9
+    box-shadow:0 2px 2px 2px #b9b9b9;
+    word-break: break-all;
 }

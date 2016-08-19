@@ -22,17 +22,19 @@ var Consts = {
     managerMargin: 5,
     managerHeight: 40,
     managerGroupSpace: 40,
-    eventsStartColor: {
+    gradualStartColor: {
         r: 0,
         g: 153,
         b: 102
     },
-    eventsEndColor: {
+    gradualEndColor: {
         r: 255,
         g: 255,
         b: 0
     },
-    eventsCommonCount: 15
+    eventsCommonCount: 15,
+    sharedCount: 5,
+    locationCount: 12
 };
 var Lines = [
     'FFC125',
@@ -60,10 +62,10 @@ var ApplyStyle = function(x, h) {
         i.appendChild(document.createTextNode(h));
     }
 };
-ApplyStyle('mx_ispt_bca',".mx_ispt_bca-icon:before{width:12px;content:'M';height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mx_ispt_bca-icon-bad:before{background-color:#ff3030}.mx_ispt_bca-icon-alter:before{background-color:#bc8f8f}.mx_ispt_bca-tle{padding-right:5px}.mx_ispt_bca-tab{background:#eee;cursor:move;margin:0;padding:0}.mx_ispt_bca-main{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mx_ispt_bca-mask{position:absolute;opacity:.7;background-color:#90ee90}.mx_ispt_bca-main ul{list-style:none;padding:0}.mx_ispt_bca-m5{margin-left:5px}.mx_ispt_bca-binfo{padding:5px}.mx_ispt_bca-fl{float:left}.mx_ispt_bca-fr{float:right}.mx_ispt_bca-cp{cursor:pointer}.mx_ispt_bca-p8{padding:8px}.mx_ispt_bca-move{cursor:move}.mx_ispt_bca-red{color:red}.mx_ispt_bca-clearfix:after,.mx_ispt_bca-clearfix:before{content:\"\";display:table}.mx_ispt_bca-clearfix:after{clear:both}.mx_ispt_bca-clearfix{*zoom:1}.mx_ispt_bca-bar{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9}");
+ApplyStyle('mx_ispt_bca',".mx_ispt_bca-icon:before{width:12px;content:'M';height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mx_ispt_bca-icon-bad:before{background-color:#ff3030}.mx_ispt_bca-icon-alter:before{background-color:#bc8f8f}.mx_ispt_bca-tle{padding-right:5px}.mx_ispt_bca-tab{background:#eee;cursor:move;margin:0;padding:0}.mx_ispt_bca-main{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mx_ispt_bca-mask{position:absolute;opacity:.7;background-color:#90ee90}.mx_ispt_bca-main ul{list-style:none;padding:0}.mx_ispt_bca-m5{margin-left:5px}.mx_ispt_bca-binfo{padding:5px}.mx_ispt_bca-fl{float:left}.mx_ispt_bca-fr{float:right}.mx_ispt_bca-cp{cursor:pointer}.mx_ispt_bca-p8{padding:8px}.mx_ispt_bca-move{cursor:move}.mx_ispt_bca-red{color:red}.mx_ispt_bca-clearfix:after,.mx_ispt_bca-clearfix:before{content:\"\";display:table}.mx_ispt_bca-clearfix:after{clear:both}.mx_ispt_bca-clearfix{*zoom:1}.mx_ispt_bca-bar{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}");
 var UI = {
-    main: "<div class=\"mx_ispt_bca-main\" id=\"mx\"><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-tab\" id=\"mx_tabs\"><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">VOM</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">Tracer</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">Manager</li><li class=\"mx_ispt_bca-fr mx_ispt_bca-p8 mx_ispt_bca-cp\" id=\"mx_min\">△</li></ul><div id=\"mx_painter\"><div style=\"width:{width}px;height:{canvasHeight}px;overflow-x:auto;overflow-y:hidden\" id=\"mx_view_cnt\"><canvas width=\"{width}\" height=\"{canvasHeight}\" id=\"mx_view_canvas\"></canvas></div><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-p8\" id=\"mx_view_total\"></ul></div><div id=\"mx_trancer\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"mx_manager\" style=\"display:none\"><div style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto\" id=\"mx_manager_cnt\"><canvas width=\"{canvasWidth}\" height=\"{canvasHeight}\" id=\"mx_manager_canvas\"></canvas></div><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-p8\" id=\"mx_manager_total\"></ul></div><div id=\"mx_moreinfo\"></div><div id=\"mx_manager_moreinfo\"></div></div>",
-    moreInfo: "<ul><li><b class=\"mx_ispt_bca-tle\">id:</b>{id}</li><li><b class=\"mx_ispt_bca-tle\">view:</b>{view}</li>{events} {share}<li class=\"mx_ispt_bca-red\">{ex}</li><li><b class=\"mx_ispt_bca-tle\">resources:</b></li><li style=\"{moreInfoWidth}px;overflow:auto;max-height:200px\">{res}</li></ul>",
+    main: "<div class=\"mx_ispt_bca-main\" id=\"mx\"><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-tab\" id=\"mx_tabs\"><li class=\"mx_ispt_bca-fr mx_ispt_bca-p8 mx_ispt_bca-cp\" id=\"mx_min\">△</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">VOM</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">Tracer</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">Manager</li></ul><div id=\"mx_painter\"><div style=\"width:{width}px;height:{canvasHeight}px;overflow-x:auto;overflow-y:hidden\" id=\"mx_view_cnt\"><canvas width=\"{width}\" height=\"{canvasHeight}\" id=\"mx_view_canvas\"></canvas></div><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-p8\" id=\"mx_view_total\"></ul></div><div id=\"mx_trancer\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"mx_manager\" style=\"display:none\"><div style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto\" id=\"mx_manager_cnt\"><canvas width=\"{canvasWidth}\" height=\"{canvasHeight}\" id=\"mx_manager_canvas\"></canvas></div><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-p8\" id=\"mx_manager_total\"></ul></div><div id=\"mx_moreinfo\"></div><div id=\"mx_manager_moreinfo\"></div></div>",
+    moreInfo: "<ul><li><b class=\"mx_ispt_bca-tle\">id:</b>{id}</li><li><b class=\"mx_ispt_bca-tle\">view:</b>{view}</li>{events} {location} {share}<li class=\"mx_ispt_bca-red\">{ex}</li><li><b class=\"mx_ispt_bca-tle\">resources</b></li><li style=\"{moreInfoWidth}px;overflow:auto;max-height:200px\">{res}</li></ul>",
     moreManagerInfo: "<ul><li><b>key:</b>{id}</li><li><b>url:</b>{url}</li><li><b>描述:</b>{desc}</li><li><b>缓存:</b>{cache}</li><li><b>清理缓存:</b>{cleans}</li><li><b>预处理:</b>{hasAfter}</li></ul>",
     total: "<li class=\"mx_ispt_bca-fl mx_ispt_bca-binfo\">共{total}个view</li><li class=\"mx_ispt_bca-fl ml5 mx_ispt_bca-red mx_ispt_bca-binfo\">{ex}</li>",
     managerTotal: "<li class=\"mx_ispt_bca-fl mx_ispt_bca-binfo\">{groups}个接口文件，共{total}个接口</li>",
@@ -127,10 +129,12 @@ var UI = {
                 node = D.getElementById('mx');
                 if (e.target.innerHTML == '△') {
                     node.style.height = Consts.titleHeight + 'px';
+                    node.style.width = '40px';
                     node.style.overflow = 'hidden';
                     e.target.innerHTML = '▽';
                 } else {
                     node.style.height = Consts.height + 'px';
+                    node.style.width = Consts.width + 'px';
                     node.style.overflow = 'inherit';
                     e.target.innerHTML = '△';
                 }
@@ -204,10 +208,24 @@ var UI = {
                     return '';
                 case 'events':
                     var evts = Helper.getEvents(vf);
-                    return evts.total ? '<li><b class="tle">listen:</b>' + evts.list + '</li>' : '';
+                    return evts.total ? '<li><b class="mx_ispt_bca-tle">listen:</b>' + evts.list + '</li>' : '';
                 case 'share':
                     var s = Helper.getShared(vf);
-                    return s.length ? '<li><b class="tle">share:</b>' + s + '</li>' : '';
+                    return s.length ? '<li><b class="mx_ispt_bca-tle">share:</b>' + s + '</li>' : '';
+                case 'location':
+                    var l = Helper.getLocation(vf);
+                    var f = l.path || (l.keys && l.keys.length);
+                    if (f) {
+                        var r = [];
+                        if (l.path) {
+                            r.push('<span style="color:#FFC125">path</span>');
+                        }
+                        if (l.keys) {
+                            r = r.concat(l.keys);
+                        }
+                        return '<li><b class="mx_ispt_bca-tle">location:</b>' + r + '</li>';
+                    }
+                    return '';
                 case 'ex':
                     if (item.il) {
                         return '被孤立的节点，好可怜……';
@@ -241,8 +259,8 @@ var UI = {
                     var t = [];
                     var res = vf && vf.view && vf.view.$res;
                     res = res || vf && vf.$v && vf.$v.$r;
+                    var hasRrs;
                     if (res) {
-                        var hasRrs;
                         for (var p in res) {
                             hasRrs = true;
                             break;
@@ -458,15 +476,12 @@ var Graphics = {
     getBestParams: function(tree, width, height) {
         var maxChildren = 0,
             deep = 0,
-            deepMap = {},
-            maxOneChildren = 0;
-        var walk = function(item, level) {
+            deepMap = {};
+        var walk = function(item, level, leftCount) {
             item.deep = level;
-            if (item.children.length > maxOneChildren) {
-                maxOneChildren = item.children.length;
-            }
-            if (item.deep > deep) {
-                deep = item.deep;
+            item.leftCount = leftCount;
+            if (level > deep) {
+                deep = level;
             }
             if (!deepMap[level]) {
                 deepMap[level] = item.children.length;
@@ -476,11 +491,14 @@ var Graphics = {
             if (deepMap[level] > maxChildren) {
                 maxChildren = deepMap[level];
             }
-            for (var i = item.children.length - 1; i >= 0; i--) {
-                walk(item.children[i], item.deep + 1);
+            for (var i = 0, c = 0, one; i < item.children.length; i++) {
+                one = item.children[i];
+                walk(item.children[i], item.deep + 1, c);
+                c += one.children.length;
             }
         };
-        walk(tree, 1);
+        tree.deepMap = deepMap;
+        walk(tree, 1, 0);
         maxChildren = Math.max(maxChildren, tree.isolated.length + 1);
         var hRadius = width / maxChildren - Consts.circleMargin;
         var vRadius = height / deep - Consts.circleMargin;
@@ -500,27 +518,10 @@ var Graphics = {
         var band = (radius / 20).toFixed(1);
         return {
             width: tw,
-            max: maxChildren,
-            maxOne: maxOneChildren,
-            deep: deep,
             margin: Consts.circleMargin,
             radius: radius,
             band: band
         };
-    },
-    getChildrenCountByDeep: function(tree, deep) {
-        var count = 0;
-        var walk = function(item) {
-            if (item.deep == deep && item.children.length) {
-                item.leftIndex = count;
-                count += item.children.length;
-            }
-            for (var i = 0; i < item.children.length; i++) {
-                walk(item.children[i]);
-            }
-        };
-        walk(tree);
-        return count;
     },
     drawTree: function(tree) {
         if (tree.id) {
@@ -572,17 +573,17 @@ var Graphics = {
                     var ty = Math.round(ppos.y + params.radius * Math.sin(deg * Math.PI / 180));
                     ctx.moveTo(tx, ty); // 设置路径起点，坐标为(20,20)
                     ctx.lineTo(pos.x, pos.y); // 绘制一条到(200,20)的直线
-                    ctx.lineWidth = 1.0; // 设置线宽
+                    ctx.lineWidth = params.band / 1.5; // 设置线宽
                     ctx.strokeStyle = lineColor;
                     ctx.stroke(); // 进行线的着色，这时整条线才变得可见
                 }
-                var count = Graphics.getChildrenCountByDeep(tree, item.deep);
+                var count = tree.deepMap[item.deep];
                 if (count) {
                     var space = (width - (count * params.radius * 2 + (count - 1) * params.margin)) / 2;
                     var lcolor = '#' + Lines[linecolorIndex++ % Lines.length]; // Lines[Math.floor(Math.random() * (Lines.length - 1))];
                     for (var i = 0; i < item.children.length; i++) {
                         drawLine(item.children[i], {
-                            x: space + (i + item.leftIndex) * (params.radius * 2 + params.margin) + params.radius,
+                            x: space + (i + item.leftCount) * (params.radius * 2 + params.margin) + params.radius,
                             y: pos.y + params.margin + 2 * params.radius
                         }, pos, lcolor);
                     }
@@ -605,6 +606,14 @@ var Graphics = {
                     ctx.beginPath();
                     ctx.arc(lx, ly, radius, 0, Math.PI * 2, true);
                     ctx.fillStyle = item.event;
+                    ctx.fill();
+                }
+                //center
+                if (item.location) {
+                    ctx.moveTo(pos.x, ly + radius);
+                    ctx.beginPath();
+                    ctx.arc(pos.x, ly + radius, radius, 0, Math.PI * 2, true);
+                    ctx.fillStyle = item.location;
                     ctx.fill();
                 }
                 //right
@@ -642,12 +651,12 @@ var Graphics = {
                 var textWidth = Math.round(ctx.measureText(id).width);
                 var left = (2 * params.radius - textWidth) / 2;
                 ctx.fillText(id, pos.x + left - params.radius, pos.y + 4);
-                var count = Graphics.getChildrenCountByDeep(tree, item.deep);
+                var count = tree.deepMap[item.deep];
                 if (count) {
                     var space = (width - (count * params.radius * 2 + (count - 1) * params.margin)) / 2;
                     for (var i = 0; i < item.children.length; i++) {
                         drawCircle(item.children[i], {
-                            x: space + (i + item.leftIndex) * (params.radius * 2 + params.margin) + params.radius,
+                            x: space + (i + item.leftCount) * (params.radius * 2 + params.margin) + params.radius,
                             y: pos.y + params.margin + 2 * params.radius
                         });
                     }
@@ -899,7 +908,6 @@ var KISSYEnv = {
                 if (!max) break;
                 nodes = nodes.children();
                 size.height = nodes.height();
-                console.log(nodes);
                 if (size.height) {
                     size.width = nodes.width();
                     var pos = nodes.css('position');
@@ -1362,6 +1370,40 @@ var Helper = {
         }
         return shares;
     },
+    getLocation: function(vf) {
+        var path, keys = [];
+        if (vf) {
+            if (vf.view) {
+                var ol = vf.view.$ol;
+                if (ol) {
+                    path = ol.pn;
+                    keys = ol.keys || ol.ks;
+                }
+            }
+            if (vf.$v) {
+                var l = vf.$v.$l;
+                if (l && l.f) {
+                    path = l.p;
+                    keys = l.k;
+                }
+            }
+        }
+        return {
+            path: path,
+            keys: keys
+        };
+    },
+    getGradualColor: function(current, max) {
+        var sc = Consts.gradualStartColor;
+        var ec = Consts.gradualEndColor;
+        var rs = (ec.r - sc.r) / max;
+        var gs = (ec.g - sc.g) / max;
+        var bs = (ec.b - sc.b) / max;
+        var hexr = ('0' + parseInt(sc.r + current * rs).toString(16)).slice(-2);
+        var hexg = ('0' + parseInt(sc.g + current * gs).toString(16)).slice(-2);
+        var hexb = ('0' + parseInt(sc.b + current * bs).toString(16)).slice(-2);
+        return '#' + hexr + hexg + hexb;
+    },
     getTree: function(env) {
         var rootId = env.getRootId();
         var vom = env.getVOM();
@@ -1407,19 +1449,20 @@ var Helper = {
                 if (total) {
                     var cc = Consts.eventsCommonCount;
                     total = Math.min(total, cc);
-                    var sc = Consts.eventsStartColor;
-                    var ec = Consts.eventsEndColor;
-                    var rs = (ec.r - sc.r) / cc;
-                    var gs = (ec.g - sc.g) / cc;
-                    var bs = (ec.b - sc.b) / cc;
-                    var hexr = ('0' + parseInt(sc.r + total * rs).toString(16)).slice(-2);
-                    var hexg = ('0' + parseInt(sc.g + total * gs).toString(16)).slice(-2);
-                    var hexb = ('0' + parseInt(sc.b + total * bs).toString(16)).slice(-2);
-                    info.event = '#' + hexr + hexg + hexb;
+                    info.event = Helper.getGradualColor(total, cc);
                 }
                 var shared = Helper.getShared(vf);
                 if (shared.length) {
-                    info.shared = '#009966';
+                    var sc = Consts.sharedCount;
+                    var current = Math.min(shared.length, sc);
+                    info.shared = Helper.getGradualColor(current, sc);
+                }
+                var location = Helper.getLocation(vf);
+                if (location.path || (location.keys && location.keys.length)) {
+                    var lc = Consts.locationCount;
+                    var keys = location.keys || [];
+                    var current = Math.min(lc, keys.length);
+                    info.location = Helper.getGradualColor(current, lc);
                 }
                 var cm = vf.cM || vf.$c;
                 for (var p in cm) {
@@ -1590,7 +1633,11 @@ var Helper = {
                     Tracer.log('vframe:' + vf.id + '的view[' + vf.view.path + ']，init调用完毕', Status.created);
                 });
                 vf.on('viewUnmounted', function() {
-                    Tracer.log('vframe:' + vf.id + '的view[' + (vf.path || (vf.view && vf.view.path || '')) + ']销毁完毕', Status.isolated);
+                    var path = (vf.path || (vf.view && vf.view.path || ''));
+                    if (path) {
+                        path = '[' + path + ']';
+                    }
+                    Tracer.log('vframe:' + vf.id + '的view' + path + '销毁完毕', Status.isolated);
                 });
                 vf.on('viewMounted', function() {
                     Tracer.log('vframe:' + vf.id + '的view[' + (vf.path || vf.view.path ||
