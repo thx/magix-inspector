@@ -1,6 +1,6 @@
 {
   "name": "magix-inspector",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "magix项目调试分析工具",
   "main": "build/index.js",
   "repository": {

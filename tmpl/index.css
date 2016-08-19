@@ -88,3 +88,22 @@
     box-shadow:0 2px 2px 2px #b9b9b9;
     word-break: break-all;
 }
+.shrink:before{
+    content: ' ';
+    position: absolute;
+    left: 4px;
+    top: 10px;
+    bottom: 5px;
+    border: dotted 2px #b9b1b1;
+    height: 10px;
+    cursor: move;
+}
+.shrink:after{
+    content: ' ';
+    position: absolute;
+    left: 9px;
+    top: 10px;
+    height: 10px;
+    border: dotted 2px #b9b1b1;
+    cursor: move;
+}

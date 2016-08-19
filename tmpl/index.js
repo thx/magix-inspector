@@ -62,6 +62,71 @@ var ApplyStyle = function(x, h) {
     }
 };
 ApplyStyle('@index.css');
+var Drag = {
+    get: function($, off, isFn) {
+        var Win = $(window);
+        var Doc = $(document);
+        var ClearSelection = function(t) {
+            if ((t = window.getSelection)) {
+                t().removeAllRanges();
+            } else if ((t = window.document.selection)) {
+                if (t.empty) t.empty();
+                else t = null;
+            }
+        };
+        var DragObject;
+        var DragPrevent = function(e) {
+            e.preventDefault();
+        };
+        var DragMove = function(event) {
+            if (DragObject.iMove) {
+                DragObject.move(event);
+            }
+        };
+        var DragMoveEvent = 'mousemove touchmove';
+        var DragEndEvent = 'mouseup touchend';
+        var DragPreventEvent = 'keydown mousewheel DOMMouseScroll';
+        var DragStop = function(e) {
+            if (DragObject) {
+                Doc[off](DragMoveEvent, DragMove)[off](DragEndEvent, DragStop)[off](DragPreventEvent, DragPrevent);
+                Win[off]('blur', DragStop);
+                var node = DragObject.node;
+                $(node)[off]('losecapture', DragStop);
+                if (node.setCapture) node.releaseCapture();
+                if (DragObject.iStop) {
+                    DragObject.stop(e);
+                }
+                DragObject = null;
+            }
+        };
+        return {
+            begin: function(node, moveCallback, endCallback) {
+                DragStop();
+                if (node) {
+                    ClearSelection();
+                    if (node.setCapture) {
+                        node.setCapture();
+                    }
+                    DragObject = {
+                        move: moveCallback,
+                        stop: endCallback,
+                        node: node,
+                        iMove: isFn(moveCallback),
+                        iStop: isFn(endCallback)
+                    };
+                    Doc.on(DragMoveEvent, DragMove)
+                        .on(DragEndEvent, DragStop)
+                        .on(DragPreventEvent, DragPrevent);
+                    Win.on('blur', DragStop);
+                    $(node).on('losecapture', DragStop);
+                }
+            },
+            clear: ClearSelection,
+            end: DragStop
+        };
+    }
+};
+
 var UI = {
     main: '@index-main.html',
     moreInfo: '@index-more.html',
@@ -75,13 +140,13 @@ var UI = {
         });
         D.documentElement.appendChild(div);
         UI.attachEvent();
-        var env = Helper.getEnv();
+        var env = Inspector.getEnv();
         env.dragIt('#mx', '#mx_tabs');
     },
     attachEvent: function() {
         UI.detachEvent();
         var moveTimer;
-        var env = Helper.getEnv();
+        var env = Inspector.getEnv();
         env.bind('mx_view_canvas', 'mousemove', UI.$mousemove = function(e) {
             clearTimeout(moveTimer);
             moveTimer = setTimeout(function() {
@@ -131,11 +196,13 @@ var UI = {
                     node.style.width = '40px';
                     node.style.overflow = 'hidden';
                     e.target.innerHTML = '▽';
+                    env.getNode('#mx_tabs').addClass('@index.css:shrink');
                 } else {
                     node.style.height = Consts.height + 'px';
                     node.style.width = Consts.width + 'px';
                     node.style.overflow = 'inherit';
                     e.target.innerHTML = '△';
+                    env.getNode('#mx_tabs').removeClass('@index.css:shrink');
                 }
             } else if (e.target.innerHTML == 'VOM') {
                 node = D.getElementById('mx_painter');
@@ -162,7 +229,7 @@ var UI = {
         });
     },
     detachEvent: function() {
-        var env = Helper.getEnv();
+        var env = Inspector.getEnv();
         env.unbind('mx_view_canvas', 'mousemove', UI.$mousemove);
         env.unbind('mx_view_canvas', 'mouseout', UI.$mouseout);
         env.unbind('mx_manager_canvas', 'mousemove', UI.$managerMousemove);
@@ -187,7 +254,7 @@ var UI = {
         var left = item.center.x - Consts.moreInfoWidth / 2 - D.getElementById('mx_view_cnt').scrollLeft;
         node.style.left = left + 'px';
         node.style.top = item.center.y + item.radius + Consts.titleHeight + 5 + 'px';
-        var env = Helper.getEnv();
+        var env = Inspector.getEnv();
         env.updateDOMStyle(cover.style, vf.id);
         cover.style.display = 'block';
 
@@ -206,13 +273,13 @@ var UI = {
                     }
                     return '';
                 case 'events':
-                    var evts = Helper.getEvents(vf);
+                    var evts = Inspector.getEvents(vf);
                     return evts.total ? '<li><b class="@index.css:tle">listen:</b>' + evts.list + '</li>' : '';
                 case 'share':
-                    var s = Helper.getShared(vf);
+                    var s = Inspector.getShared(vf);
                     return s.length ? '<li><b class="@index.css:tle">share:</b>' + s + '</li>' : '';
                 case 'location':
-                    var l = Helper.getLocation(vf);
+                    var l = Inspector.getLocation(vf);
                     var f = l.path || (l.keys && l.keys.length);
                     if (f) {
                         var r = [];
@@ -827,7 +894,7 @@ var Graphics = {
         UI.showManagerTotal(tree);
     },
     onHoverItem: function(e) {
-        var env = Helper.getEnv();
+        var env = Inspector.getEnv();
         var vom = env.getVOM();
         if (e.action == 'enter') {
             UI.showMoreInfo(vom.get(e.item.id), e.item);
@@ -1017,12 +1084,24 @@ var KISSYEnv = {
             callback();
         };
     },
-    dragIt: function(node, handler) {
-        S.use('dd', function(S, DD) {
-            new DD.Draggable({
-                node: node,
-                move: true,
-                handlers: [handler]
+    dragIt: function(node, handle) {
+        var root = S.one(node);
+        var dd = Drag.get(S.one, 'detach', S.isFunction);
+        S.one(handle).on('mousedown', function(e) {
+            if (e.target.id != handle.slice(1)) return;
+            var right = parseInt(root.css('right'), 10);
+            var top = parseInt(root.css('top'), 10);
+            var x = e.pageX;
+            var y = e.pageY;
+            dd.begin(e.target, function(e) {
+                dd.clear();
+                var fx = e.pageX - x,
+                    fy = e.pageY - y;
+                if (top + fy < 0) fy = -top;
+                root.css({
+                    right: right - fx,
+                    top: top + fy
+                });
             });
         });
     },
@@ -1035,6 +1114,9 @@ var KISSYEnv = {
                 root.addClass('@index.css:icon' + '-' + f.cls);
             }
         }
+    },
+    getNode: function(node) {
+        return S.one(node);
     }
 };
 var RequireEnv = {
@@ -1180,13 +1262,15 @@ var RequireEnv = {
     dragIt: function(node, handle) {
         var $ = this.getDL();
         var root = $(node);
+        var dd = Drag.get($, 'off', $.isFunction);
         $(handle).on('mousedown', function(e) {
             if (e.target.id != handle.slice(1)) return;
             var right = parseInt(root.css('right'), 10);
             var top = parseInt(root.css('top'), 10);
             var x = e.pageX;
             var y = e.pageY;
-            var move = function(e) {
+            dd.begin(e.target, function(e) {
+                dd.clear();
                 var fx = e.pageX - x,
                     fy = e.pageY - y;
                 if (top + fy < 0) fy = -top;
@@ -1194,12 +1278,7 @@ var RequireEnv = {
                     right: right - fx,
                     top: top + fy
                 });
-            };
-            var up = function() {
-                doc.off('mousemove', move).off('mouseup', up);
-            };
-            var doc = $(document);
-            doc.on('mousemove', move).on('mouseup', up);
+            });
         });
     },
     drawIcons: function(flattened) {
@@ -1212,6 +1291,10 @@ var RequireEnv = {
                 root.addClass('@index.css:icon' + '-' + f.cls);
             }
         }
+    },
+    getNode: function(node) {
+        var $ = this.getDL();
+        return $(node);
     }
 };
 var SeajsEnv = {},
@@ -1277,7 +1360,7 @@ MagixEnv.getMangerMods = function() {
 MagixEnv.isReady = function() {
     return true;
 };
-var Helper = {
+var Inspector = {
     getEnv: function() {
         if (window.KISSY) {
             return KISSYEnv;
@@ -1443,25 +1526,25 @@ var Helper = {
                     finfo.cls = 'bad';
                 }
                 flattened.push(finfo);
-                var evts = Helper.getEvents(vf);
+                var evts = Inspector.getEvents(vf);
                 var total = evts.total;
                 if (total) {
                     var cc = Consts.eventsCommonCount;
                     total = Math.min(total, cc);
-                    info.event = Helper.getGradualColor(total, cc);
+                    info.event = Inspector.getGradualColor(total, cc);
                 }
-                var shared = Helper.getShared(vf);
+                var shared = Inspector.getShared(vf);
                 if (shared.length) {
                     var sc = Consts.sharedCount;
                     var current = Math.min(shared.length, sc);
-                    info.shared = Helper.getGradualColor(current, sc);
+                    info.shared = Inspector.getGradualColor(current, sc);
                 }
-                var location = Helper.getLocation(vf);
+                var location = Inspector.getLocation(vf);
                 if (location.path || (location.keys && location.keys.length)) {
                     var lc = Consts.locationCount;
                     var keys = location.keys || [];
                     var current = Math.min(lc, keys.length);
-                    info.location = Helper.getGradualColor(current, lc);
+                    info.location = Inspector.getGradualColor(current, lc);
                 }
                 var cm = vf.cM || vf.$c;
                 for (var p in cm) {
@@ -1591,7 +1674,7 @@ var Helper = {
         };
     },
     prepare: function(callback) {
-        var env = Helper.getEnv();
+        var env = Inspector.getEnv();
         env.prepare();
         var poll = function() {
             if (D.body) {
@@ -1607,9 +1690,9 @@ var Helper = {
         poll();
     },
     start: function() {
-        Helper.prepare(function() {
+        Inspector.prepare(function() {
             UI.setup();
-            var env = Helper.getEnv();
+            var env = Inspector.getEnv();
             var vom = env.getVOM();
             var drawTimer;
             var attachVframe = function(vf) {
@@ -1676,7 +1759,7 @@ var Helper = {
                 }
                 clearTimeout(drawTimer);
                 drawTimer = setTimeout(function() {
-                    var treeInfo = Helper.getTree(env);
+                    var treeInfo = Inspector.getTree(env);
                     Graphics.drawTree(treeInfo.tree);
                     env.drawIcons(treeInfo.flattened);
                 }, 0);
@@ -1701,7 +1784,7 @@ var Helper = {
             var drawManagerTree = function() {
                 clearTimeout(managerTimer);
                 managerTimer = setTimeout(function() {
-                    var tree = Helper.getManagerTree(env);
+                    var tree = Inspector.getManagerTree(env);
                     Graphics.drawManagerTree(tree);
                 }, 500);
             };
@@ -1710,4 +1793,4 @@ var Helper = {
         });
     }
 };
-Helper.start();
+Inspector.start();
