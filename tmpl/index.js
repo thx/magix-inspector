@@ -1024,7 +1024,7 @@ var KISSYEnv = {
             var root = S.one('#' + f.id);
             root.removeClass('@index.css:icon-bad').removeClass('@index.css:icon-alter').addClass('@index.css:icon');
             if (f.cls) {
-                root.addClass('@index.css:icon-' + f.cls);
+                root.addClass('@index.css:icon' + '-' + f.cls);
             }
         }
     }

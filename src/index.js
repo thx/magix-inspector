@@ -1025,7 +1025,7 @@ var KISSYEnv = {
             var root = S.one('#' + f.id);
             root.removeClass('mx_ispt_bca-icon-bad').removeClass('mx_ispt_bca-icon-alter').addClass('mx_ispt_bca-icon');
             if (f.cls) {
-                root.addClass('icon-' + f.cls);
+                root.addClass('mx_ispt_bca-icon' + '-' + f.cls);
             }
         }
     }
