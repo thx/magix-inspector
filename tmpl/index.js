@@ -966,61 +966,67 @@ var KISSYEnv = {
             height: n.outerHeight ? n.outerHeight() : n.height(),
             width: n.outerWidth ? n.outerWidth() : n.width()
         };
+        var startZINode, offset;
         if (!size.height) {
             var max = 4;
-            var nodes = n;
             do {
-                max--;
-                if (!max) break;
-                nodes = nodes.children();
-                size.height = nodes.height();
+                n = n.children();
+                size.height = n.height();
                 if (size.height) {
-                    size.width = nodes.width();
-                    var pos = nodes.css('position');
+                    var pos = n.css('position');
                     if (pos == 'fixed') {
-                        n = nodes.css('left');
-                        style.left = n;
                         style.position = pos;
-                        n = nodes.css('top');
-                        style.top = n;
-                        n = nodes.css('right');
-                        style.right = n;
-                        n = nodes.css('bottom');
-                        style.bottom = n;
-                        var zIndex = parseInt(nodes.css('z-index')) || 1;
-                        style.zIndex = zIndex + 1;
+                        pos = n.css('left');
+                        style.left = pos;
+                        pos = n.css('top');
+                        style.top = pos;
+                        pos = n.css('right');
+                        style.right = pos;
+                        pos = n.css('bottom');
+                        style.bottom = pos;
+                        startZINode = n;
                     } else {
-                        var offset = nodes.offset();
+                        offset = n.offset();
                         style.left = offset.left + 'px';
                         style.top = offset.top + 'px';
                         style.position = 'absolute';
-                        size.width = Math.max(size.width, nodes.children().width());
-                        var zIndex = -1;
-                        do {
-                            var z = parseInt(nodes.css('z-index')) || 1;
-                            if (z && z > zIndex) zIndex = z;
-                            nodes = nodes.parent();
-                        } while (nodes);
-                        style.zIndex = zIndex + 1;
+                        size.width = Math.max(size.width, n.children().width());
+                        startZINode = n;
                     }
                     break;
                 }
-            } while (!size.height);
+            } while (!size.height && max >= 0);
         } else {
-            var offset = node.offset();
+            offset = n.offset();
             style.left = offset.left + 'px';
             style.top = offset.top + 'px';
             style.position = 'absolute';
-            size.width = Math.max(size.width, node.children().width());
-            var zIndex = -1;
-            do {
-                var z = parseInt(node.css('z-index')) || 1;
-                if (z && z > zIndex) zIndex = z;
-                node = node.parent();
-            } while (node);
-            style.zIndex = zIndex + 1;
+            size.width = Math.max(size.width, n.children().width());
+            startZINode = n;
         }
-
+        var zIndex = -1;
+        var deep = 4;
+        var hide;
+        do {
+            if (!hide) hide = startZINode.css('display') == 'none';
+            var zi = parseInt(startZINode.css('z-index')) || 1;
+            if (zi > zIndex) zIndex = zi;
+            startZINode = startZINode.children();
+            deep--;
+        } while (startZINode && deep > -1);
+        do {
+            if (!hide) hide = node.css('display') == 'none';
+            var z = parseInt(node.css('z-index')) || 1;
+            if (z && z > zIndex) zIndex = z;
+            node = node.parent();
+        } while (node);
+        if (hide) {
+            size = {
+                width: 0,
+                height: 0
+            };
+        }
+        style.zIndex = zIndex + 1;
         style.width = size.width + 'px';
         style.height = size.height + 'px';
     },
@@ -1171,60 +1177,67 @@ var RequireEnv = {
             height: n.outerHeight ? n.outerHeight() : n.height(),
             width: n.outerWidth ? n.outerWidth() : n.width()
         };
+        var startZINode, offset;
         if (!size.height) {
             var max = 4;
-            var nodes = n;
             do {
-                max--;
-                if (!max) break;
-                nodes = nodes.children();
-                size.height = nodes.height();
+                n = n.children();
+                size.height = n.height();
                 if (size.height) {
-                    var pos = nodes.css('position');
+                    var pos = n.css('position');
                     if (pos == 'fixed') {
-                        n = nodes.css('left');
-                        style.left = n;
+                        pos = n.css('left');
+                        style.left = pos;
                         style.position = pos;
-                        n = nodes.css('top');
-                        style.top = n;
-                        n = nodes.css('right');
-                        style.right = n;
-                        n = nodes.css('bottom');
-                        style.bottom = n;
-                        var zIndex = parseInt(nodes.css('z-index')) || 1;
-                        style.zIndex = zIndex + 1;
+                        pos = n.css('top');
+                        style.top = pos;
+                        pos = n.css('right');
+                        style.right = pos;
+                        pos = n.css('bottom');
+                        style.bottom = pos;
+                        startZINode = n;
                     } else {
-                        var offset = nodes.offset();
+                        offset = n.offset();
                         style.left = offset.left + 'px';
                         style.top = offset.top + 'px';
                         style.position = 'absolute';
-                        size.width = Math.max(size.width, nodes.children().width());
-                        var zIndex = -1;
-                        do {
-                            var z = parseInt(nodes.css('z-index')) || 1;
-                            if (z && z > zIndex) zIndex = z;
-                            nodes = nodes.parent();
-                        } while (nodes.length && $.contains(document.body, nodes[0]));
-                        style.zIndex = zIndex + 1;
+                        size.width = Math.max(size.width, n.children().width());
+                        startZINode = n;
                     }
                     break;
                 }
-            } while (!size.height);
+            } while (!size.height && max >= 0);
         } else {
-            var offset = node.offset();
+            offset = n.offset();
             style.left = offset.left + 'px';
             style.top = offset.top + 'px';
             style.position = 'absolute';
-            size.width = Math.max(size.width, node.children().width());
-            var zIndex = -1;
-            do {
-                var z = parseInt(node.css('z-index')) || 1;
-                if (z && z > zIndex) zIndex = z;
-                node = node.parent();
-            } while (node.length && $.contains(document.body, node[0]));
-            style.zIndex = zIndex + 1;
+            size.width = Math.max(size.width, n.children().width());
+            startZINode = n;
         }
-
+        var zIndex = -1;
+        var deep = 4;
+        var hide;
+        do {
+            if (!hide) hide = startZINode.css('display') == 'none';
+            var zi = parseInt(startZINode.css('z-index')) || 1;
+            if (zi > zIndex) zIndex = zi;
+            startZINode = startZINode.children();
+            deep--;
+        } while (startZINode && deep > -1);
+        do {
+            if (!hide) hide = node.css('display') == 'none';
+            var z = parseInt(node.css('z-index')) || 1;
+            if (z && z > zIndex) zIndex = z;
+            node = node.parent();
+        } while (node.length && $.contains(document.body, node[0]));
+        if (hide) {
+            size = {
+                width: 0,
+                height: 0
+            };
+        }
+        style.zIndex = zIndex + 1;
         style.width = size.width + 'px';
         style.height = size.height + 'px';
     },

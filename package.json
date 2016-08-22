@@ -16,7 +16,6 @@
     "gulp": "",
     "gulp-watch": "",
     "gulp-uglify": "",
-    "gulp-cssnano": "",
     "del": "",
     "magix-combine": ""
   },
