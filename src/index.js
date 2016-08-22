@@ -973,30 +973,30 @@ var KISSYEnv = {
             do {
                 n = n.children();
                 size.height = n.height();
+                startZINode = n;
                 if (size.height) {
                     var pos = n.css('position');
                     if (pos == 'fixed') {
-                        style.position = pos;
                         pos = n.css('left');
                         style.left = pos;
+                        style.position = pos;
                         pos = n.css('top');
                         style.top = pos;
                         pos = n.css('right');
                         style.right = pos;
                         pos = n.css('bottom');
                         style.bottom = pos;
-                        startZINode = n;
                     } else {
                         offset = n.offset();
                         style.left = offset.left + 'px';
                         style.top = offset.top + 'px';
                         style.position = 'absolute';
                         size.width = Math.max(size.width, n.children().width());
-                        startZINode = n;
                     }
                     break;
                 }
-            } while (!size.height && max >= 0);
+                max--;
+            } while (n.length && !size.height && max >= 0);
         } else {
             offset = n.offset();
             style.left = offset.left + 'px';
@@ -1006,15 +1006,17 @@ var KISSYEnv = {
             startZINode = n;
         }
         var zIndex = -1;
-        var deep = 4;
+        var deep = 6;
         var hide;
-        do {
-            if (!hide) hide = startZINode.css('display') == 'none';
-            var zi = parseInt(startZINode.css('z-index')) || 1;
-            if (zi > zIndex) zIndex = zi;
-            startZINode = startZINode.children();
-            deep--;
-        } while (startZINode && deep > -1);
+        if (startZINode.length) {
+            do {
+                if (!hide) hide = startZINode.css('display') == 'none';
+                var zi = parseInt(startZINode.css('z-index')) || 1;
+                if (zi > zIndex) zIndex = zi;
+                startZINode = startZINode.children();
+                deep--;
+            } while (startZINode.length && deep > -1);
+        }
         do {
             if (!hide) hide = node.css('display') == 'none';
             var z = parseInt(node.css('z-index')) || 1;
@@ -1184,6 +1186,7 @@ var RequireEnv = {
             do {
                 n = n.children();
                 size.height = n.height();
+                startZINode = n;
                 if (size.height) {
                     var pos = n.css('position');
                     if (pos == 'fixed') {
@@ -1196,18 +1199,17 @@ var RequireEnv = {
                         style.right = pos;
                         pos = n.css('bottom');
                         style.bottom = pos;
-                        startZINode = n;
                     } else {
                         offset = n.offset();
                         style.left = offset.left + 'px';
                         style.top = offset.top + 'px';
                         style.position = 'absolute';
                         size.width = Math.max(size.width, n.children().width());
-                        startZINode = n;
                     }
                     break;
                 }
-            } while (!size.height && max >= 0);
+                max--;
+            } while (n.length && !size.height && max >= 0);
         } else {
             offset = n.offset();
             style.left = offset.left + 'px';
@@ -1217,15 +1219,17 @@ var RequireEnv = {
             startZINode = n;
         }
         var zIndex = -1;
-        var deep = 4;
+        var deep = 6;
         var hide;
-        do {
-            if (!hide) hide = startZINode.css('display') == 'none';
-            var zi = parseInt(startZINode.css('z-index')) || 1;
-            if (zi > zIndex) zIndex = zi;
-            startZINode = startZINode.children();
-            deep--;
-        } while (startZINode && deep > -1);
+        if (startZINode.length) {
+            do {
+                if (!hide) hide = startZINode.css('display') == 'none';
+                var zi = parseInt(startZINode.css('z-index')) || 1;
+                if (zi > zIndex) zIndex = zi;
+                startZINode = startZINode.children();
+                deep--;
+            } while (startZINode.length && deep > -1);
+        }
         do {
             if (!hide) hide = node.css('display') == 'none';
             var z = parseInt(node.css('z-index')) || 1;
