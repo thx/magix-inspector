@@ -1005,17 +1005,7 @@ var KISSYEnv = {
             startZINode = n;
         }
         var zIndex = -1;
-        var deep = 6;
         var hide;
-        if (startZINode.length) {
-            do {
-                if (!hide) hide = startZINode.css('display') == 'none';
-                var zi = parseInt(startZINode.css('z-index')) || 1;
-                if (zi > zIndex) zIndex = zi;
-                startZINode = startZINode.children();
-                deep--;
-            } while (startZINode.length && deep > -1);
-        }
         do {
             if (!hide) hide = node.css('display') == 'none';
             var z = parseInt(node.css('z-index')) || 1;
@@ -1027,6 +1017,9 @@ var KISSYEnv = {
                 width: 0,
                 height: 0
             };
+        }
+        if (zIndex == 1) {
+            zIndex = 2147483640;
         }
         style.zIndex = zIndex + 1;
         style.width = size.width + 'px';
@@ -1218,17 +1211,7 @@ var RequireEnv = {
             startZINode = n;
         }
         var zIndex = -1;
-        var deep = 6;
         var hide;
-        if (startZINode.length) {
-            do {
-                if (!hide) hide = startZINode.css('display') == 'none';
-                var zi = parseInt(startZINode.css('z-index')) || 1;
-                if (zi > zIndex) zIndex = zi;
-                startZINode = startZINode.children();
-                deep--;
-            } while (startZINode.length && deep > -1);
-        }
         do {
             if (!hide) hide = node.css('display') == 'none';
             var z = parseInt(node.css('z-index')) || 1;
@@ -1240,6 +1223,9 @@ var RequireEnv = {
                 width: 0,
                 height: 0
             };
+        }
+        if (zIndex == 1) {
+            zIndex = 2147483640;
         }
         style.zIndex = zIndex + 1;
         style.width = size.width + 'px';
