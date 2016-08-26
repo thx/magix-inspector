@@ -41,9 +41,18 @@
 .mask{
     position:absolute;opacity:0.7;background-color:#90EE90;
 }
-.main ul{list-style:none;padding:0;}
+.main ul{list-style:none;padding:0;margin:0;}
 .m5{margin-left:5px;}
 .binfo{padding:5px;}
+.console{
+    height:28px;
+    line-height: 28px;
+    margin:0 0 0 5px;
+    padding:0;
+}
+.mr3{
+    margin-right: 3px;
+}
 .fl{
     float:left
 }

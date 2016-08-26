@@ -187,6 +187,11 @@ var UI = {
         env.bind('mx_moreinfo', 'mouseout', UI.$imouseout = function() {
             UI.hideMoreInfo();
         });
+        env.bind('mx_log_console', 'click', function() {
+            var logNode = D.getElementById('mx_log_console');
+            if (logNode.checked)
+                window.console.dir(env.getVOM().all());
+        });
         env.bind('mx', 'click', UI.$click = function(e) {
             var node;
             if (e.target.id == 'mx_min') {
@@ -241,6 +246,10 @@ var UI = {
     },
     showMoreInfo: function(vf, item) {
         clearTimeout(UI.$hideTimer);
+        var logNode = D.getElementById('mx_log_console');
+        if (logNode.checked) {
+            window.console.log(vf);
+        }
         var cover = D.getElementById('mx_cover');
         if (!cover) {
             cover = D.createElement('div');
@@ -388,7 +397,7 @@ var UI = {
             }
         });
     },
-    showTotal: function(tree, extra) {
+    showTotal: function(tree) {
         var node = D.getElementById('mx_view_total');
         node.innerHTML = UI.total.replace(/\{(\w+)\}/g, function(m, v) {
             switch (v) {

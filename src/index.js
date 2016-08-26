@@ -62,7 +62,7 @@ var ApplyStyle = function(x, h) {
         i.appendChild(document.createTextNode(h));
     }
 };
-ApplyStyle('mx_ispt_bca',".mx_ispt_bca-icon:before{width:12px;content:'M';height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mx_ispt_bca-icon-bad:before{background-color:#ff3030}.mx_ispt_bca-icon-alter:before{background-color:#bc8f8f}.mx_ispt_bca-tle{padding-right:5px}.mx_ispt_bca-tab{background:#eee;cursor:move;margin:0;padding:0}.mx_ispt_bca-main{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mx_ispt_bca-mask{position:absolute;opacity:.7;background-color:#90ee90}.mx_ispt_bca-main ul{list-style:none;padding:0}.mx_ispt_bca-m5{margin-left:5px}.mx_ispt_bca-binfo{padding:5px}.mx_ispt_bca-fl{float:left}.mx_ispt_bca-fr{float:right}.mx_ispt_bca-cp{cursor:pointer}.mx_ispt_bca-p8{padding:8px}.mx_ispt_bca-move{cursor:move}.mx_ispt_bca-red{color:red}.mx_ispt_bca-clearfix:after,.mx_ispt_bca-clearfix:before{content:\"\";display:table}.mx_ispt_bca-clearfix:after{clear:both}.mx_ispt_bca-clearfix{*zoom:1}.mx_ispt_bca-bar{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}.mx_ispt_bca-shrink:before{left:4px;bottom:5px}.mx_ispt_bca-shrink:after,.mx_ispt_bca-shrink:before{content:' ';position:absolute;top:10px;border:2px dotted #b9b1b1;height:10px;cursor:move}.mx_ispt_bca-shrink:after{left:9px}");
+ApplyStyle('mx_ispt_bca',".mx_ispt_bca-icon:before{width:12px;content:'M';height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mx_ispt_bca-icon-bad:before{background-color:#ff3030}.mx_ispt_bca-icon-alter:before{background-color:#bc8f8f}.mx_ispt_bca-tle{padding-right:5px}.mx_ispt_bca-tab{background:#eee;cursor:move;margin:0;padding:0}.mx_ispt_bca-main{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mx_ispt_bca-mask{position:absolute;opacity:.7;background-color:#90ee90}.mx_ispt_bca-main ul{list-style:none;padding:0;margin:0}.mx_ispt_bca-m5{margin-left:5px}.mx_ispt_bca-binfo{padding:5px}.mx_ispt_bca-console{height:28px;line-height:28px;margin:0 0 0 5px;padding:0}.mx_ispt_bca-mr3{margin-right:3px}.mx_ispt_bca-fl{float:left}.mx_ispt_bca-fr{float:right}.mx_ispt_bca-cp{cursor:pointer}.mx_ispt_bca-p8{padding:8px}.mx_ispt_bca-move{cursor:move}.mx_ispt_bca-red{color:red}.mx_ispt_bca-clearfix:after,.mx_ispt_bca-clearfix:before{content:\"\";display:table}.mx_ispt_bca-clearfix:after{clear:both}.mx_ispt_bca-clearfix{*zoom:1}.mx_ispt_bca-bar{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}.mx_ispt_bca-shrink:before{left:4px;bottom:5px}.mx_ispt_bca-shrink:after,.mx_ispt_bca-shrink:before{content:' ';position:absolute;top:10px;border:2px dotted #b9b1b1;height:10px;cursor:move}.mx_ispt_bca-shrink:after{left:9px}");
 var Drag = {
     get: function($, off, isFn) {
         var Win = $(window);
@@ -129,7 +129,7 @@ var Drag = {
 };
 
 var UI = {
-    main: "<div class=\"mx_ispt_bca-main\" id=\"mx\"><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-tab\" id=\"mx_tabs\"><li class=\"mx_ispt_bca-fr mx_ispt_bca-p8 mx_ispt_bca-cp\" id=\"mx_min\">△</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">VOM</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">Tracer</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">Manager</li></ul><div id=\"mx_painter\"><div style=\"width:{width}px;height:{canvasHeight}px;overflow-x:auto;overflow-y:hidden\" id=\"mx_view_cnt\"><canvas width=\"{width}\" height=\"{canvasHeight}\" id=\"mx_view_canvas\"></canvas></div><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-p8\" id=\"mx_view_total\"></ul></div><div id=\"mx_trancer\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"mx_manager\" style=\"display:none\"><div style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto\" id=\"mx_manager_cnt\"><canvas width=\"{canvasWidth}\" height=\"{canvasHeight}\" id=\"mx_manager_canvas\"></canvas></div><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-p8\" id=\"mx_manager_total\"></ul></div><div id=\"mx_moreinfo\"></div><div id=\"mx_manager_moreinfo\"></div></div>",
+    main: "<div class=\"mx_ispt_bca-main\" id=\"mx\"><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-tab\" id=\"mx_tabs\"><li class=\"mx_ispt_bca-fr mx_ispt_bca-p8 mx_ispt_bca-cp\" id=\"mx_min\">△</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">VOM</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">Tracer</li><li class=\"mx_ispt_bca-fl mx_ispt_bca-p8 mx_ispt_bca-cp\">Manager</li></ul><div id=\"mx_painter\"><div style=\"width:{width}px;height:{canvasHeight}px;overflow-x:auto;overflow-y:hidden\" id=\"mx_view_cnt\"><canvas width=\"{width}\" height=\"{canvasHeight}\" id=\"mx_view_canvas\"></canvas></div><label class=\"mx_ispt_bca-fl mx_ispt_bca-console\"><input type=\"checkbox\" class=\"mx_ispt_bca-mr3\" id=\"mx_log_console\"/>控制台显示view信息</label><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-fl\" id=\"mx_view_total\"></ul></div><div id=\"mx_trancer\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"mx_manager\" style=\"display:none\"><div style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto\" id=\"mx_manager_cnt\"><canvas width=\"{canvasWidth}\" height=\"{canvasHeight}\" id=\"mx_manager_canvas\"></canvas></div><ul class=\"mx_ispt_bca-clearfix mx_ispt_bca-p8\" id=\"mx_manager_total\"></ul></div><div id=\"mx_moreinfo\"></div><div id=\"mx_manager_moreinfo\"></div></div>",
     moreInfo: "<ul><li><b class=\"mx_ispt_bca-tle\">id:</b>{id}</li><li><b class=\"mx_ispt_bca-tle\">view:</b>{view}</li>{events} {location} {share}<li class=\"mx_ispt_bca-red\">{ex}</li><li><b class=\"mx_ispt_bca-tle\">resources</b></li><li style=\"{moreInfoWidth}px;overflow:auto;max-height:200px\">{res}</li></ul>",
     moreManagerInfo: "<ul><li><b>key:</b>{id}</li><li><b>url:</b>{url}</li><li><b>描述:</b>{desc}</li><li><b>缓存:</b>{cache}</li><li><b>清理缓存:</b>{cleans}</li><li><b>预处理:</b>{hasAfter}</li></ul>",
     total: "<li class=\"mx_ispt_bca-fl mx_ispt_bca-binfo\">共{total}个view</li><li class=\"mx_ispt_bca-fl ml5 mx_ispt_bca-red mx_ispt_bca-binfo\">{ex}</li>",
@@ -188,6 +188,11 @@ var UI = {
         env.bind('mx_moreinfo', 'mouseout', UI.$imouseout = function() {
             UI.hideMoreInfo();
         });
+        env.bind('mx_log_console', 'click', function() {
+            var logNode = D.getElementById('mx_log_console');
+            if (logNode.checked)
+                window.console.dir(env.getVOM().all());
+        });
         env.bind('mx', 'click', UI.$click = function(e) {
             var node;
             if (e.target.id == 'mx_min') {
@@ -242,6 +247,10 @@ var UI = {
     },
     showMoreInfo: function(vf, item) {
         clearTimeout(UI.$hideTimer);
+        var logNode = D.getElementById('mx_log_console');
+        if (logNode.checked) {
+            window.console.log(vf);
+        }
         var cover = D.getElementById('mx_cover');
         if (!cover) {
             cover = D.createElement('div');
@@ -389,7 +398,7 @@ var UI = {
             }
         });
     },
-    showTotal: function(tree, extra) {
+    showTotal: function(tree) {
         var node = D.getElementById('mx_view_total');
         node.innerHTML = UI.total.replace(/\{(\w+)\}/g, function(m, v) {
             switch (v) {
