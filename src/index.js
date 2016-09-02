@@ -1130,11 +1130,47 @@ var KISSYEnv = {
         return S.one(node);
     }
 };
+var ModulesFeatures = {
+    $: ['zepto', 'fn.jquery'],
+    jquery: ['fn.jquery'],
+    zepto: ['zepto'],
+    magix: ['safeExec', 'toTry']
+};
+var ModuleIdMap = {};
 var RequireEnv = {
     prepare: function() {},
     hookAttachMod: function() {},
     getMod: function(key) {
-        return require.s.contexts._.defined[key];
+        var ms = require.s.contexts._.defined;
+        var o = ms[key] || ModuleIdMap[key];
+        if (!o && ModulesFeatures[key]) {
+            var rules = ModulesFeatures[key];
+            for (var p in ms) {
+                var found = false;
+                for (var i = rules.length - 1; i >= 0; i--) {
+                    var r = rules[i];
+                    var parts = r.split('.');
+                    var root = ms[p];
+                    while (parts.length) {
+                        if (root) {
+                            root = root[parts.shift()];
+                        } else {
+                            break;
+                        }
+                    }
+                    if (root) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    o = ms[p];
+                    ModuleIdMap[key] = o;
+                    break;
+                }
+            }
+        }
+        return o;
     },
     getDL: function() {
         return this.getMod('$') || this.getMod('jquery') || this.getMod('zepto');
@@ -1319,18 +1355,49 @@ for (var p in RequireEnv) {
 SeajsEnv.getMod = function(key) {
     try {
         var entity = seajs.require(key); //seajs有别名，优先使用内置的require获取
-        return entity;
+        if (entity)
+            return entity;
     } catch (e) {
         console.log(e);
     }
     var mods = seajs.cache;
-    for (var p in mods) {
-        var mod = mods[p];
-        if (mod.id === key) {
-            return mod.exports;
+    var o = ModuleIdMap[key];
+    if (!o) {
+        for (var p in mods) {
+            var mod = mods[p];
+            if (mod.id === key) {
+                return mod.exports;
+            }
         }
     }
-    return;
+    if (!o && ModulesFeatures[key]) {
+        var rules = ModulesFeatures[key];
+        for (var p in mods) {
+            var found = false;
+            for (var i = rules.length - 1; i >= 0; i--) {
+                var r = rules[i];
+                var parts = r.split('.');
+                var root = mods[p].exports;
+                while (parts.length) {
+                    if (root) {
+                        root = root[parts.shift()];
+                    } else {
+                        break;
+                    }
+                }
+                if (root) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                o = mods[p].exports;
+                ModuleIdMap[key] = o;
+                break;
+            }
+        }
+    }
+    return o;
 };
 SeajsEnv.getMangerMods = function() {
     var mods = seajs.cache;
@@ -1348,11 +1415,14 @@ SeajsEnv.getMangerMods = function() {
     return result;
 };
 SeajsSEnv.getMod = function(key) {
+    var o;
     try {
-        return require(key);
-    } catch (e) {
-        return null;
+        o = require(key);
+    } catch (e) {}
+    if (!o) {
+        window.console.warn('seajs standalone模式下无法找到模块：' + key + '，也无法智能探测。如需更多帮助信息请旺旺联系：行列');
     }
+    return o;
 };
 SeajsSEnv.getMangerMods = function() {
     return [];
@@ -1390,7 +1460,8 @@ var Inspector = {
         if (window.Magix) {
             return MagixEnv;
         }
-        throw new Error('unsupport');
+        window.console.error('getEnvError:无法在当前环境下启动Magix Inspector，如需更多帮助，请旺旺联系：行列');
+        throw new Error('unsupport current enviment');
     },
     getEvents: function(vf) {
         var evts = [],
@@ -1689,15 +1760,21 @@ var Inspector = {
     prepare: function(callback) {
         var env = Inspector.getEnv();
         env.prepare();
+        var max = 50;
         var poll = function() {
-            if (D.body) {
-                if (env.isReady()) {
-                    callback();
+            max--;
+            if (!max) {
+                window.console.error('无法在当前环境下启动Magix Inspector(需要的模块如jquery,magix等检测不到)，如需更多帮助，请旺旺联系：行列');
+            } else {
+                if (D.body) {
+                    if (env.isReady()) {
+                        callback();
+                    } else {
+                        setTimeout(poll, 500);
+                    }
                 } else {
                     setTimeout(poll, 500);
                 }
-            } else {
-                setTimeout(poll, 500);
             }
         };
         poll();
