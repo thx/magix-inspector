@@ -553,24 +553,22 @@ var Graphics = {
         var maxChildren = 0,
             deep = 0,
             deepMap = {};
-        var walk = function(item, level, leftCount) {
+        var walk = function(item, level) {
             item.deep = level;
-            item.leftCount = leftCount;
             if (level > deep) {
                 deep = level;
             }
             if (!deepMap[level]) {
-                deepMap[level] = item.children.length;
-            } else {
-                deepMap[level] += item.children.length;
+                deepMap[level] = 0;
             }
+            item.leftCount = deepMap[level];
+            deepMap[level]++;
             if (deepMap[level] > maxChildren) {
                 maxChildren = deepMap[level];
             }
-            for (var i = 0, c = 0, one; i < item.children.length; i++) {
+            for (var i = 0, one; i < item.children.length; i++) {
                 one = item.children[i];
-                walk(item.children[i], item.deep + 1, c);
-                c += one.children.length;
+                walk(item.children[i], item.deep + 1);
             }
         };
         tree.deepMap = deepMap;
@@ -653,13 +651,14 @@ var Graphics = {
                     ctx.strokeStyle = lineColor;
                     ctx.stroke(); // 进行线的着色，这时整条线才变得可见
                 }
-                var count = tree.deepMap[item.deep];
+                var count = tree.deepMap[item.deep + 1];
                 if (count) {
                     var space = (width - (count * params.radius * 2 + (count - 1) * params.margin)) / 2;
                     var lcolor = '#' + Lines[linecolorIndex++ % Lines.length]; // Lines[Math.floor(Math.random() * (Lines.length - 1))];
-                    for (var i = 0; i < item.children.length; i++) {
-                        drawLine(item.children[i], {
-                            x: space + (i + item.leftCount) * (params.radius * 2 + params.margin) + params.radius,
+                    for (var i = 0, one; i < item.children.length; i++) {
+                        one = item.children[i];
+                        drawLine(one, {
+                            x: space + one.leftCount * (params.radius * 2 + params.margin) + params.radius,
                             y: pos.y + params.margin + 2 * params.radius
                         }, pos, lcolor);
                     }
@@ -727,12 +726,13 @@ var Graphics = {
                 var textWidth = Math.round(ctx.measureText(id).width);
                 var left = (2 * params.radius - textWidth) / 2;
                 ctx.fillText(id, pos.x + left - params.radius, pos.y + 4);
-                var count = tree.deepMap[item.deep];
+                var count = tree.deepMap[item.deep + 1];
                 if (count) {
                     var space = (width - (count * params.radius * 2 + (count - 1) * params.margin)) / 2;
-                    for (var i = 0; i < item.children.length; i++) {
-                        drawCircle(item.children[i], {
-                            x: space + (i + item.leftCount) * (params.radius * 2 + params.margin) + params.radius,
+                    for (var i = 0, one; i < item.children.length; i++) {
+                        one = item.children[i];
+                        drawCircle(one, {
+                            x: space + one.leftCount * (params.radius * 2 + params.margin) + params.radius,
                             y: pos.y + params.margin + 2 * params.radius
                         });
                     }
