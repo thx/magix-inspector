@@ -1,49 +1,23 @@
-var wrapNoDepsTMPL = '(function(){\r\n${content}\r\n})();';
-
 var pkg = require('./package.json');
 var tmplFolder = 'tmpl'; //template folder
 var srcFolder = 'src'; //source folder
-var buildFolder = 'build'; //build folder
-var excludeTmplFolders = [];
+var buildFolder = 'build';
 
 var gulp = require('gulp');
 var watch = require('gulp-watch');
 var fs = require('fs');
-var combineTool = require('magix-combine');
+var combineTool = require('../magix-combine/index');
 var del = require('del');
 
-combineTool.addProcessor('file:loader', function() {
-    return {
-        process: function(o) {
-            var tmpl = wrapNoDepsTMPL;
-            for (var p in o) {
-                var reg = new RegExp('\\$\\{' + p + '\\}', 'g');
-                tmpl = tmpl.replace(reg, (o[p] + '').replace(/\$/g, '$$$$'));
-            }
-            return tmpl;
-        }
-    };
-});
 combineTool.config({
     tmplFolder: tmplFolder,
     srcFolder: srcFolder,
-    buildFolder: buildFolder,
-    excludeTmplFolders: excludeTmplFolders,
-    prefix: 'mx_ispt_',
-    nanoOptions: {
-        safe: true
-    },
-    onlyAllows: {
-        '.html': 1,
-        '.css': 1
-    }
+    cssSelectorPrefix: 'mx_ispt_',
+    loaderType: 'iife'
 });
 
-gulp.task('cleanSrc', function() {
-    return del(srcFolder);
-});
-gulp.task('combine', ['cleanSrc'], function() {
-    combineTool.combine();
+gulp.task('combine', function() {
+    del(srcFolder).then(combineTool.combine);
 });
 gulp.task('watch', ['combine'], function() {
     watch(tmplFolder + '/**/*', function(e) {
@@ -61,8 +35,7 @@ gulp.task('cleanBuild', function() {
     return del(buildFolder);
 });
 gulp.task('build', ['cleanBuild'], function() {
-    combineTool.build();
-    gulp.src(buildFolder + '/**/*.js')
+    gulp.src(srcFolder + '/**/*.js')
         .pipe(uglify({
             banner: '/*' + pkg.version + ' xinglie.lkf@taobao.com*/',
             compress: {

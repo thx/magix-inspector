@@ -1,5 +1,20 @@
+//kissy drawIcons  removeClass报错
 var D = document;
-if (D._magix) return;
+if (D._magix) {
+    window.postMessage({
+        from: 'mx_ispt',
+        action: 'expand'
+    }, '*');
+    return;
+}
+window.addEventListener('message', function(e) {
+    var d = e.data;
+    if (d && d.from == 'mx_ispt') {
+        if (d.action == 'expand') {
+            UI.expand();
+        }
+    }
+}, false);
 D._magix = 1;
 var Status = {
     created: '#008B00',
@@ -234,6 +249,18 @@ var UI = {
                 node.style.display = 'block';
             }
         });
+    },
+    expand: function() {
+        var min = D.getElementById('mx_min');
+        var env = Inspector.getEnv();
+        if (min.innerHTML == '▽') {
+            var node = D.getElementById('mx');
+            node.style.height = Consts.height + 'px';
+            node.style.width = Consts.width + 'px';
+            node.style.overflow = 'inherit';
+            min.innerHTML = '△';
+            env.getNode('#mx_tabs').removeClass('@index.css:shrink');
+        }
     },
     detachEvent: function() {
         var env = Inspector.getEnv();
@@ -1096,7 +1123,9 @@ var KISSYEnv = {
         for (var i = flattened.length - 1; i >= 0; i--) {
             var f = flattened[i];
             var root = S.one('#' + f.id);
-            root.removeClass('@index.css:icon-bad').removeClass('@index.css:icon-alter').addClass('@index.css:icon');
+            if (root) {
+                root.removeClass('@index.css:icon-bad').removeClass('@index.css:icon-alter').addClass('@index.css:icon');
+            }
             if (f.cls) {
                 root.addClass('@index.css:icon' + '-' + f.cls);
             }
@@ -1329,13 +1358,13 @@ for (var p in RequireEnv) {
     SeajsEnv[p] = SeajsSEnv[p] = MagixEnv[p] = RequireEnv[p];
 }
 SeajsEnv.getMod = function(key) {
-    try {
-        var entity = seajs.require(key); //seajs有别名，优先使用内置的require获取
-        if (entity)
-            return entity;
-    } catch (e) {
-        console.log(e);
-    }
+    // try {
+    //     var entity = seajs.require(key); //seajs有别名，优先使用内置的require获取
+    //     if (entity)
+    //         return entity;
+    // } catch (e) {
+    //     console.log(e);
+    // }
     var mods = seajs.cache;
     var o = ModuleIdMap[key];
     if (!o) {
