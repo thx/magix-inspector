@@ -3,15 +3,15 @@
 var D = document;
 if (D._magix) {
     window.postMessage({
-        from:'mx_ispt',
+        from: 'mx_ispt',
         action: 'expand'
     }, '*');
     return;
 }
 window.addEventListener('message', function(e) {
-    var d=e.data;
-    if(d&&d.from=='mx_ispt'){
-        if(d.action=='expand'){
+    var d = e.data;
+    if (d && d.from == 'mx_ispt') {
+        if (d.action == 'expand') {
             UI.expand();
         }
     }
