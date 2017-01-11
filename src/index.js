@@ -965,8 +965,12 @@ var KISSYEnv = {
             var vom = S.Env.mods['magix/vom'];
             return magix.status === S.Loader.Status.ATTACHED && vom && vom.status === S.Loader.Status.ATTACHED && node && node.status === S.Loader.Status.ATTACHED;
         } else {
-            magix = S.Env.mods.magix;
-            return magix && magix.status === S.Loader.Status.ATTACHED && node && node.status === S.Loader.Status.ATTACHED;
+            try {
+                magix = S.require('magix');
+                return magix && magix.toTry && node && node.status === S.Loader.Status.ATTACHED;
+            } catch (e) {
+                return false;
+            }
         }
     },
     updateDOMStyle: function(style, id) {
@@ -1770,7 +1774,7 @@ var Inspector = {
         var poll = function() {
             max--;
             if (!max) {
-                window.console.error('无法在当前环境下启动Magix Inspector(需要的模块如jquery,magix等检测不到)，如需更多帮助，请旺旺联系：行列');
+                window.console.error('prepareError:无法在当前环境下启动Magix Inspector(需要的模块如jquery,magix等检测不到)，如需更多帮助，请旺旺联系：行列');
             } else {
                 if (D.body) {
                     if (env.isReady()) {
