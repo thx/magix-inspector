@@ -49,7 +49,8 @@ if (D._magix) {
         },
         eventsCommonCount: 15,
         sharedCount: 5,
-        locationCount: 12
+        locationCount: 12,
+        mixinsCount: 5
     };
     var Lines = [
     'FFC125',
@@ -208,6 +209,9 @@ if (D._magix) {
                 if (logNode.checked)
                     window.console.dir(env.getVOM().all());
             });
+            env.bind('mx_com_view', 'click', function() {
+                Inspector.drawTree();
+            });
             env.bind('mx', 'click', UI.$click = function(e) {
                 var node;
                 if (e.target.id == 'mx_min') {
@@ -329,6 +333,14 @@ if (D._magix) {
                             return '<li><b class="@index.css:tle">location:</b>' + r + '</li>';
                         }
                         return '';
+                    case 'mixins':
+                        var mixins = Inspector.getMixins(vf);
+                        if (mixins.length) {
+                            var list = env.getMixinId(mixins);
+                            list = list.join(',');
+                            return '<li><b class="@index.css:tle">mixins:</b>' + list + '</li>';
+                        }
+                        return '';
                     case 'ex':
                         if (item.il) {
                             return '被孤立的节点，好可怜……';
@@ -429,13 +441,8 @@ if (D._magix) {
             var node = D.getElementById('mx_view_total');
             node.innerHTML = UI.total.replace(/\{(\w+)\}/g, function(m, v) {
                 switch (v) {
-                    case 'total':
-                        return tree.vomTotal;
-                    case 'ex':
-                        if (tree.total != tree.vomTotal) {
-                            return '<b style="color:red">vom中共' + tree.vomTotal + '个view，而只有' + tree.total + '个存在关联</b>';
-                        }
-                        return '';
+                    case 'count':
+                        return 'com:' + tree.comTotal + ',vom:' + tree.vomTotal + ',total:' + tree.total;
                 }
             });
         },
@@ -673,10 +680,9 @@ if (D._magix) {
                     //bottom small cicle
                     var radius = Math.max(0.5, params.radius / 10);
                     var ly = pos.y + params.radius / 2;
+                    var lx = pos.x - params.radius / 2 + radius;
                     //left
                     if (item.event) {
-                        var lx = pos.x - params.radius / 2 + radius;
-                        ctx.moveTo(lx, ly);
                         ctx.beginPath();
                         ctx.arc(lx, ly, radius, 0, Math.PI * 2, true);
                         ctx.fillStyle = item.event;
@@ -684,20 +690,47 @@ if (D._magix) {
                     }
                     //center
                     if (item.location) {
-                        ctx.moveTo(pos.x, ly + radius);
                         ctx.beginPath();
                         ctx.arc(pos.x, ly + radius, radius, 0, Math.PI * 2, true);
                         ctx.fillStyle = item.location;
                         ctx.fill();
                     }
+                    // center top
+                    if (item.mixins) {
+                        var x1 = lx,
+                            y1 = ly,
+                            x2 = pos.x,
+                            y2 = ly + radius;
+                        var x3 = (x1 + x2 + Math.sqrt(3) * (y2 - y1)) / 2 - (pos.x - lx) / 10;
+                        var y3 = (y1 + y2 - Math.sqrt(3) * (x2 - x1)) / 2 + (pos.x - lx) / 3;
+                        ctx.beginPath();
+                        ctx.arc(x3, y3, radius, 0, Math.PI * 2, true);
+                        ctx.fillStyle = item.mixins;
+                        ctx.fill();
+                    }
                     //right
                     if (item.shared) {
                         var rx = pos.x + params.radius / 2 - radius;
-
-                        ctx.moveTo(rx, ly);
                         ctx.beginPath();
                         ctx.arc(rx, ly, radius, 0, Math.PI * 2, true);
                         ctx.fillStyle = item.shared;
+                        ctx.fill();
+                    }
+                    if (item.inline) {
+                        ctx.beginPath();
+                        var r = params.radius - params.band - 1;
+                        var d60 = -2 * Math.PI / 360 * 60;
+                        var d120 = -2 * Math.PI / 360 * 120;
+                        var x1 = pos.x + r * Math.cos(d60);
+                        var y1 = pos.y + r * Math.sin(d60);
+
+                        var x2 = pos.x + r * Math.cos(d120);
+                        var y2 = pos.y + r * Math.sin(d120);
+                        ctx.moveTo(x1, y1);
+                        ctx.quadraticCurveTo(pos.x, pos.y - r / 2, x2, y2);
+                        ctx.moveTo(x1, y1);
+                        ctx.quadraticCurveTo(pos.x, pos.y - params.radius - params.band, x2, y2);
+                        ctx.fillStyle = '#fff';
                         ctx.fill();
                     }
 
@@ -1055,6 +1088,25 @@ if (D._magix) {
             if (S.isString(id)) id = '#' + id;
             return node.one(id).detach(type, fn);
         },
+        getMixinId: function(mixins) {
+            var mods = S.Env.mods;
+            var ids = [];
+            for (var i = 0; i < mixins.length; i++) {
+                var mixin = mixins[i];
+                for (var p in mods) {
+                    var mod = mods[p];
+                    var v = mod.exports || mod.value;
+                    if (v == mixin) {
+                        ids.push(p);
+                        break;
+                    }
+                }
+                if (ids.length <= i) {
+                    ids.push('unknown');
+                }
+            }
+            return ids;
+        },
         getResType: function(r) {
             var type = '';
             var e = r.res || r.e;
@@ -1312,6 +1364,24 @@ if (D._magix) {
             if ($.type(id) == 'string') id = '#' + id;
             return $(id).off(type, fn);
         },
+        getMixinId: function(mixins) {
+            var mods = require.s.contexts._.defined;
+            var ids = [];
+            for (var i = 0; i < mixins.length; i++) {
+                var mixin = mixins[i];
+                for (var p in mods) {
+                    var mod = mods[p];
+                    if (mod == mixin) {
+                        ids.push(p);
+                        break;
+                    }
+                }
+                if (ids.length <= i) {
+                    ids.push('unknown');
+                }
+            }
+            return ids;
+        },
         getResType: function(r) {
             var e = r.res || r.e;
             var $ = this.getDL();
@@ -1446,6 +1516,24 @@ if (D._magix) {
         }
         return result;
     };
+    SeajsEnv.getMixinId = function(mixins) {
+        var mods = seajs.cache;
+        var ids = [];
+        for (var i = 0; i < mixins.length; i++) {
+            var mixin = mixins[i];
+            for (var p in mods) {
+                var mod = mods[p];
+                if (mod.exports == mixin) {
+                    ids.push(mod.id);
+                    break;
+                }
+            }
+            if (ids.length <= i) {
+                ids.push('unknown');
+            }
+        }
+        return ids;
+    };
     SeajsSEnv.getMod = function(key) {
         var o;
         try {
@@ -1458,6 +1546,9 @@ if (D._magix) {
     };
     SeajsSEnv.getMangerMods = function() {
         return [];
+    };
+    SeajsSEnv.getMixinId = function(mixins) {
+        return new Array(mixins.length + 2).join('unknown').slice(1);
     };
     MagixEnv.getMod = function(key) {
         if (key == 'magix') {
@@ -1476,6 +1567,9 @@ if (D._magix) {
     };
     MagixEnv.getMangerMods = function() {
         return [];
+    };
+    MagixEnv.getMixinId = function(mixins) {
+        return new Array(mixins.length + 2).join('unknown').slice(1);
     };
     MagixEnv.isReady = function() {
         return true;
@@ -1606,17 +1700,47 @@ if (D._magix) {
             var hexb = ('0' + parseInt(sc.b + current * bs).toString(16)).slice(-2);
             return '#' + hexr + hexg + hexb;
         },
+        getIsInline: function(vf) {
+            if (vf) {
+                var view = vf.view;
+                if (view) {
+                    if (view.template || view.tmpl) {
+                        return false;
+                    }
+                    return true;
+                }
+                view = vf.$v;
+                if (view) {
+                    if (view.tmpl) {
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        },
+        getMixins: function(vf) {
+            if (vf) {
+                var view = vf.$v;
+                if (view && view.mixins) {
+                    return view.mixins;
+                }
+            }
+            return [];
+        },
         getTree: function(env) {
             var rootId = env.getRootId();
             var vom = env.getVOM();
             var flattened = [];
             var tree = {
                 total: 0,
+                comTotal: 0,
                 vomTotal: 0,
                 children: []
             };
             var all = vom.all();
             var allMap = {};
+            var rewalk = false;
             for (var a in all) {
                 if (all.hasOwnProperty(a)) {
                     tree.vomTotal++;
@@ -1666,6 +1790,19 @@ if (D._magix) {
                         var current = Math.min(lc, keys.length);
                         info.location = Inspector.getGradualColor(current, lc);
                     }
+                    var mixins = Inspector.getMixins(vf);
+                    if (mixins.length) {
+                        var mc = Consts.mixinsCount;
+                        var current = Math.min(mixins.length, mc);
+                        info.mixins = Inspector.getGradualColor(current, mc);
+                    }
+                    info.inline = Inspector.getIsInline(vf);
+                    var path = vf.path;
+                    if (info.inline || (path && path.indexOf('/views/') < 0)) {
+                        rewalk = true;
+                        info.component = true;
+                        tree.comTotal++;
+                    }
                     var cm = vf.cM || vf.$c;
                     for (var p in cm) {
                         var newInfo = {
@@ -1679,6 +1816,20 @@ if (D._magix) {
                 }
             };
             walk(rootId, tree);
+            var node = D.getElementById('mx_com_view');
+            if ((!node || !node.checked) && rewalk) {
+                rewalk = function(tree) {
+                    for (var i = tree.children.length - 1; i >= 0; i--) {
+                        var item = tree.children[i];
+                        if (item.component) {
+                            tree.children.splice(i, 1);
+                        } else {
+                            rewalk(item);
+                        }
+                    }
+                };
+                rewalk(tree);
+            }
             var il = [];
             for (var p in allMap) {
                 il.push({
@@ -1905,6 +2056,7 @@ if (D._magix) {
                 }
                 attachVframes();
                 drawTree();
+                Inspector.drawTree = drawTree;
 
                 var managerTimer;
                 var drawManagerTree = function() {
