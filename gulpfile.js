@@ -12,7 +12,10 @@ var del = require('del');
 combineTool.config({
     tmplFolder: tmplFolder,
     srcFolder: srcFolder,
-    cssSelectorPrefix: 'mx_ispt_',
+    compressCss: true,
+    compressCssSelectorNames: true,
+    md5KeyLen: 2,
+    cssSelectorPrefix: 'mxi-',
     loaderType: 'iife'
 });
 

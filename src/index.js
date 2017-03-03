@@ -79,7 +79,7 @@ if (D._magix) {
             i.appendChild(document.createTextNode(h));
         }
     };
-    ApplyStyle("mx_ispt_ab3e",".mx_ispt_ab3e-icon:before{width:12px;content:\"M\";height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mx_ispt_ab3e-icon-bad:before{background-color:#ff3030}.mx_ispt_ab3e-icon-alter:before{background-color:#bc8f8f}.mx_ispt_ab3e-tle{padding-right:5px}.mx_ispt_ab3e-tab{background:#eee;cursor:move;margin:0;padding:0}.mx_ispt_ab3e-main{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mx_ispt_ab3e-mask{position:absolute;opacity:.7;background-color:#90ee90}.mx_ispt_ab3e-main ul{list-style:none;padding:0;margin:0}.mx_ispt_ab3e-m5{margin-left:5px}.mx_ispt_ab3e-binfo{padding:5px}.mx_ispt_ab3e-console{height:28px;line-height:28px;margin:0 0 0 5px;padding:0}.mx_ispt_ab3e-gray{color:#bbb}.mx_ispt_ab3e-mr3{margin-right:3px}.mx_ispt_ab3e-fl{float:left}.mx_ispt_ab3e-fr{float:right}.mx_ispt_ab3e-cp{cursor:pointer}.mx_ispt_ab3e-p8{padding:8px}.mx_ispt_ab3e-move{cursor:move}.mx_ispt_ab3e-red{color:red}.mx_ispt_ab3e-clearfix:after,.mx_ispt_ab3e-clearfix:before{content:\"\";display:table}.mx_ispt_ab3e-clearfix:after{clear:both}.mx_ispt_ab3e-clearfix{*zoom:1}.mx_ispt_ab3e-bar{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}.mx_ispt_ab3e-shrink:before{left:4px;bottom:5px}.mx_ispt_ab3e-shrink:after,.mx_ispt_ab3e-shrink:before{content:\" \";position:absolute;top:10px;border:2px dotted #b9b1b1;height:10px;cursor:move}.mx_ispt_ab3e-shrink:after{left:9px}");
+    ApplyStyle("mxi-ab",".mxi-ab-a9:before{width:12px;content:\"M\";height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mxi-ab-65:before{background-color:#ff3030}.mxi-ab-d2:before{background-color:#bc8f8f}.mxi-ab-87{padding-right:5px}.mxi-ab-63{background:#eee;cursor:move;margin:0;padding:0}.mxi-ab-5c{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mxi-ab-ef{position:absolute;opacity:.7;background-color:#90ee90}.mxi-ab-5c ul{list-style:none;padding:0;margin:0}.mxi-ab-m5{margin-left:5px}.mxi-ab-18{padding:5px}.mxi-ab-ee{height:28px;line-height:28px;margin:0 0 0 5px;padding:0}.mxi-ab-94{color:#bbb}.mxi-ab-61{margin-right:3px}.mxi-ab-fl{float:left}.mxi-ab-fr{float:right}.mxi-ab-cp{cursor:pointer}.mxi-ab-p8{padding:8px}.mxi-ab-dc{cursor:move}.mxi-ab-bc{color:red}.mxi-ab-c8:after,.mxi-ab-c8:before{content:\"\";display:table}.mxi-ab-c8:after{clear:both}.mxi-ab-c8{*zoom:1}.mxi-ab-d8{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}.mxi-ab-3d:before{left:4px;bottom:5px}.mxi-ab-3d:after,.mxi-ab-3d:before{content:\" \";position:absolute;top:10px;border:2px dotted #b9b1b1;height:10px;cursor:move}.mxi-ab-3d:after{left:9px}");
     var Drag = {
         get: function($, off, isFn) {
             var Win = $(window);
@@ -146,11 +146,11 @@ if (D._magix) {
     };
 
     var UI = {
-        main: "<div class=\"mx_ispt_ab3e-main\" id=\"mx\"><ul class=\"mx_ispt_ab3e-clearfix mx_ispt_ab3e-tab\" id=\"mx_tabs\"><li class=\"mx_ispt_ab3e-fr mx_ispt_ab3e-p8 mx_ispt_ab3e-cp\" id=\"mx_min\">△</li><li class=\"mx_ispt_ab3e-fl mx_ispt_ab3e-p8 mx_ispt_ab3e-cp\">VOM</li><li class=\"mx_ispt_ab3e-fl mx_ispt_ab3e-p8 mx_ispt_ab3e-cp\">Tracer</li><li class=\"mx_ispt_ab3e-fl mx_ispt_ab3e-p8 mx_ispt_ab3e-cp\">Manager</li></ul><div id=\"mx_painter\"><div style=\"width:{width}px;height:{canvasHeight}px;overflow-x:auto;overflow-y:hidden\" id=\"mx_view_cnt\"><canvas width=\"{width}\" height=\"{canvasHeight}\" id=\"mx_view_canvas\"></canvas></div><label class=\"mx_ispt_ab3e-fl mx_ispt_ab3e-console\"><input type=\"checkbox\" class=\"mx_ispt_ab3e-mr3\" id=\"mx_log_console\"/>控制台显示view信息</label><label class=\"mx_ispt_ab3e-fl mx_ispt_ab3e-console\"><input type=\"checkbox\" class=\"mx_ispt_ab3e-mr3\" id=\"mx_com_view\"/>显示组件view</label><ul class=\"mx_ispt_ab3e-clearfix mx_ispt_ab3e-fl\" id=\"mx_view_total\"></ul></div><div id=\"mx_trancer\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"mx_manager\" style=\"display:none\"><div style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto\" id=\"mx_manager_cnt\"><canvas width=\"{canvasWidth}\" height=\"{canvasHeight}\" id=\"mx_manager_canvas\"></canvas></div><ul class=\"mx_ispt_ab3e-clearfix mx_ispt_ab3e-p8\" id=\"mx_manager_total\"></ul></div><div id=\"mx_moreinfo\"></div><div id=\"mx_manager_moreinfo\"></div></div>",
-        moreInfo: "<ul><li><b class=\"mx_ispt_ab3e-tle\">id:</b>{id}</li><li><b class=\"mx_ispt_ab3e-tle\">view:</b>{view}</li>{events} {location} {share} {mixins}<li class=\"mx_ispt_ab3e-red\">{ex}</li><li><b class=\"mx_ispt_ab3e-tle\">resources</b></li><li style=\"{moreInfoWidth}px;overflow:auto;max-height:200px\">{res}</li></ul>",
+        main: "<div class=\"mxi-ab-5c\" id=\"mx\"><ul class=\"mxi-ab-c8 mxi-ab-63\" id=\"mx_tabs\"><li class=\"mxi-ab-fr mxi-ab-p8 mxi-ab-cp\" id=\"mx_min\">△</li><li class=\"mxi-ab-fl mxi-ab-p8 mxi-ab-cp\">VOM</li><li class=\"mxi-ab-fl mxi-ab-p8 mxi-ab-cp\">Tracer</li><li class=\"mxi-ab-fl mxi-ab-p8 mxi-ab-cp\">Manager</li></ul><div id=\"mx_painter\"><div style=\"width:{width}px;height:{canvasHeight}px;overflow-x:auto;overflow-y:hidden\" id=\"mx_view_cnt\"><canvas width=\"{width}\" height=\"{canvasHeight}\" id=\"mx_view_canvas\"></canvas></div><label class=\"mxi-ab-fl mxi-ab-ee\"><input type=\"checkbox\" class=\"mxi-ab-61\" id=\"mx_log_console\"/>控制台显示view信息</label><label class=\"mxi-ab-fl mxi-ab-ee\"><input type=\"checkbox\" class=\"mxi-ab-61\" id=\"mx_com_view\" checked=\"checked\"/>显示组件view</label><ul class=\"mxi-ab-c8 mxi-ab-fl\" id=\"mx_view_total\"></ul></div><div id=\"mx_trancer\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"mx_manager\" style=\"display:none\"><div style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto\" id=\"mx_manager_cnt\"><canvas width=\"{canvasWidth}\" height=\"{canvasHeight}\" id=\"mx_manager_canvas\"></canvas></div><ul class=\"mxi-ab-c8 mxi-ab-p8\" id=\"mx_manager_total\"></ul></div><div id=\"mx_moreinfo\"></div><div id=\"mx_manager_moreinfo\"></div></div>",
+        moreInfo: "<ul><li><b class=\"mxi-ab-87\">id:</b>{id}</li><li><b class=\"mxi-ab-87\">view:</b>{view}</li>{events} {location} {share} {mixins}<li class=\"mxi-ab-bc\">{ex}</li><li><b class=\"mxi-ab-87\">resources</b></li><li style=\"{moreInfoWidth}px;overflow:auto;max-height:200px\">{res}</li></ul>",
         moreManagerInfo: "<ul><li><b>key:</b>{id}</li><li><b>url:</b>{url}</li><li><b>描述:</b>{desc}</li><li><b>缓存:</b>{cache}</li><li><b>清理缓存:</b>{cleans}</li><li><b>预处理:</b>{hasAfter}</li></ul>",
-        total: "<li class=\"mx_ispt_ab3e-fl mx_ispt_ab3e-binfo mx_ispt_ab3e-gray\">view统计:[{count}]</li>",
-        managerTotal: "<li class=\"mx_ispt_ab3e-fl mx_ispt_ab3e-binfo\">{groups}个接口文件，共{total}个接口</li>",
+        total: "<li class=\"mxi-ab-fl mxi-ab-18 mxi-ab-94\">view统计:[{count}]</li>",
+        managerTotal: "<li class=\"mxi-ab-fl mxi-ab-18\">{groups}个接口文件，共{total}个接口</li>",
         setup: function() {
             var div = D.createElement('div');
             div.innerHTML = UI.main.replace(/\{(\w+)\}/g, function(m, v) {
@@ -222,13 +222,13 @@ if (D._magix) {
                         node.style.width = '40px';
                         node.style.overflow = 'hidden';
                         e.target.innerHTML = '▽';
-                        env.getNode('#mx_tabs').addClass('mx_ispt_ab3e-shrink');
+                        env.getNode('#mx_tabs').addClass('mxi-ab-3d');
                     } else {
                         node.style.height = Consts.height + 'px';
                         node.style.width = Consts.width + 'px';
                         node.style.overflow = 'inherit';
                         e.target.innerHTML = '△';
-                        env.getNode('#mx_tabs').removeClass('mx_ispt_ab3e-shrink');
+                        env.getNode('#mx_tabs').removeClass('mxi-ab-3d');
                     }
                 } else if (e.target.innerHTML == 'VOM') {
                     node = D.getElementById('mx_painter');
@@ -263,7 +263,7 @@ if (D._magix) {
                 node.style.width = Consts.width + 'px';
                 node.style.overflow = 'inherit';
                 min.innerHTML = '△';
-                env.getNode('#mx_tabs').removeClass('mx_ispt_ab3e-shrink');
+                env.getNode('#mx_tabs').removeClass('mxi-ab-3d');
             }
         },
         detachEvent: function() {
@@ -286,7 +286,7 @@ if (D._magix) {
             var cover = D.getElementById('mx_cover');
             if (!cover) {
                 cover = D.createElement('div');
-                cover.className = 'mx_ispt_ab3e-mask';
+                cover.className = 'mxi-ab-ef';
                 cover.id = 'mx_cover';
                 D.body.appendChild(cover);
             }
@@ -316,10 +316,10 @@ if (D._magix) {
                         return '';
                     case 'events':
                         var evts = Inspector.getEvents(vf);
-                        return evts.total ? '<li><b class="mx_ispt_ab3e-tle">listen:</b>' + evts.list + '</li>' : '';
+                        return evts.total ? '<li><b class="mxi-ab-87">listen:</b>' + evts.list + '</li>' : '';
                     case 'share':
                         var s = Inspector.getShared(vf);
-                        return s.length ? '<li><b class="mx_ispt_ab3e-tle">share:</b>' + s + '</li>' : '';
+                        return s.length ? '<li><b class="mxi-ab-87">share:</b>' + s + '</li>' : '';
                     case 'location':
                         var l = Inspector.getLocation(vf);
                         var f = l.path || (l.keys && l.keys.length);
@@ -331,7 +331,7 @@ if (D._magix) {
                             if (l.keys) {
                                 r = r.concat(l.keys);
                             }
-                            return '<li><b class="mx_ispt_ab3e-tle">location:</b>' + r + '</li>';
+                            return '<li><b class="mxi-ab-87">location:</b>' + r + '</li>';
                         }
                         return '';
                     case 'mixins':
@@ -339,7 +339,7 @@ if (D._magix) {
                         if (mixins.length) {
                             var list = env.getMixinId(mixins);
                             list = list.join(',');
-                            return '<li><b class="mx_ispt_ab3e-tle">mixins:</b>' + list + '</li>';
+                            return '<li><b class="mxi-ab-87">mixins:</b>' + list + '</li>';
                         }
                         return '';
                     case 'ex':
@@ -467,7 +467,7 @@ if (D._magix) {
             var node = D.getElementById('mx_trancer');
             if (Tracer.idle) {
                 var t = D.createElement('hr');
-                t.className = 'mx_ispt_ab3e-bar';
+                t.className = 'mxi-ab-d8';
                 node.insertBefore(t, node.firstChild);
                 delete Tracer.idle;
             }
@@ -1180,10 +1180,10 @@ if (D._magix) {
                 var f = flattened[i];
                 var root = S.one('#' + f.id);
                 if (root) {
-                    root.removeClass('mx_ispt_ab3e-icon-bad').removeClass('mx_ispt_ab3e-icon-alter').addClass('mx_ispt_ab3e-icon');
+                    root.removeClass('mxi-ab-65').removeClass('mxi-ab-d2').addClass('mxi-ab-a9');
                 }
                 if (f.cls && root) {
-                    root.addClass('mx_ispt_ab3e-icon' + '-' + f.cls);
+                    root.addClass('mxi-ab-a9' + '-' + f.cls);
                 }
             }
         },
@@ -1428,9 +1428,9 @@ if (D._magix) {
                 var f = flattened[i];
                 var root = $('#' + f.id);
                 if (root)
-                    root.removeClass('mx_ispt_ab3e-icon-bad').removeClass('mx_ispt_ab3e-icon-alter').addClass('mx_ispt_ab3e-icon');
+                    root.removeClass('mxi-ab-65').removeClass('mxi-ab-d2').addClass('mxi-ab-a9');
                 if (f.cls && root) {
-                    root.addClass('mx_ispt_ab3e-icon' + '-' + f.cls);
+                    root.addClass('mxi-ab-a9' + '-' + f.cls);
                 }
             }
         },
