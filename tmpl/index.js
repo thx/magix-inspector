@@ -22,7 +22,8 @@ if (D._magix) {
         isolated: '#FF3030',
         build: '#9AC0CD',
         destroy: '#8B5F65',
-        remove: '#EED5B7'
+        remove: '#EED5B7',
+        active: '#94d694'
     };
     var Consts = {
         width: 550,
@@ -77,6 +78,10 @@ if (D._magix) {
         } else {
             i.appendChild(document.createTextNode(h));
         }
+    };
+    var IconsMap = {
+        alter: '@index.css:icon-alter',
+        bad: '@index.css:icon-bad'
     };
     ApplyStyle('@index.css');
     var Drag = {
@@ -609,7 +614,7 @@ if (D._magix) {
                 band: band
             };
         },
-        drawTree: function(tree) {
+        drawTree: function(tree, active) {
             if (tree.id) {
                 var width = Consts.width,
                     height = Consts.canvasHeight,
@@ -675,6 +680,14 @@ if (D._magix) {
                     ctx.beginPath();
                     ctx.arc(pos.x, pos.y, params.radius, 0, Math.PI * 2, true);
                     ctx.fillStyle = item.status;
+                    if (item.id == active) {
+                        if (item.flag) {
+                            ctx.fillStyle = Status.active;
+                        } else {
+                            ctx.fillStyle = item.status;
+                        }
+                        item.flag = !item.flag;
+                    }
                     ctx.fill();
 
                     //bottom small cicle
@@ -1008,9 +1021,6 @@ if (D._magix) {
             var node = S.require('node').one('#' + id);
             if (!node) return;
             var n = node;
-            if (n.nodeName() == 'vframe') {
-                n = n.children();
-            }
             var size = {
                 height: n.outerHeight ? n.outerHeight() : n.height(),
                 width: n.outerWidth ? n.outerWidth() : n.width()
@@ -1182,7 +1192,7 @@ if (D._magix) {
                     root.removeClass('@index.css:icon-bad').removeClass('@index.css:icon-alter').addClass('@index.css:icon');
                 }
                 if (f.cls && root) {
-                    root.addClass('@index.css:icon' + '-' + f.cls);
+                    root.addClass(IconsMap[f.cls]);
                 }
             }
         },
@@ -1429,7 +1439,7 @@ if (D._magix) {
                 if (root)
                     root.removeClass('@index.css:icon-bad').removeClass('@index.css:icon-alter').addClass('@index.css:icon');
                 if (f.cls && root) {
-                    root.addClass('@index.css:icon' + '-' + f.cls);
+                    root.addClass(IconsMap[f.cls]);
                 }
             }
         },
@@ -1732,6 +1742,7 @@ if (D._magix) {
             var rootId = env.getRootId();
             var vom = env.getVOM();
             var flattened = [];
+            var map = {};
             var tree = {
                 total: 0,
                 comTotal: 0,
@@ -1770,6 +1781,7 @@ if (D._magix) {
                         finfo.cls = 'bad';
                     }
                     flattened.push(finfo);
+                    map[vf.id] = info;
                     var evts = Inspector.getEvents(vf);
                     var total = evts.total;
                     if (total) {
@@ -1846,7 +1858,8 @@ if (D._magix) {
             tree.isolated = il;
             return {
                 tree: tree,
-                flattened: flattened
+                flattened: flattened,
+                map: map
             };
         },
         getManagerTree: function(env) {
@@ -1971,7 +1984,53 @@ if (D._magix) {
                 UI.setup();
                 var env = Inspector.getEnv();
                 var vom = env.getVOM();
-                var drawTimer;
+                var drawTimer, intervalTimer, moveTimer, activeId, treeInfo, blinkCount = 0;
+                document.onmouseout = document.onmouseover = function(e) {
+                    clearTimeout(moveTimer);
+                    moveTimer = setTimeout(function() {
+                        var vfs = vom.all();
+                        var begin = e.type == 'mouseout' ? e.relatedTarget : e.target;
+                        var fId;
+                        while (begin && begin.parentNode) {
+                            var id = begin.id;
+                            if (id && vfs[id]) {
+                                fId = id;
+                                break;
+                            }
+                            begin = begin.parentNode;
+                        }
+                        if (fId) {
+                            if (fId != activeId) {
+                                activeId = fId;
+                                startActive();
+                            }
+                        } else {
+                            stopActive();
+                        }
+                    }, 50);
+                };
+                var startActive = function() {
+                    blinkCount = 16;
+                    if (activeId && !intervalTimer) {
+                        Graphics.drawTree(treeInfo.tree, activeId);
+                        intervalTimer = setInterval(function() {
+                            if (!blinkCount) {
+                                stopActive();
+                            } else {
+                                blinkCount--;
+                                Graphics.drawTree(treeInfo.tree, activeId);
+                            }
+                        }, 600);
+                    }
+                };
+                var stopActive = function() {
+                    if (activeId && intervalTimer) {
+                        blinkCount = 0;
+                        Graphics.drawTree(treeInfo.tree);
+                        clearInterval(intervalTimer);
+                        activeId = intervalTimer = '';
+                    }
+                };
                 var attachVframe = function(vf) {
                     vf.on('created', function() {
                         Tracer.log('vframe:' + vf.id + '[' + (vf.path || vf.view.path || '') + ']渲染完毕', Status.created);
@@ -2036,8 +2095,10 @@ if (D._magix) {
                     }
                     clearTimeout(drawTimer);
                     drawTimer = setTimeout(function() {
-                        var treeInfo = Inspector.getTree(env);
+                        stopActive();
+                        treeInfo = Inspector.getTree(env);
                         Graphics.drawTree(treeInfo.tree);
+                        startActive();
                         env.drawIcons(treeInfo.flattened);
                     }, 0);
                 };

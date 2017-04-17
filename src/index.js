@@ -1,3 +1,7 @@
+/*
+    generate by magix-combine: https://github.com/thx/magix-combine
+    author: xinglie.lkf@alibaba-inc.com; kooboy_li@163.com
+ */
 (function(){
 //kissy drawIcons  removeClass报错
 var D = document;
@@ -23,7 +27,8 @@ if (D._magix) {
         isolated: '#FF3030',
         build: '#9AC0CD',
         destroy: '#8B5F65',
-        remove: '#EED5B7'
+        remove: '#EED5B7',
+        active: '#94d694'
     };
     var Consts = {
         width: 550,
@@ -79,7 +84,11 @@ if (D._magix) {
             i.appendChild(document.createTextNode(h));
         }
     };
-    ApplyStyle("mxi-ab",".mxi-ab-a9:before{width:12px;content:\"M\";height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mxi-ab-65:before{background-color:#ff3030}.mxi-ab-d2:before{background-color:#bc8f8f}.mxi-ab-87{padding-right:5px}.mxi-ab-63{background:#eee;cursor:move;margin:0;padding:0}.mxi-ab-5c{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mxi-ab-ef{position:absolute;opacity:.7;background-color:#90ee90}.mxi-ab-5c ul{list-style:none;padding:0;margin:0}.mxi-ab-m5{margin-left:5px}.mxi-ab-18{padding:5px}.mxi-ab-ee{height:28px;line-height:28px;margin:0 0 0 5px;padding:0}.mxi-ab-94{color:#bbb}.mxi-ab-61{margin-right:3px}.mxi-ab-fl{float:left}.mxi-ab-fr{float:right}.mxi-ab-cp{cursor:pointer}.mxi-ab-p8{padding:8px}.mxi-ab-dc{cursor:move}.mxi-ab-bc{color:red}.mxi-ab-c8:after,.mxi-ab-c8:before{content:\"\";display:table}.mxi-ab-c8:after{clear:both}.mxi-ab-c8{*zoom:1}.mxi-ab-d8{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}.mxi-ab-3d:before{left:4px;bottom:5px}.mxi-ab-3d:after,.mxi-ab-3d:before{content:\" \";position:absolute;top:10px;border:2px dotted #b9b1b1;height:10px;cursor:move}.mxi-ab-3d:after{left:9px}");
+    var IconsMap = {
+        alter: 'mxi-ab-d2',
+        bad: 'mxi-ab-65'
+    };
+    ApplyStyle("mxi-ab","vframe{display:block}.mxi-ab-a9:before{width:12px;content:\"M\";height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mxi-ab-65:before{background-color:#ff3030}.mxi-ab-d2:before{background-color:#bc8f8f}.mxi-ab-87{padding-right:5px}.mxi-ab-63{background:#eee;cursor:move;margin:0;padding:0}.mxi-ab-5c{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mxi-ab-ef{position:absolute;opacity:.7;background-color:#90ee90}.mxi-ab-5c ul{list-style:none;padding:0;margin:0}.mxi-ab-18{padding:5px}.mxi-ab-ee{height:28px;line-height:28px;margin:0 0 0 5px;padding:0}.mxi-ab-94{color:#bbb}.mxi-ab-61{margin-right:3px}.mxi-ab-fl{float:left}.mxi-ab-fr{float:right}.mxi-ab-cp{cursor:pointer}.mxi-ab-p8{padding:8px}.mxi-ab-bc{color:red}.mxi-ab-c8:after,.mxi-ab-c8:before{content:\"\";display:table}.mxi-ab-c8:after{clear:both}.mxi-ab-c8{*zoom:1}.mxi-ab-d8{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}#mx_manager_moreinfo,#mx_moreinfo{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}.mxi-ab-3d:before{left:4px;bottom:5px}.mxi-ab-3d:after,.mxi-ab-3d:before{content:\" \";position:absolute;top:10px;border:2px dotted #b9b1b1;height:10px;cursor:move}.mxi-ab-3d:after{left:9px}");
     var Drag = {
         get: function($, off, isFn) {
             var Win = $(window);
@@ -610,7 +619,7 @@ if (D._magix) {
                 band: band
             };
         },
-        drawTree: function(tree) {
+        drawTree: function(tree, active) {
             if (tree.id) {
                 var width = Consts.width,
                     height = Consts.canvasHeight,
@@ -676,6 +685,14 @@ if (D._magix) {
                     ctx.beginPath();
                     ctx.arc(pos.x, pos.y, params.radius, 0, Math.PI * 2, true);
                     ctx.fillStyle = item.status;
+                    if (item.id == active) {
+                        if (item.flag) {
+                            ctx.fillStyle = Status.active;
+                        } else {
+                            ctx.fillStyle = item.status;
+                        }
+                        item.flag = !item.flag;
+                    }
                     ctx.fill();
 
                     //bottom small cicle
@@ -1009,9 +1026,6 @@ if (D._magix) {
             var node = S.require('node').one('#' + id);
             if (!node) return;
             var n = node;
-            if (n.nodeName() == 'vframe') {
-                n = n.children();
-            }
             var size = {
                 height: n.outerHeight ? n.outerHeight() : n.height(),
                 width: n.outerWidth ? n.outerWidth() : n.width()
@@ -1183,7 +1197,7 @@ if (D._magix) {
                     root.removeClass('mxi-ab-65').removeClass('mxi-ab-d2').addClass('mxi-ab-a9');
                 }
                 if (f.cls && root) {
-                    root.addClass('mxi-ab-a9' + '-' + f.cls);
+                    root.addClass(IconsMap[f.cls]);
                 }
             }
         },
@@ -1430,7 +1444,7 @@ if (D._magix) {
                 if (root)
                     root.removeClass('mxi-ab-65').removeClass('mxi-ab-d2').addClass('mxi-ab-a9');
                 if (f.cls && root) {
-                    root.addClass('mxi-ab-a9' + '-' + f.cls);
+                    root.addClass(IconsMap[f.cls]);
                 }
             }
         },
@@ -1733,6 +1747,7 @@ if (D._magix) {
             var rootId = env.getRootId();
             var vom = env.getVOM();
             var flattened = [];
+            var map = {};
             var tree = {
                 total: 0,
                 comTotal: 0,
@@ -1771,6 +1786,7 @@ if (D._magix) {
                         finfo.cls = 'bad';
                     }
                     flattened.push(finfo);
+                    map[vf.id] = info;
                     var evts = Inspector.getEvents(vf);
                     var total = evts.total;
                     if (total) {
@@ -1847,7 +1863,8 @@ if (D._magix) {
             tree.isolated = il;
             return {
                 tree: tree,
-                flattened: flattened
+                flattened: flattened,
+                map: map
             };
         },
         getManagerTree: function(env) {
@@ -1972,7 +1989,53 @@ if (D._magix) {
                 UI.setup();
                 var env = Inspector.getEnv();
                 var vom = env.getVOM();
-                var drawTimer;
+                var drawTimer, intervalTimer, moveTimer, activeId, treeInfo, blinkCount = 0;
+                document.onmouseout = document.onmouseover = function(e) {
+                    clearTimeout(moveTimer);
+                    moveTimer = setTimeout(function() {
+                        var vfs = vom.all();
+                        var begin = e.type == 'mouseout' ? e.relatedTarget : e.target;
+                        var fId;
+                        while (begin && begin.parentNode) {
+                            var id = begin.id;
+                            if (id && vfs[id]) {
+                                fId = id;
+                                break;
+                            }
+                            begin = begin.parentNode;
+                        }
+                        if (fId) {
+                            if (fId != activeId) {
+                                activeId = fId;
+                                startActive();
+                            }
+                        } else {
+                            stopActive();
+                        }
+                    }, 50);
+                };
+                var startActive = function() {
+                    blinkCount = 10;
+                    if (activeId && !intervalTimer) {
+                        Graphics.drawTree(treeInfo.tree, activeId);
+                        intervalTimer = setInterval(function() {
+                            if (!blinkCount) {
+                                stopActive();
+                            } else {
+                                blinkCount--;
+                                Graphics.drawTree(treeInfo.tree, activeId);
+                            }
+                        }, 600);
+                    }
+                };
+                var stopActive = function() {
+                    if (activeId && intervalTimer) {
+                        blinkCount = 0;
+                        Graphics.drawTree(treeInfo.tree);
+                        clearInterval(intervalTimer);
+                        activeId = intervalTimer = '';
+                    }
+                };
                 var attachVframe = function(vf) {
                     vf.on('created', function() {
                         Tracer.log('vframe:' + vf.id + '[' + (vf.path || vf.view.path || '') + ']渲染完毕', Status.created);
@@ -2037,8 +2100,10 @@ if (D._magix) {
                     }
                     clearTimeout(drawTimer);
                     drawTimer = setTimeout(function() {
-                        var treeInfo = Inspector.getTree(env);
+                        stopActive();
+                        treeInfo = Inspector.getTree(env);
                         Graphics.drawTree(treeInfo.tree);
+                        startActive();
                         env.drawIcons(treeInfo.flattened);
                     }, 0);
                 };
