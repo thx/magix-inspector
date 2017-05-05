@@ -1609,9 +1609,16 @@ if (D._magix) {
             if (vf) {
                 var evto = (vf.view && (vf.view.events || vf.view.$evts)) || (vf.$v && vf.$v.$eo);
                 var commons = [];
+                var selectorEvents = [];
                 for (var p in evto) {
                     total++;
-                    commons.push(p);
+                    var v = evto[p];
+                    if ((v & 1) === 1) {
+                        commons.push(p);
+                    }
+                    if ((v & 2) === 2) {
+                        selectorEvents.push(p);
+                    }
                 }
                 var evetnsList = (vf.view && vf.view.tmplEvents); //2.0
                 if (evetnsList && evetnsList.length) {
@@ -1647,6 +1654,25 @@ if (D._magix) {
                     }
                     for (p in selectorsMap) {
                         selectors.push('$' + p + '&lt;' + selectorsMap[p] + '&gt;');
+                    }
+                }
+                var so = vf.$v && vf.$v.$so;
+                if (selectorEvents.length) {
+                    var sMap = {};
+                    for (var j = 0, selector, eName; j < selectorEvents.length; j++) {
+                        eName = selectorEvents[j];
+                        selector = so[eName];
+                        for (var s in selector) {
+                            var c = sMap[s];
+                            if (!c) {
+                                sMap[s] = [eName];
+                            } else {
+                                c.push(eName);
+                            }
+                        }
+                    }
+                    for (p in sMap) {
+                        selectors.push('$' + p + '&lt;' + sMap[p] + '&gt;');
                     }
                 }
                 if (globalWins.length) { //1 3 4
