@@ -1,6 +1,6 @@
 /*
     generate by magix-combine: https://github.com/thx/magix-combine
-    author: xinglie.lkf@alibaba-inc.com; kooboy_li@163.com
+    author: kooboy_li@163.com
  */
 (function(){
 //kissy drawIcons  removeClass报错
@@ -56,19 +56,20 @@ if (D._magix) {
         eventsCommonCount: 15,
         sharedCount: 5,
         locationCount: 12,
-        mixinsCount: 5
+        mixinsCount: 5,
+        stateCount: 12
     };
     var Lines = [
-    'FFC125',
-    'C71585',
-    'CDBA96',
-    'FF7F00',
-    'BA55D3',
-    '8B4726',
-    '7CFC00',
-    '4A4A4A',
-    'EE7AE9'
-];
+        'FFC125',
+        'C71585',
+        'CDBA96',
+        'FF7F00',
+        'BA55D3',
+        '8B4726',
+        '7CFC00',
+        '4A4A4A',
+        'EE7AE9'
+    ];
     var ManagerColors = {
         cache: '#CC9966',
         cleaned: '#99CCCC',
@@ -156,7 +157,7 @@ if (D._magix) {
 
     var UI = {
         main: "<div class=\"mxi-ab-5c\" id=\"mx\"><ul class=\"mxi-ab-c8 mxi-ab-63\" id=\"mx_tabs\"><li class=\"mxi-ab-fr mxi-ab-p8 mxi-ab-cp\" id=\"mx_min\">△</li><li class=\"mxi-ab-fl mxi-ab-p8 mxi-ab-cp\">VOM</li><li class=\"mxi-ab-fl mxi-ab-p8 mxi-ab-cp\">Tracer</li><li class=\"mxi-ab-fl mxi-ab-p8 mxi-ab-cp\">Manager</li></ul><div id=\"mx_painter\"><div style=\"width:{width}px;height:{canvasHeight}px;overflow-x:auto;overflow-y:hidden\" id=\"mx_view_cnt\"><canvas width=\"{width}\" height=\"{canvasHeight}\" id=\"mx_view_canvas\"></canvas></div><label class=\"mxi-ab-fl mxi-ab-ee\"><input type=\"checkbox\" class=\"mxi-ab-61\" id=\"mx_log_console\"/>控制台显示view信息</label><label class=\"mxi-ab-fl mxi-ab-ee\"><input type=\"checkbox\" class=\"mxi-ab-61\" id=\"mx_com_view\" checked=\"checked\"/>显示组件view</label><ul class=\"mxi-ab-c8 mxi-ab-fl\" id=\"mx_view_total\"></ul></div><div id=\"mx_trancer\" style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"mx_manager\" style=\"display:none\"><div style=\"height:{canvasHeight}px;overflow:scroll;overflow-x:auto\" id=\"mx_manager_cnt\"><canvas width=\"{canvasWidth}\" height=\"{canvasHeight}\" id=\"mx_manager_canvas\"></canvas></div><ul class=\"mxi-ab-c8 mxi-ab-p8\" id=\"mx_manager_total\"></ul></div><div id=\"mx_moreinfo\"></div><div id=\"mx_manager_moreinfo\"></div></div>",
-        moreInfo: "<ul><li><b class=\"mxi-ab-87\">id:</b>{id}</li><li><b class=\"mxi-ab-87\">view:</b>{view}</li>{events} {location} {share} {mixins}<li class=\"mxi-ab-bc\">{ex}</li><li><b class=\"mxi-ab-87\">resources</b></li><li style=\"{moreInfoWidth}px;overflow:auto;max-height:200px\">{res}</li></ul>",
+        moreInfo: "<ul><li><b class=\"mxi-ab-87\">id:</b>{id}</li><li><b class=\"mxi-ab-87\">view:</b>{view}</li>{events} {location} {share} {mixins} {state}<li class=\"mxi-ab-bc\">{ex}</li><li><b class=\"mxi-ab-87\">resources</b></li><li style=\"{moreInfoWidth}px;overflow:auto;max-height:200px\">{res}</li></ul>",
         moreManagerInfo: "<ul><li><b>key:</b>{id}</li><li><b>url:</b>{url}</li><li><b>描述:</b>{desc}</li><li><b>缓存:</b>{cache}</li><li><b>清理缓存:</b>{cleans}</li><li><b>预处理:</b>{hasAfter}</li></ul>",
         total: "<li class=\"mxi-ab-fl mxi-ab-18 mxi-ab-94\">view统计:[{count}]</li>",
         managerTotal: "<li class=\"mxi-ab-fl mxi-ab-18\">{groups}个接口文件，共{total}个接口</li>",
@@ -349,6 +350,12 @@ if (D._magix) {
                             var list = env.getMixinId(mixins);
                             list = list.join(',');
                             return '<li><b class="mxi-ab-87">mixins:</b>' + list + '</li>';
+                        }
+                        return '';
+                    case 'state':
+                        var state = Inspector.getState(vf);
+                        if (state.length) {
+                            return '<li><b class="mxi-ab-87">state:</b>' + state.join(',') + '</li>';
                         }
                         return '';
                     case 'ex':
@@ -713,14 +720,14 @@ if (D._magix) {
                         ctx.fillStyle = item.location;
                         ctx.fill();
                     }
-                    // center top
+                    // center left top
                     if (item.mixins) {
                         var x1 = lx,
                             y1 = ly,
                             x2 = pos.x,
                             y2 = ly + radius;
-                        var x3 = (x1 + x2 + Math.sqrt(3) * (y2 - y1)) / 2 - (pos.x - lx) / 10;
-                        var y3 = (y1 + y2 - Math.sqrt(3) * (x2 - x1)) / 2 + (pos.x - lx) / 3;
+                        var x3 = (x1 + x2 + Math.sqrt(3) * (y2 - y1)) / 2 - (x2 - x1) / 10;
+                        var y3 = (y1 + y2 - Math.sqrt(3) * (x2 - x1)) / 2 + (x2 - x1) / 3;
                         ctx.beginPath();
                         ctx.arc(x3, y3, radius, 0, Math.PI * 2, true);
                         ctx.fillStyle = item.mixins;
@@ -732,6 +739,19 @@ if (D._magix) {
                         ctx.beginPath();
                         ctx.arc(rx, ly, radius, 0, Math.PI * 2, true);
                         ctx.fillStyle = item.shared;
+                        ctx.fill();
+                    }
+                    // center right top
+                    if (item.state) {
+                        var x1 = pos.x,
+                            y1 = ly + radius,
+                            x2 = pos.x + params.radius / 2 - radius,
+                            y2 = ly;
+                        var x3 = (x1 + x2 + Math.sqrt(3) * (y2 - y1)) / 2 + (x2 - x1) / 10;
+                        var y3 = (y1 + y2 - Math.sqrt(3) * (x2 - x1)) / 2 + (x2 - x1) / 3;
+                        ctx.beginPath();
+                        ctx.arc(x3, y3, radius, 0, Math.PI * 2, true);
+                        ctx.fillStyle = item.state;
                         ctx.fill();
                     }
                     if (item.inline) {
@@ -1108,12 +1128,18 @@ if (D._magix) {
             var ids = [];
             for (var i = 0; i < mixins.length; i++) {
                 var mixin = mixins[i];
-                for (var p in mods) {
-                    var mod = mods[p];
-                    var v = mod.exports || mod.value;
-                    if (v == mixin) {
-                        ids.push(p);
-                        break;
+                if (mixin) {
+                    if (mixin['\x1e']) {
+                        ids.push('<span style="color:#C71585">State.clean("' + mixin['\x1e'] + '")</span>');
+                    } else {
+                        for (var p in mods) {
+                            var mod = mods[p];
+                            var v = mod.exports || mod.value;
+                            if (v == mixin) {
+                                ids.push(p);
+                                break;
+                            }
+                        }
                     }
                 }
                 if (ids.length <= i) {
@@ -1384,11 +1410,17 @@ if (D._magix) {
             var ids = [];
             for (var i = 0; i < mixins.length; i++) {
                 var mixin = mixins[i];
-                for (var p in mods) {
-                    var mod = mods[p];
-                    if (mod == mixin) {
-                        ids.push(p);
-                        break;
+                if (mixin) {
+                    if (mixin['\x1e']) {
+                        ids.push('<span style="color:#C71585">State.clean("' + mixin['\x1e'] + '")</span>');
+                    } else {
+                        for (var p in mods) {
+                            var mod = mods[p];
+                            if (mod == mixin) {
+                                ids.push(p);
+                                break;
+                            }
+                        }
                     }
                 }
                 if (ids.length <= i) {
@@ -1536,11 +1568,17 @@ if (D._magix) {
         var ids = [];
         for (var i = 0; i < mixins.length; i++) {
             var mixin = mixins[i];
-            for (var p in mods) {
-                var mod = mods[p];
-                if (mod.exports == mixin) {
-                    ids.push(mod.id);
-                    break;
+            if (mixin) {
+                if (mixin['\x1e']) {
+                    ids.push('<span style="color:#C71585">State.clean("' + mixin['\x1e'] + '")</span>');
+                } else {
+                    for (var p in mods) {
+                        var mod = mods[p];
+                        if (mod.exports == mixin) {
+                            ids.push(mod.id);
+                            break;
+                        }
+                    }
                 }
             }
             if (ids.length <= i) {
@@ -1606,7 +1644,7 @@ if (D._magix) {
             if (window.Magix) {
                 return MagixEnv;
             }
-            window.console.error('getEnvError:无法在当前环境下启动Magix Inspector，如需更多帮助，请旺旺联系：行列');
+            window.console.error('getEnvError:无法在当前环境下启动Magix Inspector，如需更多帮助，请钉钉联系：行列');
         },
         getEvents: function(vf) {
             var evts = [],
@@ -1618,11 +1656,15 @@ if (D._magix) {
                 for (var p in evto) {
                     total++;
                     var v = evto[p];
-                    if ((v & 1) === 1) {
+                    if (isFinite(v)) {
+                        if ((v & 1) === 1) {
+                            commons.push(p);
+                        }
+                        if ((v & 2) === 2) {
+                            selectorEvents.push(p);
+                        }
+                    } else {
                         commons.push(p);
-                    }
-                    if ((v & 2) === 2) {
-                        selectorEvents.push(p);
                     }
                 }
                 var evetnsList = (vf.view && vf.view.tmplEvents); //2.0
@@ -1769,6 +1811,15 @@ if (D._magix) {
             }
             return [];
         },
+        getState: function(vf) {
+            if (vf) {
+                var view = vf.$v;
+                if (view && view.$os) {
+                    return view.$os;
+                }
+            }
+            return [];
+        },
         getTree: function(env) {
             var rootId = env.getRootId();
             var vom = env.getVOM();
@@ -1839,9 +1890,17 @@ if (D._magix) {
                         var current = Math.min(mixins.length, mc);
                         info.mixins = Inspector.getGradualColor(current, mc);
                     }
+                    var state = Inspector.getState(vf);
+                    if (state.length) {
+                        var sc = Consts.stateCount;
+                        var current = Math.min(state.length, sc);
+                        info.state = Inspector.getGradualColor(current, sc);
+                    }
                     info.inline = Inspector.getIsInline(vf);
                     var path = vf.path;
-                    if (info.inline || (path && path.indexOf('/views/') < 0)) {
+                    //组件识别
+                    //没有模板或在gallery目录下
+                    if (info.inline || (path && path.indexOf('/gallery/') > 0)) {
                         rewalk = true;
                         info.component = true;
                         tree.comTotal++;
@@ -1860,6 +1919,7 @@ if (D._magix) {
             };
             walk(rootId, tree);
             var node = D.getElementById('mx_com_view');
+            //如果存在组件且未勾选“显示组件view”，从树中删除组件
             if ((!node || !node.checked) && rewalk) {
                 rewalk = function(tree) {
                     for (var i = tree.children.length - 1; i >= 0; i--) {

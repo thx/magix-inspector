@@ -1,6 +1,6 @@
 {
   "name": "magix-inspector",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "magix项目调试分析工具",
   "main": "build/index.js",
   "repository": {
@@ -13,10 +13,11 @@
     "inspector"
   ],
   "devDependencies": {
-    "gulp": "",
-    "gulp-watch": "",
-    "gulp-uglify": "",
     "del": "",
+    "gulp": "",
+    "gulp-header": "^1.8.8",
+    "gulp-uglify": "",
+    "gulp-watch": "",
     "magix-combine": ""
   },
   "author": "xinglie <xinglie.lkf@taobao.com>",

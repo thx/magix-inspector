@@ -6,7 +6,7 @@ var buildFolder = 'build';
 var gulp = require('gulp');
 var watch = require('gulp-watch');
 var fs = require('fs');
-var combineTool = require('../magix-combine/index');
+var combineTool = require('magix-combine');
 var del = require('del');
 
 combineTool.config({
@@ -34,19 +34,22 @@ gulp.task('watch', ['combine'], function() {
 });
 
 var uglify = require('gulp-uglify');
+let header = require('gulp-header');
 gulp.task('cleanBuild', function() {
     return del(buildFolder);
 });
 gulp.task('build', ['cleanBuild'], function() {
     gulp.src(srcFolder + '/**/*.js')
         .pipe(uglify({
-            banner: '/*' + pkg.version + ' xinglie.lkf@taobao.com*/',
             compress: {
                 drop_console: true
             },
             output: {
                 ascii_only: true
             }
+        }))
+        .pipe(header('/*!<%=ver%> kooboy_li@163.com*/', {
+            ver: pkg.version
         }))
         .pipe(gulp.dest(buildFolder));
 });
