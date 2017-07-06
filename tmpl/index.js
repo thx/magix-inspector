@@ -1248,7 +1248,20 @@ if (D._magix) {
     var ModuleIdMap = {};
     var RequireEnv = {
         prepare: function() {},
-        hookAttachMod: function() {},
+        hookAttachMod: function(cb) {
+            if (window.MutationObserver) {
+                var timer;
+                var o = new window.MutationObserver(function() {
+                    clearTimeout(timer);
+                    setTimeout(cb, 1000);
+                });
+                o.observe(document.body, {
+                    subtree: true,
+                    childList: true,
+                    characterData: true
+                });
+            }
+        },
         getMod: function(key) {
             var ms = require.s.contexts._.defined;
             var o = ms[key] || ModuleIdMap[key];
