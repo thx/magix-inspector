@@ -1,13 +1,14 @@
-var pkg = require('./package.json');
-var tmplFolder = 'tmpl'; //template folder
-var srcFolder = 'src'; //source folder
-var buildFolder = 'build';
+let pkg = require('./package.json');
+let tmplFolder = 'tmpl'; //template folder
+let srcFolder = 'src'; //source folder
+let buildFolder = 'build';
 
-var gulp = require('gulp');
-var watch = require('gulp-watch');
-var fs = require('fs');
-var combineTool = require('magix-combine');
-var del = require('del');
+let gulp = require('gulp');
+let watch = require('gulp-watch');
+let fs = require('fs');
+let combineTool = require('../magix-combine/index');
+let del = require('del');
+let ts = require('typescript');
 
 combineTool.config({
     tmplFolder: tmplFolder,
@@ -16,7 +17,18 @@ combineTool.config({
     compressCssSelectorNames: true,
     md5KeyLen: 2,
     cssSelectorPrefix: 'mxi-',
-    loaderType: 'iife'
+    loaderType: 'iife',
+    compileBeforeProcessor(content) {
+        let str = ts.transpileModule(content, {
+            compilerOptions: {
+                lib: ['es7'],
+                target: 'es3',
+                module: ts.ModuleKind.None
+            }
+        });
+        str = str.outputText;
+        return str;
+    }
 });
 
 gulp.task('combine', function() {
@@ -33,7 +45,7 @@ gulp.task('watch', ['combine'], function() {
     });
 });
 
-var uglify = require('gulp-uglify');
+let uglify = require('gulp-uglify');
 let header = require('gulp-header');
 gulp.task('cleanBuild', function() {
     return del(buildFolder);
