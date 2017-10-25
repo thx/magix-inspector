@@ -15,6 +15,7 @@ combineTool.config({
     srcFolder: srcFolder,
     cssSelectorPrefix: 'mxi-',
     loaderType: 'iife',
+    revisableStringSplitter: '',
     compileBeforeProcessor(content) {
         let str = ts.transpileModule(content, {
             compilerOptions: {
