@@ -5,7 +5,7 @@ let Graphics = {
         let g = Graphics;
         g.list = [];
         delete g.$last;
-        UI.onMousemove = e => {
+        UI['@{onMousemove}'] = e => {
             let loop, one, dis;
             if (g.$last) {
                 one = g.$last;
@@ -44,7 +44,7 @@ let Graphics = {
         g.managerList = [];
         delete g.$managerLast;
 
-        UI.onManagerMousemove = e => {
+        UI['@{onManagerMousemove}'] = e => {
             let loop, one, rect;
             if (g.$managerLast) {
                 one = g.$managerLast;
@@ -102,33 +102,33 @@ let Graphics = {
         tree.deepMap = deepMap;
         walk(tree, 1, 0);
         maxChildren = Math.max(maxChildren, tree.isolated.length + 1);
-        let hRadius = width / maxChildren - Consts.circleMargin;
-        let vRadius = height / deep - Consts.circleMargin;
+        let hRadius = width / maxChildren - Consts['@{circleMargin}'];
+        let vRadius = height / deep - Consts['@{circleMargin}'];
         let tw = width;
-        let dMinRadius = 2 * Consts.minCircleRadius;
+        let dMinRadius = 2 * Consts['@{minCircleRadius}'];
         if (hRadius < dMinRadius) {
             hRadius = dMinRadius;
-            tw = dMinRadius * maxChildren + (maxChildren + 1) * Consts.circleMargin;
+            tw = dMinRadius * maxChildren + (maxChildren + 1) * Consts['@{circleMargin}'];
             if (tw > 30000) {
                 tw = 30000;
             }
-            UI.updateVOMCanvansWidth(tw);
+            UI['@{updateVOMCanvansWidth}'](tw);
         } else {
-            UI.updateVOMCanvansWidth(tw);
+            UI['@{updateVOMCanvansWidth}'](tw);
         }
         let radius = Math.floor(Math.min(vRadius, hRadius) / 2);
         let band = (radius / 20).toFixed(1);
         return {
             width: tw,
-            margin: Consts.circleMargin,
+            margin: Consts['@{circleMargin}'],
             radius: radius,
             band: band
         };
     },
     drawTree(tree, active) {
         if (tree.id) {
-            let width = Consts.width,
-                height = Consts.canvasHeight,
+            let width = Consts['@{width}'],
+                height = Consts['@{canvasHeight}'],
                 g = Graphics;
             g.captureItmes();
             let params = g.getBestParams(tree, width, height);
@@ -193,7 +193,7 @@ let Graphics = {
                 ctx.fillStyle = item.status;
                 if (item.id == active) {
                     if (item.flag) {
-                        ctx.fillStyle = Status.active;
+                        ctx.fillStyle = Status['@{active}'];
                     } else {
                         ctx.fillStyle = item.status;
                     }
@@ -327,18 +327,18 @@ let Graphics = {
                 x: space,
                 y: params.margin + params.radius
             });
-            UI.showTotal(tree, params);
+            UI['@{showTotal}'](tree, params);
         }
     },
     drawManagerTree(tree) {
         let gs = Graphics;
         gs.captureManagerItmes();
-        let height = Consts.managerMargin * (tree.rows + 1) + tree.rows * Consts.managerHeight + (Consts.managerGroupSpace + Consts.managerMargin) * tree.groups.length;
-        UI.updateManagerCanvasHeight(height);
+        let height = Consts['@{managerMargin}'] * (tree.rows + 1) + tree.rows * Consts['@{managerHeight}'] + (Consts['@{managerGroupSpace}'] + Consts['@{managerMargin}']) * tree.groups.length;
+        UI['@{updateManagerCanvasHeight}'](height);
         let ctx = D.getElementById('mx_manager_canvas').getContext('2d');
-        ctx.clearRect(0, 0, Consts.canvasWidth, height);
-        let margin = Consts.managerMargin;
-        let managerWidth = ((Consts.canvasWidth - (1 + Consts.managerCols) * Consts.managerMargin) / Consts.managerCols) | 0;
+        ctx.clearRect(0, 0, Consts['@{canvasWidth}'], height);
+        let margin = Consts['@{managerMargin}'];
+        let managerWidth = ((Consts['@{canvasWidth}'] - (1 + Consts['@{managerCols}']) * Consts['@{managerMargin}']) / Consts['@{managerCols}']) | 0;
         let oneWidth = (() => {
             ctx.font = 'normal 14px Arial';
             let width = ctx.measureText('M').width;
@@ -370,22 +370,23 @@ let Graphics = {
             gs.managerList.push(one);
         };
         let draw = groups => {
+            /* mc-uncheck */
             for (let i = 0; i < groups.length; i++) {
                 let g = groups[i];
-                let left = Consts.managerMargin;
+                let left = Consts['@{managerMargin}'];
                 let pad = false;
                 ctx.beginPath();
                 ctx.moveTo(left, margin);
                 ctx.font = 'normal 14px Arial';
                 ctx.fillStyle = '#282828';
                 ctx.fillText(g.name, left + 5, margin + 25);
-                margin += Consts.managerGroupSpace;
+                margin += Consts['@{managerGroupSpace}'];
                 let u, one;
                 let max = Math.max(g.maxLeft, g.maxRight);
                 let maps = {};
                 let linecolorIndex = 0;
-                let leftTopSpace = ((max - g.maxLeft) / 2) * (Consts.managerHeight + Consts.managerMargin);
-                let rightTopSpace = ((max - g.maxRight) / 2) * (Consts.managerHeight + Consts.managerMargin);
+                let leftTopSpace = ((max - g.maxLeft) / 2) * (Consts['@{managerHeight}'] + Consts['@{managerMargin}']);
+                let rightTopSpace = ((max - g.maxRight) / 2) * (Consts['@{managerHeight}'] + Consts['@{managerMargin}']);
                 for (u = 0; u < max; u++) {
                     let lo = g.cleans.left[u];
                     let ro = g.cleans.right[u];
@@ -394,21 +395,21 @@ let Graphics = {
                                 left,
                                 margin + leftTopSpace,
                                 150,
-                                Consts.managerHeight
+                                Consts['@{managerHeight}']
                             ], lo, g.name);
                         maps[lo.id] = lo;
                     }
                     if (ro) {
                         drawRect(ctx, [
-                                Consts.canvasWidth - Consts.managerMargin - 150,
+                                Consts['@{canvasWidth}'] - Consts['@{managerMargin}'] - 150,
                                 margin + rightTopSpace,
                                 150,
-                                Consts.managerHeight
+                                Consts['@{managerHeight}']
                             ], ro, g.name);
                         maps[ro.id] = ro;
                         ro.lineColor = Lines[linecolorIndex++ % Lines.length];
                     }
-                    margin += Consts.managerMargin + Consts.managerHeight;
+                    margin += Consts['@{managerMargin}'] + Consts['@{managerHeight}'];
                 }
                 for (let p in maps) {
                     one = maps[p];
@@ -435,57 +436,57 @@ let Graphics = {
                     }
                 }
                 for (u = 0; u < g.caches.length; u++) {
-                    drawRect(ctx, [left, margin, managerWidth, Consts.managerHeight], g.caches[u], g.name);
-                    if ((u + 1) % Consts.managerCols === 0) {
-                        left = Consts.managerMargin;
-                        margin += Consts.managerMargin + Consts.managerHeight;
+                    drawRect(ctx, [left, margin, managerWidth, Consts['@{managerHeight}']], g.caches[u], g.name);
+                    if ((u + 1) % Consts['@{managerCols}'] === 0) {
+                        left = Consts['@{managerMargin}'];
+                        margin += Consts['@{managerMargin}'] + Consts['@{managerHeight}'];
                         pad = false;
                     } else {
-                        left += managerWidth + Consts.managerMargin;
+                        left += managerWidth + Consts['@{managerMargin}'];
                         pad = true;
                     }
                 }
-                left = Consts.managerMargin;
+                left = Consts['@{managerMargin}'];
                 if (pad) {
-                    margin += Consts.managerMargin + Consts.managerHeight;
+                    margin += Consts['@{managerMargin}'] + Consts['@{managerHeight}'];
                 }
                 for (u = 0; u < g.items.length; u++) {
                     one = g.items[u];
 
-                    drawRect(ctx, [left, margin, managerWidth, Consts.managerHeight], one, g.name);
+                    drawRect(ctx, [left, margin, managerWidth, Consts['@{managerHeight}']], one, g.name);
 
-                    if ((u + 1) % Consts.managerCols === 0) {
-                        left = Consts.managerMargin;
-                        margin += Consts.managerMargin + Consts.managerHeight;
+                    if ((u + 1) % Consts['@{managerCols}'] === 0) {
+                        left = Consts['@{managerMargin}'];
+                        margin += Consts['@{managerMargin}'] + Consts['@{managerHeight}'];
                         pad = false;
                     } else {
-                        left += managerWidth + Consts.managerMargin;
+                        left += managerWidth + Consts['@{managerMargin}'];
                         pad = true;
                     }
                 }
-                left = Consts.managerMargin;
+                left = Consts['@{managerMargin}'];
                 if (pad) {
-                    margin += Consts.managerGroupSpace;
+                    margin += Consts['@{managerGroupSpace}'];
                 }
             }
         };
         draw(tree.groups);
-        UI.showManagerTotal(tree);
+        UI['@{showManagerTotal}'](tree);
     },
     onHoverItem(e) {
-        let env = Inspector.getEnv();
+        let env = Inspector['@{getEnv}']();
         let vom = env.getVOM();
         if (e.action == 'enter') {
-            UI.showMoreInfo(vom.get(e.item.id), e.item);
+            UI['@{showMoreInfo}'](vom.get(e.item.id), e.item);
         } else {
-            UI.hideMoreInfo();
+            UI['@{hideMoreInfo}']();
         }
     },
     onHoverManagerItem(e) {
         if (e.action == 'enter') {
-            UI.showManagerMoreInfo(e.item);
+            UI['@{showManagerMoreInfo}'](e.item);
         } else {
-            UI.hideManagerMoreInfo();
+            UI['@{hideManagerMoreInfo}']();
         }
     }
 };

@@ -1,13 +1,13 @@
 //#snippet;
 //#exclude(loader)
 let Tracer = {
-    log(info, color) {
+    '@{log}'(info, color) {
         let node = D.getElementById('mx_trancer');
-        if (Tracer.idle) {
+        if (Tracer['@{idle}']) {
             let t = D.createElement('hr');
             t.className = '@ui.css:bar';
             node.insertBefore(t, node.firstChild);
-            delete Tracer.idle;
+            delete Tracer['@{idle}'];
         }
         let d = D.createElement('div');
         d.innerHTML = info;
@@ -17,9 +17,9 @@ let Tracer = {
             node.removeChild(node.lastChild);
             node.removeChild(node.lastChild);
         }
-        clearTimeout(Tracer.$timer);
-        Tracer.$timer = setTimeout(() => {
-            Tracer.idle = true;
+        clearTimeout(Tracer['@{tracer.timer}']);
+        Tracer['@{tracer.timer}'] = setTimeout(() => {
+            Tracer['@{idle}'] = true;
         }, 1500);
     }
 };

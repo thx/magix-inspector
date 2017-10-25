@@ -20,6 +20,7 @@ SeajsEnv.getMod = key => {
     }
     if (!o && ModulesFeatures[key]) {
         let rules = ModulesFeatures[key];
+        /* mc-uncheck */
         for (let p in mods) {
             let found = false;
             for (let i = rules.length - 1; i >= 0; i--) {

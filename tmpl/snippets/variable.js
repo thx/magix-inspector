@@ -1,43 +1,43 @@
 //#snippet;
 //#exclude(loader)
 let Status = {
-    created: '#008B00',
-    init: '#FF3030',
-    alter: '#BC8F8F',
-    isolated: '#FF3030',
-    build: '#9AC0CD',
-    destroy: '#8B5F65',
-    remove: '#EED5B7',
-    active: '#94d694'
+    '@{created}': '#008B00',
+    '@{init}': '#FF3030',
+    '@{alter}': '#BC8F8F',
+    '@{isolated}': '#FF3030',
+    '@{build}': '#9AC0CD',
+    '@{destroy}': '#8B5F65',
+    '@{remove}': '#EED5B7',
+    '@{active}': '#94d694'
 };
 let Consts = {
-    width: 550,
-    height: 470,
-    canvasWidth: 530,
-    canvasHeight: 400,
-    moreInfoWidth: 490,
-    titleHeight: 34,
-    circleMargin: 6,
-    minCircleRadius: 15,
-    managerCols: 5,
-    managerMargin: 5,
-    managerHeight: 40,
-    managerGroupSpace: 40,
-    gradualStartColor: {
+    '@{width}': 550,
+    '@{height}': 470,
+    '@{canvasWidth}': 530,
+    '@{canvasHeight}': 400,
+    '@{moreInfoWidth}': 490,
+    '@{titleHeight}': 34,
+    '@{circleMargin}': 6,
+    '@{minCircleRadius}': 15,
+    '@{managerCols}': 5,
+    '@{managerMargin}': 5,
+    '@{managerHeight}': 40,
+    '@{managerGroupSpace}': 40,
+    '@{gradualStartColor}': {
         r: 0,
         g: 153,
         b: 102
     },
-    gradualEndColor: {
+    '@{gradualEndColor}': {
         r: 255,
         g: 255,
         b: 0
     },
-    eventsCommonCount: 15,
-    sharedCount: 5,
-    locationCount: 12,
-    mixinsCount: 5,
-    stateCount: 12
+    '@{eventsCommonCount}': 15,
+    '@{sharedCount}': 5,
+    '@{locationCount}': 12,
+    '@{mixinsCount}': 5,
+    '@{stateCount}': 12
 };
 let Lines = [
         'FFC125',
@@ -51,10 +51,10 @@ let Lines = [
         'EE7AE9'
     ];
 let ManagerColors = {
-    cache: '#CC9966',
-    cleaned: '#99CCCC',
-    cleans: '#FF9999',
-    normal: '#CCCC99'
+    '@{cache}': '#CC9966',
+    '@{cleaned}': '#99CCCC',
+    '@{cleans}': '#FF9999',
+    '@{normal}': '#CCCC99'
 };
 let ApplyStyle = (x, h) => {
     let i = document.createElement('style');

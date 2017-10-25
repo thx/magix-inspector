@@ -21,6 +21,7 @@ let RequireEnv = {
         let o = ms[key] || ModuleIdMap[key];
         if (!o && ModulesFeatures[key]) {
             let rules = ModulesFeatures[key];
+            /* mc-uncheck */
             for (let p in ms) {
                 let found = false;
                 for (let i = rules.length - 1; i >= 0; i--) {

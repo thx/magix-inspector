@@ -13,9 +13,6 @@ let ts = require('typescript');
 combineTool.config({
     tmplFolder: tmplFolder,
     srcFolder: srcFolder,
-    compressCss: true,
-    compressCssSelectorNames: true,
-    md5KeyLen: 2,
     cssSelectorPrefix: 'mxi-',
     loaderType: 'iife',
     compileBeforeProcessor(content) {
@@ -31,11 +28,11 @@ combineTool.config({
     }
 });
 
-gulp.task('combine', function() {
+gulp.task('combine', function () {
     del(srcFolder).then(combineTool.combine);
 });
-gulp.task('watch', ['combine'], function() {
-    watch(tmplFolder + '/**/*', function(e) {
+gulp.task('watch', ['combine'], function () {
+    watch(tmplFolder + '/**/*', function (e) {
         console.log(e.path);
         if (fs.existsSync(e.path)) {
             combineTool.processFile(e.path);
@@ -47,10 +44,10 @@ gulp.task('watch', ['combine'], function() {
 
 let uglify = require('gulp-uglify');
 let header = require('gulp-header');
-gulp.task('cleanBuild', function() {
+gulp.task('cleanBuild', function () {
     return del(buildFolder);
 });
-gulp.task('build', ['cleanBuild'], function() {
+gulp.task('build', ['cleanBuild'], function () {
     gulp.src(srcFolder + '/**/*.js')
         .pipe(uglify({
             compress: {

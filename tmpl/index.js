@@ -1,21 +1,21 @@
 //kissy drawIcons  removeClass报错
 let D = document;
 let W = window;
-if (D._magix) {
+if (D['@{magix}']) {
     W.postMessage({
-        from: 'mx_ispt',
-        action: 'expand'
+        '@{from}': 'mx_ispt',
+        '@{action}': 'expand'
     }, '*');
 } else {
     W.addEventListener('message', e => {
         let d = e.data;
-        if (d && d.from == 'mx_ispt') {
-            if (d.action == 'expand') {
-                UI.expand();
+        if (d && d['@{from}'] == 'mx_ispt') {
+            if (d['@{action}'] == 'expand') {
+                UI['@{expand}']();
             }
         }
     }, false);
-    D._magix = 1;
+    D['@{magix}'] = 1;
     '@snippets/variable.js';
     '@snippets/drag.js';
     '@snippets/ui.js';
@@ -34,7 +34,7 @@ if (D._magix) {
     '@snippets/env-ssea.js';
     '@snippets/env-magix.js';
     var Inspector = {
-        getEnv() {
+        '@{getEnv}'() {
             if (window.KISSY) {
                 return KISSYEnv;
             }
@@ -52,7 +52,7 @@ if (D._magix) {
             }
             window.console.error('getEnvError:无法在当前环境下启动Magix Inspector，如需更多帮助，请钉钉联系：行列');
         },
-        getEvents(vf) {
+        '@{getEvents}'(vf) {
             let evts = [],
                 total = 0;
             if (vf) {
@@ -143,7 +143,7 @@ if (D._magix) {
                 total: total
             };
         },
-        getShared(vf) {
+        '@{getShared}'(vf) {
             let shares = [];
             if (vf && vf.$v) {
                 let sd = vf.$v.$sd;
@@ -155,7 +155,7 @@ if (D._magix) {
             }
             return shares;
         },
-        getLocation(vf) {
+        '@{getLocation}'(vf) {
             let path, keys = [];
             if (vf) {
                 if (vf.view) {
@@ -178,9 +178,9 @@ if (D._magix) {
                 keys: keys
             };
         },
-        getGradualColor(current, max) {
-            let sc = Consts.gradualStartColor;
-            let ec = Consts.gradualEndColor;
+        '@{getGradualColor}'(current, max) {
+            let sc = Consts['@{gradualStartColor}'];
+            let ec = Consts['@{gradualEndColor}'];
             let rs = (ec.r - sc.r) / max;
             let gs = (ec.g - sc.g) / max;
             let bs = (ec.b - sc.b) / max;
@@ -189,7 +189,7 @@ if (D._magix) {
             let hexb = ('0' + parseInt(sc.b + current * bs).toString(16)).slice(-2);
             return '#' + hexr + hexg + hexb;
         },
-        getIsInline(vf) {
+        '@{getIsInline}'(vf) {
             if (vf) {
                 let view = vf.view;
                 if (view) {
@@ -208,7 +208,7 @@ if (D._magix) {
             }
             return false;
         },
-        getMixins(vf) {
+        '@{getMixins}'(vf) {
             if (vf) {
                 let view = vf.$v;
                 if (view && view.mixins) {
@@ -217,7 +217,7 @@ if (D._magix) {
             }
             return [];
         },
-        getState(vf) {
+        '@{getState}'(vf) {
             if (vf) {
                 let view = vf.$v;
                 if (view && view.$os) {
@@ -226,7 +226,7 @@ if (D._magix) {
             }
             return [];
         },
-        getTree(env) {
+        '@{getTree}'(env) {
             let rootId = env.getRootId();
             let vom = env.getVOM();
             let flattened = [];
@@ -255,54 +255,54 @@ if (D._magix) {
                     finfo.id = vf.id;
                     delete allMap[vf.id];
                     if (vf.fcc || vf.$cr) {
-                        info.status = Status.created;
+                        info.status = Status['@{created}'];
                         finfo.cls = '';
                     } else if (vf.fca || vf.$ca) {
-                        info.status = Status.alter;
+                        info.status = Status['@{alter}'];
                         finfo.cls = 'alter';
                         if ((vf.cM && !vf.view) || (vf.$c && !vf.$v)) {
-                            info.status = Status.init;
+                            info.status = Status['@{init}'];
                             finfo.cls = 'bad';
                         }
                     } else {
-                        info.status = Status.init;
+                        info.status = Status['@{init}'];
                         finfo.cls = 'bad';
                     }
                     flattened.push(finfo);
                     map[vf.id] = info;
-                    let evts = Inspector.getEvents(vf);
+                    let evts = Inspector['@{getEvents}'](vf);
                     let total = evts.total;
                     if (total) {
-                        let cc = Consts.eventsCommonCount;
+                        let cc = Consts['@{eventsCommonCount}'];
                         total = Math.min(total, cc);
-                        info.event = Inspector.getGradualColor(total, cc);
+                        info.event = Inspector['@{getGradualColor}'](total, cc);
                     }
-                    let shared = Inspector.getShared(vf);
+                    let shared = Inspector['@{getShared}'](vf);
                     if (shared.length) {
-                        let sc = Consts.sharedCount;
+                        let sc = Consts['@{sharedCount}'];
                         let current = Math.min(shared.length, sc);
-                        info.shared = Inspector.getGradualColor(current, sc);
+                        info.shared = Inspector['@{getGradualColor}'](current, sc);
                     }
-                    let location = Inspector.getLocation(vf);
+                    let location = Inspector['@{getLocation}'](vf);
                     if (location.path || (location.keys && location.keys.length)) {
-                        let lc = Consts.locationCount;
+                        let lc = Consts['@{locationCount}'];
                         let keys = location.keys || [];
                         let current = Math.min(lc, keys.length);
-                        info.location = Inspector.getGradualColor(current, lc);
+                        info.location = Inspector['@{getGradualColor}'](current, lc);
                     }
-                    let mixins = Inspector.getMixins(vf);
+                    let mixins = Inspector['@{getMixins}'](vf);
                     if (mixins.length) {
-                        let mc = Consts.mixinsCount;
+                        let mc = Consts['@{mixinsCount}'];
                         let current = Math.min(mixins.length, mc);
-                        info.mixins = Inspector.getGradualColor(current, mc);
+                        info.mixins = Inspector['@{getGradualColor}'](current, mc);
                     }
-                    let state = Inspector.getState(vf);
+                    let state = Inspector['@{getState}'](vf);
                     if (state.length) {
-                        let sc = Consts.stateCount;
+                        let sc = Consts['@{stateCount}'];
                         let current = Math.min(state.length, sc);
-                        info.state = Inspector.getGradualColor(current, sc);
+                        info.state = Inspector['@{getGradualColor}'](current, sc);
                     }
-                    info.inline = Inspector.getIsInline(vf);
+                    info.inline = Inspector['@{getIsInline}'](vf);
                     let path = vf.path;
                     //组件识别
                     //没有模板或在gallery目录下
@@ -344,7 +344,7 @@ if (D._magix) {
                 il.push({
                     id: p,
                     il: true,
-                    status: Status.isolated,
+                    status: Status['@{isolated}'],
                     children: []
                 });
                 flattened.push({
@@ -359,7 +359,7 @@ if (D._magix) {
                 map: map
             };
         },
-        getManagerTree(env) {
+        '@{getManagerTree}'(env) {
             let managers = env.getMangerMods();
             let result = [],
                 rows = 0,
@@ -390,10 +390,12 @@ if (D._magix) {
                 let metas = m.exports.$mMetas || m.exports.$mm || m.exports.$m;
                 delete metas._$id;
                 if (!m.continued) {
+                    /* mc-uncheck */
                     for (p in metas) {
                         info = metas[p];
                         if (info.cleans) {
                             let a = (info.cleans + '').split(',');
+                            /* mc-uncheck */
                             for (let x = 0; x < a.length; x++) {
                                 cleanedMap[a[x]] = p;
                             }
@@ -401,7 +403,7 @@ if (D._magix) {
                     }
                     for (p in metas) {
                         info = metas[p];
-                        let c = ManagerColors.normal;
+                        let c = ManagerColors['@{normal}'];
                         let ti = {
                             id: p,
                             color: c,
@@ -413,18 +415,18 @@ if (D._magix) {
                             hasAfter: (info.after ? (info.after + '').substr(0, 200) : '')
                         };
                         if (info.cleans) {
-                            c = ManagerColors.cleans;
+                            c = ManagerColors['@{cleans}'];
                             ti.color = c;
                             cleans.left.push(ti);
                             maxLeft++;
                         } else if (cleanedMap[p]) {
-                            c = ManagerColors.cleaned;
+                            c = ManagerColors['@{cleaned}'];
                             ti.color = c;
                             cleans.right.push(ti);
                             maxRight++;
                         } else {
                             if (info.cache || info.cacheTime) {
-                                c = ManagerColors.cache;
+                                c = ManagerColors['@{cache}'];
                                 ti.color = c;
                                 caches.push(ti);
                             } else {
@@ -435,9 +437,9 @@ if (D._magix) {
                         total++;
                     }
                 }
-                rows += Math.ceil(counter / Consts.managerCols);
+                rows += Math.ceil(counter / Consts['@{managerCols}']);
                 rows += Math.max(maxLeft, maxRight);
-                rows += Math.ceil(caches.length / Consts.managerCols);
+                rows += Math.ceil(caches.length / Consts['@{managerCols}']);
                 result.push({
                     name: m.name,
                     rows: rows,
@@ -454,8 +456,8 @@ if (D._magix) {
                 total: total
             };
         },
-        prepare(callback) {
-            let env = Inspector.getEnv();
+        '@{prepare}'(callback) {
+            let env = Inspector['@{getEnv}']();
             env.prepare();
             let max = 50;
             let poll = () => {
@@ -476,14 +478,14 @@ if (D._magix) {
             };
             poll();
         },
-        start() {
-            Inspector.prepare(() => {
-                UI.setup();
-                let env = Inspector.getEnv();
+        '@{start}'() {
+            Inspector['@{prepare}'](() => {
+                UI['@{setup}']();
+                let env = Inspector['@{getEnv}']();
                 let vom = env.getVOM();
                 let drawTimer, intervalTimer, moveTimer, activeId, treeInfo, blinkCount = 0;
 
-                let stopActive = function() {
+                let stopActive = function () {
                     if (activeId && intervalTimer) {
                         blinkCount = 0;
                         Graphics.drawTree(treeInfo.tree);
@@ -492,11 +494,11 @@ if (D._magix) {
                     }
                 };
 
-                let startActive = function() {
+                let startActive = function () {
                     blinkCount = 16;
                     if (activeId && !intervalTimer) {
                         Graphics.drawTree(treeInfo.tree, activeId);
-                        intervalTimer = setInterval(function() {
+                        intervalTimer = setInterval(function () {
                             if (!blinkCount) {
                                 stopActive();
                             } else {
@@ -533,7 +535,7 @@ if (D._magix) {
                 };
                 let attachVframe = vf => {
                     vf.on('created', () => {
-                        Tracer.log('vframe:' + vf.id + '[' + (vf.path || vf.view.path || '') + ']渲染完毕', Status.created);
+                        Tracer['@{log}']('vframe:' + vf.id + '[' + (vf.path || vf.view.path || '') + ']渲染完毕', Status['@{created}']);
                         drawTree();
                     });
                     vf.on('alter', e => {
@@ -541,25 +543,25 @@ if (D._magix) {
                             e.logged = 1;
                             let f = vom.get(e.id);
                             if (f) {
-                                Tracer.log('从vframe:' + f.id + '[' + (f.path || f.view.path || '') + '] 发起界面变更', Status.build);
+                                Tracer['@{log}']('从vframe:' + f.id + '[' + (f.path || f.view.path || '') + '] 发起界面变更', Status['@{build}']);
                             }
                         }
-                        Tracer.log('vframe:' + vf.id + '收到变更消息', Status.alter);
+                        Tracer['@{log}']('vframe:' + vf.id + '收到变更消息', Status['@{alter}']);
                         drawTree();
                     });
                     vf.on('viewInited', () => {
-                        Tracer.log('vframe:' + vf.id + '的view[' + vf.view.path + ']，init调用完毕', Status.created);
+                        Tracer['@{log}']('vframe:' + vf.id + '的view[' + vf.view.path + ']，init调用完毕', Status['@{created}']);
                     });
                     vf.on('viewUnmounted', () => {
                         let path = (vf.path || (vf.view && vf.view.path || ''));
                         if (path) {
                             path = '[' + path + ']';
                         }
-                        Tracer.log('vframe:' + vf.id + '的view' + path + '销毁完毕', Status.destroy);
+                        Tracer['@{log}']('vframe:' + vf.id + '的view' + path + '销毁完毕', Status['@{destroy}']);
                     });
                     vf.on('viewMounted', () => {
-                        Tracer.log('vframe:' + vf.id + '的view[' + (vf.path || vf.view.path ||
-                            '') + ']，首次渲染完毕', Status.created);
+                        Tracer['@{log}']('vframe:' + vf.id + '的view[' + (vf.path || vf.view.path ||
+                            '') + ']，首次渲染完毕', Status['@{created}']);
                     });
                     vf.___mh = true;
                 };
@@ -585,9 +587,9 @@ if (D._magix) {
                                 } else {
                                     path = '';
                                 }
-                                Tracer.log('从VOM中移除vframe:' + e.vframe.id + path, Status.remove);
+                                Tracer['@{log}']('从VOM中移除vframe:' + e.vframe.id + path, Status['@{remove}']);
                             } else {
-                                Tracer.log('remove:', e);
+                                Tracer['@{log}']('remove:', e);
                             }
                         } else if (e.type == 'created') {
                             attachVframes();
@@ -596,7 +598,7 @@ if (D._magix) {
                     clearTimeout(drawTimer);
                     drawTimer = setTimeout(() => {
                         stopActive();
-                        treeInfo = Inspector.getTree(env);
+                        treeInfo = Inspector['@{getTree}'](env);
                         Graphics.drawTree(treeInfo.tree);
                         startActive();
                         env.drawIcons(treeInfo.flattened);
@@ -605,9 +607,9 @@ if (D._magix) {
                 vom.on('add', e => {
                     drawTree();
                     if (e.vframe.pId) {
-                        Tracer.log('找到vframe:' + e.vframe.pId + '的子vframe:' + e.vframe.id, Status.build);
+                        Tracer['@{log}']('找到vframe:' + e.vframe.pId + '的子vframe:' + e.vframe.id, Status['@{build}']);
                     }
-                    Tracer.log('创建vframe:' + e.vframe.id, Status.build);
+                    Tracer['@{log}']('创建vframe:' + e.vframe.id, Status['@{build}']);
                     attachVframe(e.vframe);
                 });
                 vom.on('remove', drawTree);
@@ -617,13 +619,13 @@ if (D._magix) {
                 }
                 attachVframes();
                 drawTree();
-                Inspector.drawTree = drawTree;
+                Inspector['@{drawTree}'] = drawTree;
 
                 let managerTimer;
                 let drawManagerTree = () => {
                     clearTimeout(managerTimer);
                     managerTimer = setTimeout(() => {
-                        let tree = Inspector.getManagerTree(env);
+                        let tree = Inspector['@{getManagerTree}'](env);
                         Graphics.drawManagerTree(tree);
                     }, 500);
                 };
@@ -633,5 +635,5 @@ if (D._magix) {
             });
         }
     };
-    Inspector.start();
+    Inspector['@{start}']();
 }
