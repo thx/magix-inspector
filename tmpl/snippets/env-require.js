@@ -1,8 +1,8 @@
 //#snippet;
 //#exclude(loader)
 let RequireEnv = {
-    prepare() {},
-    hookAttachMod(cb) {
+    '@{prepare}'() { },
+    '@{hookAttachMod}'(cb) {
         if (window.MutationObserver) {
             let timer;
             let o = new window.MutationObserver(() => {
@@ -16,7 +16,7 @@ let RequireEnv = {
             });
         }
     },
-    getMod(key) {
+    '@{getMod}'(key) {
         let ms = require.s.contexts._.defined;
         let o = ms[key] || ModuleIdMap[key];
         if (!o && ModulesFeatures[key]) {
@@ -49,28 +49,28 @@ let RequireEnv = {
         }
         return o;
     },
-    getDL() {
-        return this.getMod('$') || this.getMod('jquery') || this.getMod('zepto');
+    '@{getDL}'() {
+        return this['@{getMod}']('$') || this['@{getMod}']('jquery') || this['@{getMod}']('zepto');
     },
-    getRootId() {
-        let old = this.getMod('magix/magix');
+    '@{getRootId}'() {
+        let old = this['@{getMod}']('magix/magix');
         let magix;
         if (old) {
             magix = old;
         } else {
-            magix = this.getMod('magix');
+            magix = this['@{getMod}']('magix');
         }
         return magix.config('rootId');
     },
-    getVOM() {
-        let old = this.getMod('magix/vom');
+    '@{getVOM}'() {
+        let old = this['@{getMod}']('magix/vom');
         if (old) {
             return old;
         }
-        let magix = this.getMod('magix');
+        let magix = this['@{getMod}']('magix');
         return magix.VOM || magix.Vframe;
     },
-    getMangerMods() {
+    '@{getMangerMods}'() {
         let mods = require.s.contexts._.defined;
         let result = [];
         for (let p in mods) {
@@ -84,11 +84,11 @@ let RequireEnv = {
         }
         return result;
     },
-    isReady() {
-        return this.getMod('magix/magix') || this.getMod('magix');
+    '@{isReady}'() {
+        return this['@{getMod}']('magix/magix') || this['@{getMod}']('magix');
     },
-    updateDOMStyle(style, id) {
-        let $ = this.getDL();
+    '@{updateDOMStyle}'(style, id) {
+        let $ = this['@{getDL}']();
         let node = $('#' + id);
         let n = node;
         let size = {
@@ -154,21 +154,21 @@ let RequireEnv = {
         style.width = size.width + 'px';
         style.height = size.height + 'px';
     },
-    getDOMOffset(id) {
-        let $ = this.getDL();
+    '@{getDOMOffset}'(id) {
+        let $ = this['@{getDL}']();
         return $('#' + id).offset();
     },
-    bind(id, type, fn) {
-        let $ = this.getDL();
+    '@{bind}'(id, type, fn) {
+        let $ = this['@{getDL}']();
         if ($.type(id) == 'string') id = '#' + id;
         return $(id).on(type, fn);
     },
-    unbind(id, type, fn) {
-        let $ = this.getDL();
+    '@{unbind}'(id, type, fn) {
+        let $ = this['@{getDL}']();
         if ($.type(id) == 'string') id = '#' + id;
         return $(id).off(type, fn);
     },
-    getMixinId(mixins) {
+    '@{getMixinId}'(mixins) {
         let mods = require.s.contexts._.defined;
         let ids = [];
         for (let i = 0; i < mixins.length; i++) {
@@ -192,9 +192,9 @@ let RequireEnv = {
         }
         return ids;
     },
-    getResType(r) {
+    '@{getResType}'(r) {
         let e = r.res || r.e;
-        let $ = this.getDL();
+        let $ = this['@{getDL}']();
         let type = $.type(r);
         if (e) {
             if (e.all && e.constructor && e.constructor.cached) {
@@ -209,18 +209,18 @@ let RequireEnv = {
         }
         return type;
     },
-    dragIt(node, handle) {
-        let $ = this.getDL();
+    '@{dragIt}'(node, handle) {
+        let $ = this['@{getDL}']();
         let root = $(node);
-        let dd = Drag.get($, 'off', $.isFunction);
+        let dd = Drag['@{get}']($, 'off', $.isFunction);
         $(handle).on('mousedown', e => {
             if (e.target.id != handle.slice(1)) return;
             let right = parseInt(root.css('right'), 10);
             let top = parseInt(root.css('top'), 10);
             let x = e.pageX;
             let y = e.pageY;
-            dd.begin(e.target, e => {
-                dd.clear();
+            dd['@{begin}'](e.target, e => {
+                dd['@{clear}']();
                 let fx = e.pageX - x,
                     fy = e.pageY - y;
                 if (top + fy < 0) fy = -top;
@@ -231,8 +231,8 @@ let RequireEnv = {
             });
         });
     },
-    drawIcons(flattened) {
-        let $ = this.getDL();
+    '@{drawIcons}'(flattened) {
+        let $ = this['@{getDL}']();
         for (let i = flattened.length - 1; i >= 0; i--) {
             let f = flattened[i];
             let root = $('#' + f.id);
@@ -243,15 +243,15 @@ let RequireEnv = {
             }
         }
     },
-    getNode(node) {
-        let $ = this.getDL();
+    '@{getNode}'(node) {
+        let $ = this['@{getDL}']();
         return $(node);
     },
-    hookViewShare(cb) {
-        let magix = this.getMod('magix');
+    '@{hookViewShare}'(cb) {
+        let magix = this['@{getMod}']('magix');
         if (magix && magix.View && magix.View.prototype.share) {
             let old = magix.View.prototype.share;
-            magix.View.prototype.share = function() {
+            magix.View.prototype.share = function () {
                 old.apply(this, arguments);
                 cb();
             };

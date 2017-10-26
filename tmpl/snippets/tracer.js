@@ -2,7 +2,7 @@
 //#exclude(loader)
 let Tracer = {
     '@{log}'(info, color) {
-        let node = D.getElementById('mx_trancer');
+        let node = getNode('mx_trancer');
         if (Tracer['@{idle}']) {
             let t = D.createElement('hr');
             t.className = '@ui.css:bar';

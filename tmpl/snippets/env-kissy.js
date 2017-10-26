@@ -2,10 +2,10 @@
 //#exclude(loader)
 let S = window.KISSY;
 let KISSYEnv = {
-    prepare() {
+    '@{prepare}'() {
         S.use('node');
     },
-    getRootId() {
+    '@{getRootId}'() {
         let old = S.Env.mods['magix/magix'];
         let magix;
         if (old) {
@@ -15,7 +15,7 @@ let KISSYEnv = {
         }
         return magix.config('rootId');
     },
-    getVOM() {
+    '@{getVOM}'() {
         let old = S.Env.mods['magix/magix'];
         if (old) {
             return S.require('magix/vom');
@@ -23,7 +23,7 @@ let KISSYEnv = {
         let magix = S.require('magix');
         return magix.VOM || magix.Vframe;
     },
-    getMangerMods() {
+    '@{getMangerMods}'() {
         let mods = S.Env.mods;
         let result = [];
         for (let p in mods) {
@@ -37,7 +37,7 @@ let KISSYEnv = {
         }
         return result;
     },
-    isReady() {
+    '@{isReady}'() {
         let magix = S.Env.mods['magix/magix'];
         let node = S.Env.mods.node;
         if (magix) {
@@ -52,7 +52,7 @@ let KISSYEnv = {
             }
         }
     },
-    updateDOMStyle(style, id) {
+    '@{updateDOMStyle}'(style, id) {
         let node = S.require('node').one('#' + id);
         if (!node) return;
         let n = node;
@@ -119,21 +119,21 @@ let KISSYEnv = {
         style.width = size.width + 'px';
         style.height = size.height + 'px';
     },
-    getDOMOffset(id) {
+    '@{getDOMOffset}'(id) {
         let node = S.require('node');
         return node.one('#' + id).offset();
     },
-    bind(id, type, fn) {
+    '@{bind}'(id, type, fn) {
         let node = S.require('node');
         if (S.isString(id)) id = '#' + id;
         return node.one(id).on(type, fn);
     },
-    unbind(id, type, fn) {
+    '@{unbind}'(id, type, fn) {
         let node = S.require('node');
         if (S.isString(id)) id = '#' + id;
         return node.one(id).detach(type, fn);
     },
-    getMixinId(mixins) {
+    '@{getMixinId}'(mixins) {
         let mods = S.Env.mods;
         let ids = [];
         for (let i = 0; i < mixins.length; i++) {
@@ -158,7 +158,7 @@ let KISSYEnv = {
         }
         return ids;
     },
-    getResType(r) {
+    '@{getResType}'(r) {
         let type = '';
         let e = r.res || r.e;
         if (e) {
@@ -197,24 +197,24 @@ let KISSYEnv = {
         }
         return type;
     },
-    hookAttachMod(callback) {
+    '@{hookAttachMod}'(callback) {
         let old = S.Loader.Utils.attachMod;
         S.Loader.Utils.attachMod = () => {
             old.apply(S.Loader.Utils, arguments);
             callback();
         };
     },
-    dragIt(node, handle) {
+    '@{dragIt}'(node, handle) {
         let root = S.one(node);
-        let dd = Drag.get(S.one, 'detach', S.isFunction);
+        let dd = Drag['@{get}'](S.one, 'detach', S.isFunction);
         S.one(handle).on('mousedown', e => {
             if (e.target.id != handle.slice(1)) return;
             let right = parseInt(root.css('right'), 10);
             let top = parseInt(root.css('top'), 10);
             let x = e.pageX;
             let y = e.pageY;
-            dd.begin(e.target, e => {
-                dd.clear();
+            dd['@{begin}'](e.target, e => {
+                dd['@{clear}']();
                 let fx = e.pageX - x,
                     fy = e.pageY - y;
                 if (top + fy < 0) fy = -top;
@@ -225,7 +225,7 @@ let KISSYEnv = {
             });
         });
     },
-    drawIcons(flattened) {
+    '@{drawIcons}'(flattened) {
         for (let i = flattened.length - 1; i >= 0; i--) {
             let f = flattened[i];
             let root = S.one('#' + f.id);
@@ -237,10 +237,10 @@ let KISSYEnv = {
             }
         }
     },
-    getNode(node) {
+    '@{getNode}'(node) {
         return S.one(node);
     },
-    hookViewShare(cb) {
+    '@{hookViewShare}'(cb) {
         let magix = S.Env.mods.magix;
         if (magix) {
             magix = S.require('magix');

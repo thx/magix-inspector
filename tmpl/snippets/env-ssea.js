@@ -1,6 +1,6 @@
 //#snippet;
 //#exclude(loader)
-SeajsSEnv.getMod = key => {
+SeajsSEnv['@{getMod}'] = key => {
     var o;
     try {
         o = require(key);
@@ -10,9 +10,9 @@ SeajsSEnv.getMod = key => {
     }
     return o;
 };
-SeajsSEnv.getMangerMods = () => {
+SeajsSEnv['@{getMangerMods}'] = () => {
     return [];
 };
-SeajsSEnv.getMixinId = mixins => {
+SeajsSEnv['@{getMixinId}'] = mixins => {
     return new Array(mixins.length + 2).join('unknown').slice(1);
 };

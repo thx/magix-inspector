@@ -1,21 +1,21 @@
 //#snippet;
 //#exclude(loader)
 let Graphics = {
-    captureItmes() {
+    '@{captureItmes}'() {
         let g = Graphics;
         g.list = [];
-        delete g.$last;
+        delete g['@{view.last}'];
         UI['@{onMousemove}'] = e => {
             let loop, one, dis;
-            if (g.$last) {
-                one = g.$last;
+            if (g['@{view.last}']) {
+                one = g['@{view.last}'];
                 dis = Math.pow(Math.pow(one.center.x - e.x, 2) + Math.pow(one.center.y - e.y, 2), 1 / 2);
                 if (dis > one.radius) {
-                    g.onHoverItem({
+                    g['@{onHoverItem}']({
                         item: one,
                         action: 'leave'
                     });
-                    delete g.$last;
+                    delete g['@{view.last}'];
                     loop = true;
                 }
             } else {
@@ -26,9 +26,9 @@ let Graphics = {
                     one = g.list[i];
                     dis = Math.pow(Math.pow(one.center.x - e.x, 2) + Math.pow(one.center.y - e.y, 2), 1 / 2);
                     if (dis <= one.radius) {
-                        if (g.$last != one) {
-                            g.$last = one;
-                            g.onHoverItem({
+                        if (g['@{view.last}'] != one) {
+                            g['@{view.last}'] = one;
+                            g['@{onHoverItem}']({
                                 item: one,
                                 action: 'enter'
                             });
@@ -39,22 +39,22 @@ let Graphics = {
             }
         };
     },
-    captureManagerItmes() {
+    '@{captureManagerItmes}'() {
         let g = Graphics;
         g.managerList = [];
-        delete g.$managerLast;
+        delete g['@{manager.last}'];
 
         UI['@{onManagerMousemove}'] = e => {
             let loop, one, rect;
-            if (g.$managerLast) {
-                one = g.$managerLast;
+            if (g['@{manager.last}']) {
+                one = g['@{manager.last}'];
                 rect = one.rect;
                 if (e.x < rect[0] || e.y < rect[1] || e.x > (rect[0] + rect[2]) || e.y > (rect[1] + rect[3])) {
-                    g.onHoverManagerItem({
+                    g['@{onHoverManagerItem}']({
                         item: one,
                         action: 'leave'
                     });
-                    delete g.$managerLast;
+                    delete g['@{manager.last}'];
                     loop = true;
                 }
             } else {
@@ -65,9 +65,9 @@ let Graphics = {
                     one = g.managerList[i];
                     rect = one.rect;
                     if (e.x >= rect[0] && e.y >= rect[1] && e.x <= (rect[0] + rect[2]) && e.y <= (rect[1] + rect[3])) {
-                        if (g.$managerLast != one) {
-                            g.$managerLast = one;
-                            g.onHoverManagerItem({
+                        if (g['@{manager.last}'] != one) {
+                            g['@{manager.last}'] = one;
+                            g['@{onHoverManagerItem}']({
                                 item: one,
                                 action: 'enter'
                             });
@@ -77,7 +77,7 @@ let Graphics = {
             }
         };
     },
-    getBestParams(tree, width, height) {
+    '@{getBestParams}'(tree, width, height) {
         let maxChildren = 0,
             deep = 0,
             deepMap = {};
@@ -125,15 +125,15 @@ let Graphics = {
             band: band
         };
     },
-    drawTree(tree, active) {
+    '@{drawTree}'(tree, active) {
         if (tree.id) {
             let width = Consts['@{width}'],
                 height = Consts['@{canvasHeight}'],
                 g = Graphics;
-            g.captureItmes();
-            let params = g.getBestParams(tree, width, height);
+            g['@{captureItmes}']();
+            let params = g['@{getBestParams}'](tree, width, height);
             width = params.width;
-            let ctx = D.getElementById('mx_view_canvas').getContext('2d');
+            let ctx = getNode('mx_view_canvas').getContext('2d');
             ctx.clearRect(0, 0, width, height);
             let max = params.radius * 2 - 2 * (params.band + 1) - 1;
             if (!g.$tWidth) g.$tWidth = {};
@@ -330,12 +330,12 @@ let Graphics = {
             UI['@{showTotal}'](tree, params);
         }
     },
-    drawManagerTree(tree) {
+    '@{drawManagerTree}'(tree) {
         let gs = Graphics;
-        gs.captureManagerItmes();
+        gs['@{captureManagerItmes}']();
         let height = Consts['@{managerMargin}'] * (tree.rows + 1) + tree.rows * Consts['@{managerHeight}'] + (Consts['@{managerGroupSpace}'] + Consts['@{managerMargin}']) * tree.groups.length;
         UI['@{updateManagerCanvasHeight}'](height);
-        let ctx = D.getElementById('mx_manager_canvas').getContext('2d');
+        let ctx = getNode('mx_manager_canvas').getContext('2d');
         ctx.clearRect(0, 0, Consts['@{canvasWidth}'], height);
         let margin = Consts['@{managerMargin}'];
         let managerWidth = ((Consts['@{canvasWidth}'] - (1 + Consts['@{managerCols}']) * Consts['@{managerMargin}']) / Consts['@{managerCols}']) | 0;
@@ -473,16 +473,16 @@ let Graphics = {
         draw(tree.groups);
         UI['@{showManagerTotal}'](tree);
     },
-    onHoverItem(e) {
+    '@{onHoverItem}'(e) {
         let env = Inspector['@{getEnv}']();
-        let vom = env.getVOM();
+        let vom = env['@{getVOM}']();
         if (e.action == 'enter') {
             UI['@{showMoreInfo}'](vom.get(e.item.id), e.item);
         } else {
             UI['@{hideMoreInfo}']();
         }
     },
-    onHoverManagerItem(e) {
+    '@{onHoverManagerItem}'(e) {
         if (e.action == 'enter') {
             UI['@{showManagerMoreInfo}'](e.item);
         } else {

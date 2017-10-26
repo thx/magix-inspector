@@ -66,6 +66,10 @@ let ApplyStyle = (x, h) => {
     }
 };
 let IconsMap = {
-    alter: '@ui.css:icon-alter',
-    bad: '@ui.css:icon-bad'
+    '@{alter}': '@ui.css:icon-alter',
+    '@{bad}': '@ui.css:icon-bad'
+};
+
+let getNode = id => {
+    return D.getElementById(id);
 };

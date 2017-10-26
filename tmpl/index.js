@@ -227,8 +227,8 @@ if (D['@{magix}']) {
             return [];
         },
         '@{getTree}'(env) {
-            let rootId = env.getRootId();
-            let vom = env.getVOM();
+            let rootId = env['@{getRootId}']();
+            let vom = env['@{getVOM}']();
             let flattened = [];
             let map = {};
             let tree = {
@@ -259,14 +259,14 @@ if (D['@{magix}']) {
                         finfo.cls = '';
                     } else if (vf.fca || vf.$ca) {
                         info.status = Status['@{alter}'];
-                        finfo.cls = 'alter';
+                        finfo.cls = '@{alter}';
                         if ((vf.cM && !vf.view) || (vf.$c && !vf.$v)) {
                             info.status = Status['@{init}'];
-                            finfo.cls = 'bad';
+                            finfo.cls = '@{bad}';
                         }
                     } else {
                         info.status = Status['@{init}'];
-                        finfo.cls = 'bad';
+                        finfo.cls = '@{bad}';
                     }
                     flattened.push(finfo);
                     map[vf.id] = info;
@@ -324,7 +324,7 @@ if (D['@{magix}']) {
                 }
             };
             walk(rootId, tree);
-            let node = D.getElementById('mx_com_view');
+            let node = getNode('mx_com_view');
             //如果存在组件且未勾选“显示组件view”，从树中删除组件
             if ((!node || !node.checked) && rewalk) {
                 rewalk = tree => {
@@ -349,7 +349,7 @@ if (D['@{magix}']) {
                 });
                 flattened.push({
                     id: p,
-                    cls: 'bad'
+                    cls: '@{bad}'
                 });
             }
             tree.isolated = il;
@@ -360,7 +360,7 @@ if (D['@{magix}']) {
             };
         },
         '@{getManagerTree}'(env) {
-            let managers = env.getMangerMods();
+            let managers = env['@{getMangerMods}']();
             let result = [],
                 rows = 0,
 
@@ -458,7 +458,7 @@ if (D['@{magix}']) {
         },
         '@{prepare}'(callback) {
             let env = Inspector['@{getEnv}']();
-            env.prepare();
+            env['@{prepare}']();
             let max = 50;
             let poll = () => {
                 max--;
@@ -466,7 +466,7 @@ if (D['@{magix}']) {
                     window.console.error('prepareError:无法在当前环境下启动Magix Inspector(需要的模块如jquery,magix等检测不到)，如需更多帮助，请旺旺联系：行列');
                 } else {
                     if (D.body) {
-                        if (env.isReady()) {
+                        if (env['@{isReady}']()) {
                             callback();
                         } else {
                             setTimeout(poll, 500);
@@ -482,13 +482,13 @@ if (D['@{magix}']) {
             Inspector['@{prepare}'](() => {
                 UI['@{setup}']();
                 let env = Inspector['@{getEnv}']();
-                let vom = env.getVOM();
+                let vom = env['@{getVOM}']();
                 let drawTimer, intervalTimer, moveTimer, activeId, treeInfo, blinkCount = 0;
 
                 let stopActive = function () {
                     if (activeId && intervalTimer) {
                         blinkCount = 0;
-                        Graphics.drawTree(treeInfo.tree);
+                        Graphics['@{drawTree}'](treeInfo.tree);
                         clearInterval(intervalTimer);
                         activeId = intervalTimer = '';
                     }
@@ -497,13 +497,13 @@ if (D['@{magix}']) {
                 let startActive = function () {
                     blinkCount = 16;
                     if (activeId && !intervalTimer) {
-                        Graphics.drawTree(treeInfo.tree, activeId);
+                        Graphics['@{drawTree}'](treeInfo.tree, activeId);
                         intervalTimer = setInterval(function () {
                             if (!blinkCount) {
                                 stopActive();
                             } else {
                                 blinkCount--;
-                                Graphics.drawTree(treeInfo.tree, activeId);
+                                Graphics['@{drawTree}'](treeInfo.tree, activeId);
                             }
                         }, 600);
                     }
@@ -599,9 +599,9 @@ if (D['@{magix}']) {
                     drawTimer = setTimeout(() => {
                         stopActive();
                         treeInfo = Inspector['@{getTree}'](env);
-                        Graphics.drawTree(treeInfo.tree);
+                        Graphics['@{drawTree}'](treeInfo.tree);
                         startActive();
-                        env.drawIcons(treeInfo.flattened);
+                        env['@{drawIcons}'](treeInfo.flattened);
                     }, 0);
                 };
                 vom.on('add', e => {
@@ -613,7 +613,7 @@ if (D['@{magix}']) {
                     attachVframe(e.vframe);
                 });
                 vom.on('remove', drawTree);
-                let rootVf = vom.get(env.getRootId());
+                let rootVf = vom.get(env['@{getRootId}']());
                 if (rootVf) {
                     rootVf.on('created', drawTree);
                 }
@@ -626,11 +626,11 @@ if (D['@{magix}']) {
                     clearTimeout(managerTimer);
                     managerTimer = setTimeout(() => {
                         let tree = Inspector['@{getManagerTree}'](env);
-                        Graphics.drawManagerTree(tree);
+                        Graphics['@{drawManagerTree}'](tree);
                     }, 500);
                 };
-                env.hookAttachMod(drawManagerTree);
-                env.hookViewShare(drawTree);
+                env['@{hookAttachMod}'](drawManagerTree);
+                env['@{hookViewShare}'](drawTree);
                 drawManagerTree();
             });
         }

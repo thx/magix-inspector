@@ -1,7 +1,7 @@
 //#snippet;
 //#exclude(loader)
 let Drag = {
-    get($, off, isFn) {
+    '@{get}'($, off, isFn) {
         let Win = $(window);
         let Doc = $(document);
         let ClearSelection = t => {
@@ -38,7 +38,7 @@ let Drag = {
             }
         };
         return {
-            begin(node, moveCallback, endCallback) {
+            '@{begin}'(node, moveCallback, endCallback) {
                 DragStop();
                 if (node) {
                     ClearSelection();
@@ -59,8 +59,7 @@ let Drag = {
                     $(node).on('losecapture', DragStop);
                 }
             },
-            clear: ClearSelection,
-            end: DragStop
+            '@{clear}': ClearSelection
         };
     }
 };

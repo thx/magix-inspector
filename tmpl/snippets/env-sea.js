@@ -1,6 +1,6 @@
 //#snippet;
 //#exclude(loader)
-SeajsEnv.getMod = key => {
+SeajsEnv['@{getMod}'] = key => {
     // try {
     //     let entity = seajs.require(key); //seajs有别名，优先使用内置的require获取
     //     if (entity)
@@ -48,7 +48,7 @@ SeajsEnv.getMod = key => {
     }
     return o;
 };
-SeajsEnv.getMangerMods = () => {
+SeajsEnv['@{getMangerMods}'] = () => {
     let mods = seajs.cache;
     let result = [];
     for (let p in mods) {
@@ -63,7 +63,7 @@ SeajsEnv.getMangerMods = () => {
     }
     return result;
 };
-SeajsEnv.getMixinId = mixins => {
+SeajsEnv['@{getMixinId}'] = mixins => {
     let mods = seajs.cache;
     let ids = [];
     for (let i = 0; i < mixins.length; i++) {
