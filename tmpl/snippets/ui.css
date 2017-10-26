@@ -91,7 +91,7 @@ vframe{
     background: rgba(0,0,0,0.20);
     background: -webkit-gradient(linear, left top, right top, from(rgba(165, 69, 243, 0.0)), color-stop(0.5, rgba(125, 118, 132, 0.33)), to(rgba(165, 69, 243, 0.0)));
 }
-#mx_moreinfo,#mx_manager_moreinfo{
+.more-info{
     position:absolute;
     background-color:#eee;
     padding:8px;

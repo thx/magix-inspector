@@ -17,154 +17,154 @@ let managerTotal = '@ui-mtotal.html';
 let UI = {
     '@{setup}'() {
         let div = D.createElement('div');
-        div.innerHTML = main.replace(/\{(\w+)\}/g, (m, v) => {
-            return Consts[v];
+        div.innerHTML = main.replace(/\{(\w+|(?:@\{[^\}]+\}))\}/g, (m, v) => {
+            return Consts[v] || m;
         });
         D.documentElement.appendChild(div);
         UI['@{attachEvent}']();
         let env = Inspector['@{getEnv}']();
-        env['@{dragIt}']('#mx', '#mx_tabs');
+        env['@{dragIt}']('#@{mx}', '#@{mx_tabs}');
     },
     '@{attachEvent}'() {
         UI['@{detachEvent}']();
         let moveTimer;
         let env = Inspector['@{getEnv}']();
-        env['@{bind}']('mx_view_canvas', 'mousemove', UI['@{$mousemove}'] = e => {
+        env['@{bind}']('@{mx_view_canvas}', 'mousemove', UI['@{$mousemove}'] = e => {
             clearTimeout(moveTimer);
             moveTimer = setTimeout(() => {
-                let offset = env['@{getDOMOffset}']('mx_view_canvas');
+                let offset = env['@{getDOMOffset}']('@{mx_view_canvas}');
                 UI['@{onMousemove}']({
                     x: e.pageX - offset.left,
                     y: e.pageY - offset.top
                 });
             }, 10);
         });
-        env['@{bind}']('mx_view_canvas', 'mouseout', UI['@{$mouseout}'] = () => {
+        env['@{bind}']('@{mx_view_canvas}', 'mouseout', UI['@{$mouseout}'] = () => {
             clearTimeout(moveTimer);
             UI['@{onMousemove}']({
                 x: -1,
                 y: -1
             });
         });
-        env['@{bind}']('mx_manager_canvas', 'mousemove', UI['@{$mangerMousemove}'] = e => {
+        env['@{bind}']('@{mx_manager_canvas}', 'mousemove', UI['@{$mangerMousemove}'] = e => {
             clearTimeout(moveTimer);
             moveTimer = setTimeout(() => {
-                let offset = env['@{getDOMOffset}']('mx_manager_canvas');
+                let offset = env['@{getDOMOffset}']('@{mx_manager_canvas}');
                 UI['@{onManagerMousemove}']({
                     x: e.pageX - offset.left,
                     y: e.pageY - offset.top
                 });
             }, 10);
         });
-        env['@{bind}']('mx_manager_canvas', 'mouseout', UI['@{$managerMouseout}'] = () => {
+        env['@{bind}']('@{mx_manager_canvas}', 'mouseout', UI['@{$managerMouseout}'] = () => {
             clearTimeout(moveTimer);
             UI['@{onManagerMousemove}']({
                 x: -1,
                 y: -1
             });
         });
-        env['@{bind}']('mx_moreinfo', 'mouseover', UI['@{$imouseover}'] = () => {
+        env['@{bind}']('@{mx_moreinfo}', 'mouseover', UI['@{$imouseover}'] = () => {
             clearTimeout(UI['@{$hideTimer}']
         });
-        env['@{bind}']('mx_moreinfo', 'mouseout', UI['@{$imouseout}'] = () => {
+        env['@{bind}']('@{mx_moreinfo}', 'mouseout', UI['@{$imouseout}'] = () => {
             UI['@{hideMoreInfo}']();
         });
-        env['@{bind}']('mx_log_console', 'click', () => {
-            let logNode = getNode('mx_log_console');
+        env['@{bind}']('@{mx_log_console}', 'click', () => {
+            let logNode = getNode('@{mx_log_console}');
             if (logNode.checked)
                 window.console.dir(env['@{getVOM}']().all());
         });
-        env['@{bind}']('mx_com_view', 'click', () => {
+        env['@{bind}']('@{mx_com_view}', 'click', () => {
             Inspector['@{drawTree}']();
         });
-        env['@{bind}']('mx', 'click', UI['@{$click}'] = e => {
+        env['@{bind}']('@{mx}', 'click', UI['@{$click}'] = e => {
             let node;
-            if (e.target.id == 'mx_min') {
-                node = getNode('mx');
+            if (e.target.id == '@{mx_min}') {
+                node = getNode('@{mx}');
                 if (e.target.innerHTML == '△') {
                     node.style.height = Consts['@{titleHeight}'] + 'px';
                     node.style.width = '40px';
                     node.style.overflow = 'hidden';
                     e.target.innerHTML = '▽';
-                    env['@{getNode}']('#mx_tabs').addClass('@ui.css:shrink');
+                    env['@{getNode}']('#@{mx_tabs}').addClass('@ui.css:shrink');
                 } else {
                     node.style.height = Consts['@{height}'] + 'px';
                     node.style.width = Consts['@{width}'] + 'px';
                     node.style.overflow = 'inherit';
                     e.target.innerHTML = '△';
-                    env['@{getNode}']('#mx_tabs').removeClass('@ui.css:shrink');
+                    env['@{getNode}']('#@{mx_tabs}').removeClass('@ui.css:shrink');
                 }
             } else if (e.target.innerHTML == 'VOM') {
-                node = getNode('mx_painter');
+                node = getNode('@{mx_painter}');
                 node.style.display = 'block';
-                node = getNode('mx_trancer');
+                node = getNode('@{mx_trancer}');
                 node.style.display = 'none';
-                node = getNode('mx_manager');
+                node = getNode('@{mx_manager}');
                 node.style.display = 'none';
             } else if (e.target.innerHTML == 'Tracer') {
-                node = getNode('mx_painter');
+                node = getNode('@{mx_painter}');
                 node.style.display = 'none';
-                node = getNode('mx_manager');
+                node = getNode('@{mx_manager}');
                 node.style.display = 'none';
-                node = getNode('mx_trancer');
+                node = getNode('@{mx_trancer}');
                 node.style.display = 'block';
             } else if (e.target.innerHTML == 'Manager') {
-                node = getNode('mx_painter');
+                node = getNode('@{mx_painter}');
                 node.style.display = 'none';
-                node = getNode('mx_trancer');
+                node = getNode('@{mx_trancer}');
                 node.style.display = 'none';
-                node = getNode('mx_manager');
+                node = getNode('@{mx_manager}');
                 node.style.display = 'block';
             }
         });
     },
     '@{expand}'() {
-        let min = getNode('mx_min');
+        let min = getNode('@{mx_min}');
         let env = Inspector['@{getEnv}']();
         if (min.innerHTML == '▽') {
-            let node = getNode('mx');
+            let node = getNode('@{mx}');
             node.style.height = Consts['@{height}'] + 'px';
             node.style.width = Consts['@{width}'] + 'px';
             node.style.overflow = 'inherit';
             min.innerHTML = '△';
-            env['@{getNode}']('#mx_tabs').removeClass('@ui.css:shrink');
+            env['@{getNode}']('#@{mx_tabs}').removeClass('@ui.css:shrink');
         }
     },
     '@{detachEvent}'() {
         let env = Inspector['@{getEnv}']();
-        env['@{unbind}']('mx_view_canvas', 'mousemove', UI['@{$mousemove}']);
-        env['@{unbind}']('mx_view_canvas', 'mouseout', UI['@{$mouseout}']);
-        env['@{unbind}']('mx_manager_canvas', 'mousemove', UI['@{$managerMousemove}']);
-        env['@{unbind}']('mx_manager_canvas', 'mouseout', UI['@{$managerMouseout}']);
-        env['@{unbind}']('mx_min', 'click', UI['@{$click}']);
-        env['@{unbind}']('mx_moreinfo', 'mouseoout', UI['@{$imouseout}']);
-        env['@{unbind}']('mx_moreinfo', 'mouseover', UI['@{$imouseover}']);
+        env['@{unbind}']('@{mx_view_canvas}', 'mousemove', UI['@{$mousemove}']);
+        env['@{unbind}']('@{mx_view_canvas}', 'mouseout', UI['@{$mouseout}']);
+        env['@{unbind}']('@{mx_manager_canvas}', 'mousemove', UI['@{$managerMousemove}']);
+        env['@{unbind}']('@{mx_manager_canvas}', 'mouseout', UI['@{$managerMouseout}']);
+        env['@{unbind}']('@{mx_min}', 'click', UI['@{$click}']);
+        env['@{unbind}']('@{mx_moreinfo}', 'mouseoout', UI['@{$imouseout}']);
+        env['@{unbind}']('@{mx_moreinfo}', 'mouseover', UI['@{$imouseover}']);
         //env['@{unbind}']('mx_mover', 'mousedown', UI['@{$mousedown}']);
     },
     '@{showMoreInfo}'(vf, item) {
         clearTimeout(UI['@{$hideTimer}']);
-        let logNode = getNode('mx_log_console');
+        let logNode = getNode('@{mx_log_console}');
         if (logNode.checked) {
             window.console.log(vf);
         }
-        let cover = getNode('mx_cover');
+        let cover = getNode('@{mx_cover}');
         if (!cover) {
             cover = D.createElement('div');
             cover.className = '@ui.css:mask';
-            cover.id = 'mx_cover';
+            cover.id = '@{mx_cover}';
             D.body.appendChild(cover);
         }
 
-        let node = getNode('mx_moreinfo');
+        let node = getNode('@{mx_moreinfo}');
         node.style.display = 'block';
-        let left = item.center.x - Consts['@{moreInfoWidth}'] / 2 - getNode('mx_view_cnt').scrollLeft;
+        let left = item.center.x - Consts['@{moreInfoWidth}'] / 2 - getNode('@{mx_view_cnt}').scrollLeft;
         node.style.left = left + 'px';
         node.style.top = item.center.y + item.radius + Consts['@{titleHeight}'] + 5 + 'px';
         let env = Inspector['@{getEnv}']();
         env['@{updateDOMStyle}'](cover.style, vf.id);
         cover.style.display = 'block';
 
-        node.innerHTML = moreInfo.replace(/\{(\w+)\}/g, function (m, v) {
+        node.innerHTML = moreInfo.replace(/\{(\w+|(?:@\{[^\}]+\}))\}/g, function (m, v) {
             switch (v) {
                 case 'id':
                     return item.id;
@@ -261,13 +261,13 @@ let UI = {
                     }
                     return t.join('');
                 default:
-                    return Consts[v];
+                    return Consts[v] || m;
             }
         });
     },
     '@{hideMoreInfo}'() {
-        let node = getNode('mx_moreinfo');
-        let cover = getNode('mx_cover');
+        let node = getNode('@{mx_moreinfo}');
+        let cover = getNode('@{mx_cover}');
         UI['@{$hideTimer}'] = setTimeout(() => {
             node.style.display = 'none';
             cover.style.display = 'none';
@@ -275,11 +275,11 @@ let UI = {
     },
     '@{showManagerMoreInfo}'(item) {
         clearTimeout(UI['@{$hideManagerTimer}']);
-        let node = getNode('mx_manager_moreinfo');
+        let node = getNode('@{mx_manager_moreinfo}');
         node.style.display = 'block';
         node.style.left = item.rect[0] + 'px';
         let top = item.rect[1] + item.rect[3] + Consts['@{titleHeight}'];
-        let st = getNode('mx_manager_cnt').scrollTop;
+        let st = getNode('@{mx_manager_cnt}').scrollTop;
         top -= st;
         node.style.top = top + 'px';
         node.innerHTML = moreManagerInfo.replace(/\{(\w+)\}/g, (m, v) => {
@@ -287,41 +287,45 @@ let UI = {
                 case 'id':
                     return item.id;
                 default:
-                    return item[v];
+                    return item[v] || m;
             }
         });
     },
     '@{hideManagerMoreInfo}'() {
-        let node = getNode('mx_manager_moreinfo');
+        let node = getNode('@{mx_manager_moreinfo}');
         UI['@{$hideManagerTimer}'] = setTimeout(() => {
             node.style.display = 'none';
         }, 150);
     },
     '@{showManagerTotal}'(tree) {
-        let node = getNode('mx_manager_total');
+        let node = getNode('@{mx_manager_total}');
         node.innerHTML = managerTotal.replace(/\{(\w+)\}/g, (m, v) => {
             switch (v) {
                 case 'groups':
                     return tree.groups.length;
                 case 'total':
                     return tree.total;
+                default:
+                    return m;
             }
         });
     },
     '@{showTotal}'(tree) {
-        let node = getNode('mx_view_total');
+        let node = getNode('@{mx_view_total}');
         node.innerHTML = total.replace(/\{(\w+)\}/g, (m, v) => {
             switch (v) {
                 case 'count':
                     return 'com:' + tree.comTotal + ',vom:' + tree.vomTotal + ',total:' + tree.total;
+                default:
+                    return m;
             }
         });
     },
     '@{updateManagerCanvasHeight}'(height) {
-        getNode('mx_manager_canvas').height = height | 0;
+        getNode('@{mx_manager_canvas}').height = height | 0;
     },
     '@{updateVOMCanvansWidth}'(width) {
-        let c = getNode('mx_view_canvas');
+        let c = getNode('@{mx_view_canvas}');
         c.width = width | 0;
         c.parentNode.scrollLeft = (c.width - Consts['@{canvasWidth}']) / 2;
     },

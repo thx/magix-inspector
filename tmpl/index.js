@@ -3,14 +3,14 @@ let D = document;
 let W = window;
 if (D['@{magix}']) {
     W.postMessage({
-        '@{from}': 'mx_ispt',
-        '@{action}': 'expand'
+        '@{from}': '@{mx_ispt}',
+        '@{action}': '@{expand}'
     }, '*');
 } else {
     W.addEventListener('message', e => {
         let d = e.data;
-        if (d && d['@{from}'] == 'mx_ispt') {
-            if (d['@{action}'] == 'expand') {
+        if (d && d['@{from}'] == '@{mx_ispt}') {
+            if (d['@{action}'] == '@{expand}') {
                 UI['@{expand}']();
             }
         }
@@ -324,7 +324,7 @@ if (D['@{magix}']) {
                 }
             };
             walk(rootId, tree);
-            let node = getNode('mx_com_view');
+            let node = getNode('@{mx_com_view}');
             //如果存在组件且未勾选“显示组件view”，从树中删除组件
             if ((!node || !node.checked) && rewalk) {
                 rewalk = tree => {

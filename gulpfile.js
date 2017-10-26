@@ -6,14 +6,15 @@ let buildFolder = 'build';
 let gulp = require('gulp');
 let watch = require('gulp-watch');
 let fs = require('fs');
-let combineTool = require('../magix-combine/index');
+let combineTool = require('magix-combine');
 let del = require('del');
 let ts = require('typescript');
 
 combineTool.config({
+    //debug:true,
     tmplFolder: tmplFolder,
     srcFolder: srcFolder,
-    cssSelectorPrefix: 'mxi-',
+    cssSelectorPrefix: 'mi',
     loaderType: 'iife',
     revisableStringSplitter: '',
     compileBeforeProcessor(content) {

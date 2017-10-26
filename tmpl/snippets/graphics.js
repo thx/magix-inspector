@@ -133,7 +133,7 @@ let Graphics = {
             g['@{captureItmes}']();
             let params = g['@{getBestParams}'](tree, width, height);
             width = params.width;
-            let ctx = getNode('mx_view_canvas').getContext('2d');
+            let ctx = getNode('@{mx_view_canvas}').getContext('2d');
             ctx.clearRect(0, 0, width, height);
             let max = params.radius * 2 - 2 * (params.band + 1) - 1;
             if (!g.$tWidth) g.$tWidth = {};
@@ -335,7 +335,7 @@ let Graphics = {
         gs['@{captureManagerItmes}']();
         let height = Consts['@{managerMargin}'] * (tree.rows + 1) + tree.rows * Consts['@{managerHeight}'] + (Consts['@{managerGroupSpace}'] + Consts['@{managerMargin}']) * tree.groups.length;
         UI['@{updateManagerCanvasHeight}'](height);
-        let ctx = getNode('mx_manager_canvas').getContext('2d');
+        let ctx = getNode('@{mx_manager_canvas}').getContext('2d');
         ctx.clearRect(0, 0, Consts['@{canvasWidth}'], height);
         let margin = Consts['@{managerMargin}'];
         let managerWidth = ((Consts['@{canvasWidth}'] - (1 + Consts['@{managerCols}']) * Consts['@{managerMargin}']) / Consts['@{managerCols}']) | 0;

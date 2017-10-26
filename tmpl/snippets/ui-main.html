@@ -1,30 +1,30 @@
-<div class="main" id="mx">
-    <ul class="clearfix tab" id="mx_tabs">
-        <li class="fr p8 cp" id="mx_min">△</li>
+<div class="main" id="@{mx}">
+    <ul class="clearfix tab" id="@{mx_tabs}">
+        <li class="fr p8 cp" id="@{mx_min}">△</li>
         <li class="fl p8 cp">VOM</li>
         <li class="fl p8 cp">Tracer</li>
         <li class="fl p8 cp">Manager</li>
     </ul>
-    <div id="mx_painter">
-        <div style="width:{@{width}}px;height:{@{canvasHeight}}px;overflow-x:auto;overflow-y:hidden" id="mx_view_cnt">
-            <canvas width="{@{width}}" height="{@{canvasHeight}}" id="mx_view_canvas"></canvas>
+    <div id="@{mx_painter}">
+        <div style="width:{@{width}}px;height:{@{canvasHeight}}px;overflow-x:auto;overflow-y:hidden" id="@{mx_view_cnt}">
+            <canvas width="{@{width}}" height="{@{canvasHeight}}" id="@{mx_view_canvas}"></canvas>
         </div>
-        <label class="fl console"><input type="checkbox" class="mr3" id="mx_log_console" />控制台显示view信息</label>
-        <label class="fl console"><input type="checkbox" class="mr3" id="mx_com_view" checked="checked" />显示组件view</label>
-        <ul class="clearfix fl" id="mx_view_total"></ul>
+        <label class="fl console"><input type="checkbox" class="mr3" id="@{mx_log_console}" />控制台显示view信息</label>
+        <label class="fl console"><input type="checkbox" class="mr3" id="@{mx_com_view}" checked="checked" />显示组件view</label>
+        <ul class="clearfix fl" id="@{mx_view_total}"></ul>
     </div>
-    <div id="mx_trancer" style="height:{@{canvasHeight}}px;overflow:scroll;overflow-x:auto;display:none;padding:8px;">
+    <div id="@{mx_trancer}" style="height:{@{canvasHeight}}px;overflow:scroll;overflow-x:auto;display:none;padding:8px;">
     </div>
-    <div id="mx_manager" style="display:none">
-        <div style="height:{@{canvasHeight}}px;overflow:scroll;overflow-x:auto;" id="mx_manager_cnt">
-            <canvas width="{@{canvasWidth}}" height="{@{canvasHeight}}" id="mx_manager_canvas"></canvas>
+    <div id="@{mx_manager}" style="display:none">
+        <div style="height:{@{canvasHeight}}px;overflow:scroll;overflow-x:auto;" id="@{mx_manager_cnt}">
+            <canvas width="{@{canvasWidth}}" height="{@{canvasHeight}}" id="@{mx_manager_canvas}"></canvas>
         </div>
-        <ul class="clearfix p8" id="mx_manager_total"></ul>
+        <ul class="clearfix p8" id="@{mx_manager_total}"></ul>
     </div>
-    <div id="mx_moreinfo">
+    <div id="@{mx_moreinfo}" class="more-info">
 
     </div>
-    <div id="mx_manager_moreinfo">
+    <div id="@{mx_manager_moreinfo}" class="more-info">
 
     </div>
 </div>
