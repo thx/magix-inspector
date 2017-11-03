@@ -137,13 +137,13 @@ let Graphics = {
             let ctx = getNode('@{mx_view_canvas}').getContext('2d');
             ctx.clearRect(0, 0, width, height);
             let max = params.radius * 2 - 2 * (params.band + 1) - 1;
-            if (!g.$tWidth) g.$tWidth = {};
+            if (!g['@{text.cache}']) g['@{text.cache}'] = {};
             let getWidth = text => {
-                if (!g.$tWidth[text]) {
+                if (!g['@{text.cache}'][text]) {
                     ctx.font = 'normal 12px Arial';
-                    g.$tWidth[text] = ctx.measureText(text).width;
+                    g['@{text.cache}'][text] = ctx.measureText(text).width;
                 }
-                return g.$tWidth[text];
+                return g['@{text.cache}'][text];
             };
             let cutText = text => {
                 let len = 1,

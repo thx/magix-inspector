@@ -592,7 +592,7 @@ var UI = {
                 case 'id':
                     return item.id;
                 default:
-                    return item[v] || m;
+                    return item[v] || '';
             }
         });
     },
@@ -806,14 +806,14 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
             var ctx_1 = getNode('_au').getContext('2d');
             ctx_1.clearRect(0, 0, width_1, height);
             var max_1 = params_1.radius * 2 - 2 * (params_1.band + 1) - 1;
-            if (!g_1.$tWidth)
-                g_1.$tWidth = {};
+            if (!g_1['_bt'])
+                g_1['_bt'] = {};
             var getWidth_1 = function (text) {
-                if (!g_1.$tWidth[text]) {
+                if (!g_1['_bt'][text]) {
                     ctx_1.font = 'normal 12px Arial';
-                    g_1.$tWidth[text] = ctx_1.measureText(text).width;
+                    g_1['_bt'][text] = ctx_1.measureText(text).width;
                 }
-                return g_1.$tWidth[text];
+                return g_1['_bt'][text];
             };
             var cutText_1 = function (text) {
                 var len = 1, width = 0;
@@ -1135,11 +1135,11 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
         var env = Inspector['_e']();
         var vom = env['_p']();
         if (e.action == 'enter') {
-            Graphics['_bt'] = vom.get(e.item.id);
+            Graphics['_bu'] = vom.get(e.item.id);
             UI['_aY'](vom.get(e.item.id), e.item);
         }
         else {
-            Graphics['_bt'] = null;
+            Graphics['_bu'] = null;
             UI['_aJ']();
         }
     },
@@ -1152,7 +1152,7 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
         }
     },
     '_bn': function (e) {
-        var lastVOM = Graphics['_bt'];
+        var lastVOM = Graphics['_bu'];
         if (!lastVOM) {
             return;
         }
@@ -1462,7 +1462,7 @@ var KISSYEnv = {
             });
         }
     },
-    '_bu': function (key) {
+    '_bv': function (key) {
         var ms = require.s.contexts._.defined;
         var o = ms[key] || ModuleIdMap[key];
         if (!o && ModulesFeatures[key]) {
@@ -1496,26 +1496,26 @@ var KISSYEnv = {
         }
         return o;
     },
-    '_bv': function () {
-        return this['_bu']('$') || this['_bu']('jquery') || this['_bu']('zepto');
+    '_bw': function () {
+        return this['_bv']('$') || this['_bv']('jquery') || this['_bv']('zepto');
     },
     '_o': function () {
-        var old = this['_bu']('magix/magix');
+        var old = this['_bv']('magix/magix');
         var magix;
         if (old) {
             magix = old;
         }
         else {
-            magix = this['_bu']('magix');
+            magix = this['_bv']('magix');
         }
         return magix.config('rootId');
     },
     '_p': function () {
-        var old = this['_bu']('magix/vom');
+        var old = this['_bv']('magix/vom');
         if (old) {
             return old;
         }
-        var magix = this['_bu']('magix');
+        var magix = this['_bv']('magix');
         return magix.VOM || magix.Vframe;
     },
     '_C': function () {
@@ -1533,10 +1533,10 @@ var KISSYEnv = {
         return result;
     },
     '_K': function () {
-        return this['_bu']('magix/magix') || this['_bu']('magix');
+        return this['_bv']('magix/magix') || this['_bv']('magix');
     },
     '_aV': function (style, id) {
-        var $ = this['_bv']();
+        var $ = this['_bw']();
         var node = $('#' + id);
         var n = node;
         var size = {
@@ -1607,17 +1607,17 @@ var KISSYEnv = {
         style.height = size.height + 'px';
     },
     '_aw': function (id) {
-        var $ = this['_bv']();
+        var $ = this['_bw']();
         return $('#' + id).offset();
     },
     '_at': function (id, type, fn) {
-        var $ = this['_bv']();
+        var $ = this['_bw']();
         if ($.type(id) == 'string')
             id = '#' + id;
         return $(id).on(type, fn);
     },
     '_aR': function (id, type, fn) {
-        var $ = this['_bv']();
+        var $ = this['_bw']();
         if ($.type(id) == 'string')
             id = '#' + id;
         return $(id).off(type, fn);
@@ -1649,7 +1649,7 @@ var KISSYEnv = {
     },
     '_aX': function (r) {
         var e = r.res || r.e;
-        var $ = this['_bv']();
+        var $ = this['_bw']();
         var type = $.type(r);
         if (e) {
             if (e.all && e.constructor && e.constructor.cached) {
@@ -1668,7 +1668,7 @@ var KISSYEnv = {
         return type;
     },
     '_ap': function (node, handle) {
-        var $ = this['_bv']();
+        var $ = this['_bw']();
         var root = $(node);
         var dd = Drag['_Y']($, 'off', $.isFunction);
         $(handle).on('mousedown', function (e) {
@@ -1691,7 +1691,7 @@ var KISSYEnv = {
         });
     },
     '_R': function (flattened) {
-        var $ = this['_bv']();
+        var $ = this['_bw']();
         for (var i = flattened.length - 1; i >= 0; i--) {
             var f = flattened[i];
             var root = $('#' + f.id);
@@ -1703,11 +1703,11 @@ var KISSYEnv = {
         }
     },
     '_aN': function (node) {
-        var $ = this['_bv']();
+        var $ = this['_bw']();
         return $(node);
     },
     '_U': function (cb) {
-        var magix = this['_bu']('magix');
+        var magix = this['_bv']('magix');
         if (magix && magix.View && magix.View.prototype.share) {
             var old_1 = magix.View.prototype.share;
             magix.View.prototype.share = function () {
@@ -1722,7 +1722,7 @@ var KISSYEnv = {
     for (var p in RequireEnv) {
         SeajsEnv[p] = SeajsSEnv[p] = MagixEnv[p] = RequireEnv[p];
     }
-    SeajsEnv['_bu'] = function (key) {
+    SeajsEnv['_bv'] = function (key) {
     // try {
     //     let entity = seajs.require(key); //seajs有别名，优先使用内置的require获取
     //     if (entity)
@@ -1812,7 +1812,7 @@ SeajsEnv['_aW'] = function (mixins) {
     return ids;
 };
 
-    SeajsSEnv['_bu'] = function (key) {
+    SeajsSEnv['_bv'] = function (key) {
     var o;
     try {
         o = require(key);
@@ -1830,12 +1830,12 @@ SeajsSEnv['_aW'] = function (mixins) {
     return new Array(mixins.length + 2).join('unknown').slice(1);
 };
 
-    MagixEnv['_bu'] = function (k, ey) {
+    MagixEnv['_bv'] = function (k, ey) {
     if (key == 'magix') {
         return window.Magix;
     }
 };
-MagixEnv['_bv'] = function () {
+MagixEnv['_bw'] = function () {
     return window.$ || window.jQuery;
 };
 MagixEnv['_o'] = function () {
@@ -2285,7 +2285,7 @@ MagixEnv['_K'] = function () {
             var poll = function () {
                 max--;
                 if (!max) {
-                    window.console.error('prepareError:无法在当前环境下启动Magix Inspector(需要的模块如jquery,magix等检测不到)，如需更多帮助，请旺旺联系：行列');
+                    window.console.error('prepareError:无法在当前环境下启动Magix Inspector(需要的模块如jquery,magix等检测不到)，如需更多帮助，请钉钉联系：行列');
                 }
                 else {
                     if (D.body) {
