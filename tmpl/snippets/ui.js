@@ -287,7 +287,7 @@ let UI = {
                 case 'id':
                     return item.id;
                 default:
-                    return item[v] || m;
+                    return item[v] || '';
             }
         });
     },

@@ -463,7 +463,7 @@ if (D['@{magix}']) {
             let poll = () => {
                 max--;
                 if (!max) {
-                    window.console.error('prepareError:无法在当前环境下启动Magix Inspector(需要的模块如jquery,magix等检测不到)，如需更多帮助，请旺旺联系：行列');
+                    window.console.error('prepareError:无法在当前环境下启动Magix Inspector(需要的模块如jquery,magix等检测不到)，如需更多帮助，请钉钉联系：行列');
                 } else {
                     if (D.body) {
                         if (env['@{isReady}']()) {
