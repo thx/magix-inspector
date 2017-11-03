@@ -13,12 +13,12 @@
     "inspector"
   ],
   "devDependencies": {
-    "del": "",
-    "gulp": "",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
     "gulp-header": "^1.8.8",
-    "gulp-uglify": "",
-    "gulp-watch": "",
-    "magix-combine": "",
+    "gulp-uglify": "^3.0.0",
+    "gulp-watch": "^4.3.11",
+    "magix-combine": "^3.7.0",
     "typescript": "^2.4.2"
   },
   "author": "xinglie <xinglie.lkf@taobao.com>",

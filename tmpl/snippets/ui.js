@@ -39,6 +39,9 @@ let UI = {
                 });
             }, 10);
         });
+        env['@{bind}']('@{mx_view_canvas}', 'click', UI['@{canvasClick}'] = e => {
+            UI['@{onCanvasClick}'](e);
+        });
         env['@{bind}']('@{mx_view_canvas}', 'mouseout', UI['@{$mouseout}'] = () => {
             clearTimeout(moveTimer);
             UI['@{onMousemove}']({
@@ -64,7 +67,7 @@ let UI = {
             });
         });
         env['@{bind}']('@{mx_moreinfo}', 'mouseover', UI['@{$imouseover}'] = () => {
-            clearTimeout(UI['@{$hideTimer}']
+            clearTimeout(UI['@{$hideTimer}'])
         });
         env['@{bind}']('@{mx_moreinfo}', 'mouseout', UI['@{$imouseout}'] = () => {
             UI['@{hideMoreInfo}']();
@@ -134,6 +137,7 @@ let UI = {
         let env = Inspector['@{getEnv}']();
         env['@{unbind}']('@{mx_view_canvas}', 'mousemove', UI['@{$mousemove}']);
         env['@{unbind}']('@{mx_view_canvas}', 'mouseout', UI['@{$mouseout}']);
+        env['@{unbind}']('@{mx_view_canvas}', 'click', UI['@{canvasClick}']);
         env['@{unbind}']('@{mx_manager_canvas}', 'mousemove', UI['@{$managerMousemove}']);
         env['@{unbind}']('@{mx_manager_canvas}', 'mouseout', UI['@{$managerMouseout}']);
         env['@{unbind}']('@{mx_min}', 'click', UI['@{$click}']);
@@ -333,6 +337,9 @@ let UI = {
         console.log(e);
     },
     '@{onManagerMousemove}'(e) {
+        console.log(e);
+    },
+    '@{onCanvasClick}'(e) {
         console.log(e);
     }
 };
