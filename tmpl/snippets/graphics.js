@@ -38,6 +38,7 @@ let Graphics = {
                 }
             }
         };
+        UI['@{onCanvasClick}'] = g['@{onClickItem}'];
     },
     '@{captureManagerItmes}'() {
         let g = Graphics;
@@ -477,8 +478,10 @@ let Graphics = {
         let env = Inspector['@{getEnv}']();
         let vom = env['@{getVOM}']();
         if (e.action == 'enter') {
+            Graphics['@{lastVOM}'] = vom.get(e.item.id);
             UI['@{showMoreInfo}'](vom.get(e.item.id), e.item);
         } else {
+            Graphics['@{lastVOM}'] = null;
             UI['@{hideMoreInfo}']();
         }
     },
@@ -488,5 +491,17 @@ let Graphics = {
         } else {
             UI['@{hideManagerMoreInfo}']();
         }
+    },
+    '@{onClickItem}'(e) {
+        var lastVOM = Graphics['@{lastVOM}'];
+        if(!lastVOM) {
+            return;
+        }
+        var path = (lastVOM.view && lastVOM.view.path) || lastVOM.path;
+        if(!path) {
+            return;
+        }
+        var base = (window.Site && window.Site.onlineHostname) || window.location.hostname;
+        IdePort['@{connectAllPromise}'](base, path + '.js', path + '.html');
     }
 };

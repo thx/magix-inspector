@@ -16,6 +16,7 @@ if (D['@{magix}']) {
         }
     }, false);
     D['@{magix}'] = 1;
+    '@snippets/env-ide-port.js';
     '@snippets/variable.js';
     '@snippets/drag.js';
     '@snippets/ui.js';
