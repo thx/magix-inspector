@@ -23,6 +23,138 @@ else {
         }
     }, false);
     D['__'] = 1;
+    var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var IdePort = {
+    '_Z': function (url) {
+        return new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.responseText) {
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText);
+                    }
+                    else {
+                        reject(new Error("Network failed(" + xhr.status + "): " + url));
+                    }
+                }
+            };
+            xhr.send();
+        });
+    },
+    '_aa': function (inputHostname) {
+        var files = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            files[_i - 1] = arguments[_i];
+        }
+        IdePort['_a_'](inputHostname)
+            .then(function (determinedURL) {
+            return Promise.all(files.map(function (file) {
+                return IdePort['_Z'](determinedURL + encodeURIComponent(file));
+            }));
+        })
+            .then(function (determinedURL) {
+            console.info("Files(" + files.length + ") all opened.");
+        })["catch"](function (err) { return console.error(err); });
+    },
+    '_a_': function (inputHostname) {
+        if (IdePort.determinedURL && IdePort.determinedBase == inputHostname) {
+            return Promise.resolve(IdePort.determinedURL);
+        }
+        return IdePort['_ab'](inputHostname);
+    },
+    '_ab': function (inputHostname) {
+        return __awaiter(this, void 0, void 0, function () {
+            function hashStr(str, max) {
+                // SDBM Algorithm from http://www.cse.yorku.ca/~oz/hash.html
+                var hash = 0;
+                for (var i = 0; i < str.length; i++) {
+                    hash = str.charCodeAt(i) + (hash << 6) + (hash << 16) - hash;
+                }
+                hash = hash >>> 0;
+                max && (hash %= max);
+                return hash;
+            }
+            var MAX_TRIAL, trials, port, location, determinedURL, responseHostname, err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        MAX_TRIAL = 3;
+                        trials = 0;
+                        port = hashStr(inputHostname, 8192) + 32768;
+                        _a.label = 1;
+                    case 1:
+                        location = "http://127.0.0.1:" + port + "/";
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, IdePort['_Z'](location)];
+                    case 3:
+                        responseHostname = _a.sent();
+                        if (responseHostname != inputHostname) {
+                            throw '';
+                        }
+                        determinedURL = location + 'open?link=';
+                        return [3 /*break*/, 5];
+                    case 4:
+                        err_1 = _a.sent();
+                        return [3 /*break*/, 5];
+                    case 5:
+                        trials++;
+                        port++;
+                        _a.label = 6;
+                    case 6:
+                        if (!determinedURL && trials < MAX_TRIAL) return [3 /*break*/, 1];
+                        _a.label = 7;
+                    case 7:
+                        if (!determinedURL) {
+                            throw new Error("Cannot find available port within range: " + (port - MAX_TRIAL) + " ~ " + port);
+                        }
+                        IdePort.determinedBase = inputHostname;
+                        IdePort.determinedURL = determinedURL;
+                        return [2 /*return*/, determinedURL];
+                }
+            });
+        });
+    }
+};
+// Tested in Browser:
+// IdePort["@{determineIDEServiceURLPromise}"]('dianjiang.di.taobao.com');
+
     var Status = {
     '_q': '#008B00',
     '_s': '#FF3030',
@@ -31,21 +163,21 @@ else {
     '_O': '#9AC0CD',
     '_P': '#8B5F65',
     '_Q': '#EED5B7',
-    '_ag': '#94d694'
+    '_ac': '#94d694'
 };
 var Consts = {
-    '_ah': 550,
-    '_ai': 470,
-    '_aj': 530,
-    '_ak': 400,
-    '_al': 490,
-    '_am': 34,
-    '_an': 6,
-    '_ao': 15,
+    '_ad': 550,
+    '_ae': 470,
+    '_af': 530,
+    '_ag': 400,
+    '_ah': 490,
+    '_ai': 34,
+    '_aj': 6,
+    '_ak': 15,
     '_H': 5,
-    '_ap': 5,
-    '_aq': 40,
-    '_ar': 40,
+    '_al': 5,
+    '_am': 40,
+    '_an': 40,
     '_i': {
         r: 0,
         g: 153,
@@ -174,8 +306,8 @@ var ehMap = {
 var encodeHTML = function (src) {
     return src.replace(ehReg, function (m) { return '&' + ehMap[m] + ';'; });
 };
-var main = "<div class=\"mie\" id=\"_at\"><ul class=\"mip mid\" id=\"_au\"><li class=\"mil min mim\" id=\"_aL\">△</li><li class=\"mik min mim\">VOM</li><li class=\"mik min mim\">Tracer</li><li class=\"mik min mim\">Manager</li></ul><div id=\"_aM\"><div style=\"width:{_ah}px;height:{_ak}px;overflow-x:auto;overflow-y:hidden\" id=\"_aR\"><canvas width=\"{_ah}\" height=\"{_ak}\" id=\"_aw\"></canvas></div><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"_aJ\">控制台显示view信息</label><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"_z\" checked=\"checked\">显示组件view</label><ul class=\"mip mik\" id=\"_b_\"></ul></div><div id=\"_aN\" style=\"height:{_ak}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"_aO\" style=\"display:none\"><div style=\"height:{_ak}px;overflow:scroll;overflow-x:auto\" id=\"_aV\"><canvas width=\"{_aj}\" height=\"{_ak}\" id=\"_aA\"></canvas></div><ul class=\"mip min\" id=\"_aY\"></ul></div><div id=\"_aE\" class=\"mir\"></div><div id=\"_aU\" class=\"mir\"></div></div>";
-var moreInfo = "<ul><li><b class=\"mic\">id:</b>{id}</li><li><b class=\"mic\">view:</b>{view}</li>{events} {location} {share} {mixins} {state}<li class=\"mio\">{ex}</li><li><b class=\"mic\">resources</b></li><li style=\"{_al}px;overflow:auto;max-height:200px\">{res}</li></ul>";
+var main = "<div class=\"mie\" id=\"_aq\"><ul class=\"mip mid\" id=\"_ar\"><li class=\"mil min mim\" id=\"_aM\">△</li><li class=\"mik min mim\">VOM</li><li class=\"mik min mim\">Tracer</li><li class=\"mik min mim\">Manager</li></ul><div id=\"_aO\"><div style=\"width:{_ad}px;height:{_ag}px;overflow-x:auto;overflow-y:hidden\" id=\"_aU\"><canvas width=\"{_ad}\" height=\"{_ag}\" id=\"_au\"></canvas></div><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"_aK\">控制台显示view信息</label><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"_z\" checked=\"checked\">显示组件view</label><ul class=\"mip mik\" id=\"_bf\"></ul></div><div id=\"_aP\" style=\"height:{_ag}px;overflow:scroll;overflow-x:auto;display:none;padding:8px\"></div><div id=\"_aQ\" style=\"display:none\"><div style=\"height:{_ag}px;overflow:scroll;overflow-x:auto\" id=\"_ba\"><canvas width=\"{_af}\" height=\"{_ag}\" id=\"_aB\"></canvas></div><ul class=\"mip min\" id=\"_bd\"></ul></div><div id=\"_aF\" class=\"mir\"></div><div id=\"_b_\" class=\"mir\"></div></div>";
+var moreInfo = "<ul><li><b class=\"mic\">id:</b>{id}</li><li><b class=\"mic\">view:</b>{view}</li>{events} {location} {share} {mixins} {state}<li class=\"mio\">{ex}</li><li><b class=\"mic\">resources</b></li><li style=\"{_ah}px;overflow:auto;max-height:200px\">{res}</li></ul>";
 var moreManagerInfo = "<ul><li><b>key:</b>{id}</li><li><b>url:</b>{url}</li><li><b>描述:</b>{desc}</li><li><b>缓存:</b>{cache}</li><li><b>清理缓存:</b>{cleans}</li><li><b>预处理:</b>{hasAfter}</li></ul>";
 var total = "<li class=\"mik mig mii\">view统计:[{count}]</li>";
 var managerTotal = "<li class=\"mik mig\">{groups}个接口文件，共{total}个接口</li>";
@@ -186,150 +318,154 @@ var UI = {
             return Consts[v] || m;
         });
         D.documentElement.appendChild(div);
-        UI['_as']();
+        UI['_ao']();
         var env = Inspector['_e']();
-        env['_ae']('#_at', '#_au');
+        env['_ap']('#_aq', '#_ar');
     },
-    '_as': function () {
-        UI['_av']();
+    '_ao': function () {
+        UI['_as']();
         var moveTimer;
         var env = Inspector['_e']();
-        env['_aa']('_aw', 'mousemove', UI['_ax'] = function (e) {
+        env['_at']('_au', 'mousemove', UI['_av'] = function (e) {
             clearTimeout(moveTimer);
             moveTimer = setTimeout(function () {
-                var offset = env['_a_']('_aw');
-                UI['_ay']({
+                var offset = env['_aw']('_au');
+                UI['_ax']({
                     x: e.pageX - offset.left,
                     y: e.pageY - offset.top
                 });
             }, 10);
         });
-        env['_aa']('_aw', 'mouseout', UI['_az'] = function () {
+        env['_at']('_au', 'click', UI['_ay'] = function (e) {
+            UI['_az'](e);
+        });
+        env['_at']('_au', 'mouseout', UI['_aA'] = function () {
             clearTimeout(moveTimer);
-            UI['_ay']({
+            UI['_ax']({
                 x: -1,
                 y: -1
             });
         });
-        env['_aa']('_aA', 'mousemove', UI['_aB'] = function (e) {
+        env['_at']('_aB', 'mousemove', UI['_aC'] = function (e) {
             clearTimeout(moveTimer);
             moveTimer = setTimeout(function () {
-                var offset = env['_a_']('_aA');
-                UI['_aC']({
+                var offset = env['_aw']('_aB');
+                UI['_aD']({
                     x: e.pageX - offset.left,
                     y: e.pageY - offset.top
                 });
             }, 10);
         });
-        env['_aa']('_aA', 'mouseout', UI['_aD'] = function () {
+        env['_at']('_aB', 'mouseout', UI['_aE'] = function () {
             clearTimeout(moveTimer);
-            UI['_aC']({
+            UI['_aD']({
                 x: -1,
                 y: -1
             });
         });
-        env['_aa']('_aE', 'mouseover', UI['_aF'] = function () {
-            clearTimeout(UI['_aG']);
+        env['_at']('_aF', 'mouseover', UI['_aG'] = function () {
+            clearTimeout(UI['_aH']);
         });
-        env['_aa']('_aE', 'mouseout', UI['_aH'] = function () {
-            UI['_aI']();
+        env['_at']('_aF', 'mouseout', UI['_aI'] = function () {
+            UI['_aJ']();
         });
-        env['_aa']('_aJ', 'click', function () {
-            var logNode = getNode('_aJ');
+        env['_at']('_aK', 'click', function () {
+            var logNode = getNode('_aK');
             if (logNode.checked)
                 window.console.dir(env['_p']().all());
         });
-        env['_aa']('_z', 'click', function () {
+        env['_at']('_z', 'click', function () {
             Inspector['_M']();
         });
-        env['_aa']('_at', 'click', UI['_aK'] = function (e) {
+        env['_at']('_aq', 'click', UI['_aL'] = function (e) {
             var node;
-            if (e.target.id == '_aL') {
-                node = getNode('_at');
+            if (e.target.id == '_aM') {
+                node = getNode('_aq');
                 if (e.target.innerHTML == '△') {
-                    node.style.height = Consts['_am'] + 'px';
+                    node.style.height = Consts['_ai'] + 'px';
                     node.style.width = '40px';
                     node.style.overflow = 'hidden';
                     e.target.innerHTML = '▽';
-                    env['_af']('#_au').addClass('mis');
+                    env['_aN']('#_ar').addClass('mis');
                 }
                 else {
-                    node.style.height = Consts['_ai'] + 'px';
-                    node.style.width = Consts['_ah'] + 'px';
+                    node.style.height = Consts['_ae'] + 'px';
+                    node.style.width = Consts['_ad'] + 'px';
                     node.style.overflow = 'inherit';
                     e.target.innerHTML = '△';
-                    env['_af']('#_au').removeClass('mis');
+                    env['_aN']('#_ar').removeClass('mis');
                 }
             }
             else if (e.target.innerHTML == 'VOM') {
-                node = getNode('_aM');
-                node.style.display = 'block';
-                node = getNode('_aN');
-                node.style.display = 'none';
                 node = getNode('_aO');
+                node.style.display = 'block';
+                node = getNode('_aP');
+                node.style.display = 'none';
+                node = getNode('_aQ');
                 node.style.display = 'none';
             }
             else if (e.target.innerHTML == 'Tracer') {
-                node = getNode('_aM');
-                node.style.display = 'none';
                 node = getNode('_aO');
                 node.style.display = 'none';
-                node = getNode('_aN');
+                node = getNode('_aQ');
+                node.style.display = 'none';
+                node = getNode('_aP');
                 node.style.display = 'block';
             }
             else if (e.target.innerHTML == 'Manager') {
-                node = getNode('_aM');
-                node.style.display = 'none';
-                node = getNode('_aN');
-                node.style.display = 'none';
                 node = getNode('_aO');
+                node.style.display = 'none';
+                node = getNode('_aP');
+                node.style.display = 'none';
+                node = getNode('_aQ');
                 node.style.display = 'block';
             }
         });
     },
     '_c': function () {
-        var min = getNode('_aL');
+        var min = getNode('_aM');
         var env = Inspector['_e']();
         if (min.innerHTML == '▽') {
-            var node = getNode('_at');
-            node.style.height = Consts['_ai'] + 'px';
-            node.style.width = Consts['_ah'] + 'px';
+            var node = getNode('_aq');
+            node.style.height = Consts['_ae'] + 'px';
+            node.style.width = Consts['_ad'] + 'px';
             node.style.overflow = 'inherit';
             min.innerHTML = '△';
-            env['_af']('#_au').removeClass('mis');
+            env['_aN']('#_ar').removeClass('mis');
         }
     },
-    '_av': function () {
+    '_as': function () {
         var env = Inspector['_e']();
-        env['_ab']('_aw', 'mousemove', UI['_ax']);
-        env['_ab']('_aw', 'mouseout', UI['_az']);
-        env['_ab']('_aA', 'mousemove', UI['_aP']);
-        env['_ab']('_aA', 'mouseout', UI['_aD']);
-        env['_ab']('_aL', 'click', UI['_aK']);
-        env['_ab']('_aE', 'mouseoout', UI['_aH']);
-        env['_ab']('_aE', 'mouseover', UI['_aF']);
+        env['_aR']('_au', 'mousemove', UI['_av']);
+        env['_aR']('_au', 'mouseout', UI['_aA']);
+        env['_aR']('_au', 'click', UI['_ay']);
+        env['_aR']('_aB', 'mousemove', UI['_aS']);
+        env['_aR']('_aB', 'mouseout', UI['_aE']);
+        env['_aR']('_aM', 'click', UI['_aL']);
+        env['_aR']('_aF', 'mouseoout', UI['_aI']);
+        env['_aR']('_aF', 'mouseover', UI['_aG']);
         //env['@{unbind}']('mx_mover', 'mousedown', UI['@{$mousedown}']);
     },
-    '_aS': function (vf, item) {
-        clearTimeout(UI['_aG']);
-        var logNode = getNode('_aJ');
+    '_aY': function (vf, item) {
+        clearTimeout(UI['_aH']);
+        var logNode = getNode('_aK');
         if (logNode.checked) {
             window.console.log(vf);
         }
-        var cover = getNode('_aQ');
+        var cover = getNode('_aT');
         if (!cover) {
             cover = D.createElement('div');
             cover.className = 'mif';
-            cover.id = '_aQ';
+            cover.id = '_aT';
             D.body.appendChild(cover);
         }
-        var node = getNode('_aE');
+        var node = getNode('_aF');
         node.style.display = 'block';
-        var left = item.center.x - Consts['_al'] / 2 - getNode('_aR').scrollLeft;
+        var left = item.center.x - Consts['_ah'] / 2 - getNode('_aU').scrollLeft;
         node.style.left = left + 'px';
-        node.style.top = item.center.y + item.radius + Consts['_am'] + 5 + 'px';
+        node.style.top = item.center.y + item.radius + Consts['_ai'] + 5 + 'px';
         var env = Inspector['_e']();
-        env['_Z'](cover.style, vf.id);
+        env['_aV'](cover.style, vf.id);
         cover.style.display = 'block';
         node.innerHTML = moreInfo.replace(/\{(\w+|(?:@\{[^\}]+\}))\}/g, function (m, v) {
             switch (v) {
@@ -368,7 +504,7 @@ var UI = {
                 case 'mixins':
                     var mixins = Inspector['_m'](vf);
                     if (mixins.length) {
-                        var list = env['_ac'](mixins);
+                        var list = env['_aW'](mixins);
                         list = list.join(',');
                         return '<li><b class="mic">mixins:</b>' + list + '</li>';
                     }
@@ -423,7 +559,7 @@ var UI = {
                         if (hasRrs) {
                             t.push('<table style="width:100%"><tr><td>key</td><td>type</td></tr>');
                             for (var p in res) {
-                                t.push('<tr><td>', p, '</td><td>', env['_ad'](res[p]), '</td></tr>');
+                                t.push('<tr><td>', p, '</td><td>', env['_aX'](res[p]), '</td></tr>');
                             }
                             t.push('</table>');
                         }
@@ -434,21 +570,21 @@ var UI = {
             }
         });
     },
-    '_aI': function () {
-        var node = getNode('_aE');
-        var cover = getNode('_aQ');
-        UI['_aG'] = setTimeout(function () {
+    '_aJ': function () {
+        var node = getNode('_aF');
+        var cover = getNode('_aT');
+        UI['_aH'] = setTimeout(function () {
             node.style.display = 'none';
             cover.style.display = 'none';
         }, 150);
     },
-    '_aW': function (item) {
-        clearTimeout(UI['_aT']);
-        var node = getNode('_aU');
+    '_bb': function (item) {
+        clearTimeout(UI['_aZ']);
+        var node = getNode('_b_');
         node.style.display = 'block';
         node.style.left = item.rect[0] + 'px';
-        var top = item.rect[1] + item.rect[3] + Consts['_am'];
-        var st = getNode('_aV').scrollTop;
+        var top = item.rect[1] + item.rect[3] + Consts['_ai'];
+        var st = getNode('_ba').scrollTop;
         top -= st;
         node.style.top = top + 'px';
         node.innerHTML = moreManagerInfo.replace(/\{(\w+)\}/g, function (m, v) {
@@ -460,14 +596,14 @@ var UI = {
             }
         });
     },
-    '_aX': function () {
-        var node = getNode('_aU');
-        UI['_aT'] = setTimeout(function () {
+    '_bc': function () {
+        var node = getNode('_b_');
+        UI['_aZ'] = setTimeout(function () {
             node.style.display = 'none';
         }, 150);
     },
-    '_aZ': function (tree) {
-        var node = getNode('_aY');
+    '_be': function (tree) {
+        var node = getNode('_bd');
         node.innerHTML = managerTotal.replace(/\{(\w+)\}/g, function (m, v) {
             switch (v) {
                 case 'groups':
@@ -479,8 +615,8 @@ var UI = {
             }
         });
     },
-    '_ba': function (tree) {
-        var node = getNode('_b_');
+    '_bg': function (tree) {
+        var node = getNode('_bf');
         node.innerHTML = total.replace(/\{(\w+)\}/g, function (m, v) {
             switch (v) {
                 case 'count':
@@ -490,18 +626,21 @@ var UI = {
             }
         });
     },
-    '_bb': function (height) {
-        getNode('_aA').height = height | 0;
+    '_bh': function (height) {
+        getNode('_aB').height = height | 0;
     },
-    '_bc': function (width) {
-        var c = getNode('_aw');
+    '_bi': function (width) {
+        var c = getNode('_au');
         c.width = width | 0;
-        c.parentNode.scrollLeft = (c.width - Consts['_aj']) / 2;
+        c.parentNode.scrollLeft = (c.width - Consts['_af']) / 2;
     },
-    '_ay': function (e) {
+    '_ax': function (e) {
         console.log(e);
     },
-    '_aC': function (e) {
+    '_aD': function (e) {
+        console.log(e);
+    },
+    '_az': function (e) {
         console.log(e);
     }
 };
@@ -509,12 +648,12 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
 
     var Tracer = {
     '_N': function (info, color) {
-        var node = getNode('_aN');
-        if (Tracer['_bd']) {
+        var node = getNode('_aP');
+        if (Tracer['_bj']) {
             var t = D.createElement('hr');
             t.className = 'miq';
             node.insertBefore(t, node.firstChild);
-            delete Tracer['_bd'];
+            delete Tracer['_bj'];
         }
         var d = D.createElement('div');
         d.innerHTML = info;
@@ -525,29 +664,29 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
             node.removeChild(node.lastChild);
             node.removeChild(node.lastChild);
         }
-        clearTimeout(Tracer['_be']);
-        Tracer['_be'] = setTimeout(function () {
-            Tracer['_bd'] = true;
+        clearTimeout(Tracer['_bk']);
+        Tracer['_bk'] = setTimeout(function () {
+            Tracer['_bj'] = true;
         }, 1500);
     }
 };
 
     var Graphics = {
-    '_bh': function () {
+    '_bo': function () {
         var g = Graphics;
         g.list = [];
-        delete g['_bf'];
-        UI['_ay'] = function (e) {
+        delete g['_bl'];
+        UI['_ax'] = function (e) {
             var loop, one, dis;
-            if (g['_bf']) {
-                one = g['_bf'];
+            if (g['_bl']) {
+                one = g['_bl'];
                 dis = Math.pow(Math.pow(one.center.x - e.x, 2) + Math.pow(one.center.y - e.y, 2), 1 / 2);
                 if (dis > one.radius) {
-                    g['_bg']({
+                    g['_bm']({
                         item: one,
                         action: 'leave'
                     });
-                    delete g['_bf'];
+                    delete g['_bl'];
                     loop = true;
                 }
             }
@@ -559,9 +698,9 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                     one = g.list[i];
                     dis = Math.pow(Math.pow(one.center.x - e.x, 2) + Math.pow(one.center.y - e.y, 2), 1 / 2);
                     if (dis <= one.radius) {
-                        if (g['_bf'] != one) {
-                            g['_bf'] = one;
-                            g['_bg']({
+                        if (g['_bl'] != one) {
+                            g['_bl'] = one;
+                            g['_bm']({
                                 item: one,
                                 action: 'enter'
                             });
@@ -571,22 +710,23 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                 }
             }
         };
+        UI['_az'] = g['_bn'];
     },
-    '_bk': function () {
+    '_br': function () {
         var g = Graphics;
         g.managerList = [];
-        delete g['_bi'];
-        UI['_aC'] = function (e) {
+        delete g['_bp'];
+        UI['_aD'] = function (e) {
             var loop, one, rect;
-            if (g['_bi']) {
-                one = g['_bi'];
+            if (g['_bp']) {
+                one = g['_bp'];
                 rect = one.rect;
                 if (e.x < rect[0] || e.y < rect[1] || e.x > (rect[0] + rect[2]) || e.y > (rect[1] + rect[3])) {
-                    g['_bj']({
+                    g['_bq']({
                         item: one,
                         action: 'leave'
                     });
-                    delete g['_bi'];
+                    delete g['_bp'];
                     loop = true;
                 }
             }
@@ -598,9 +738,9 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                     one = g.managerList[i];
                     rect = one.rect;
                     if (e.x >= rect[0] && e.y >= rect[1] && e.x <= (rect[0] + rect[2]) && e.y <= (rect[1] + rect[3])) {
-                        if (g['_bi'] != one) {
-                            g['_bi'] = one;
-                            g['_bj']({
+                        if (g['_bp'] != one) {
+                            g['_bp'] = one;
+                            g['_bq']({
                                 item: one,
                                 action: 'enter'
                             });
@@ -610,7 +750,7 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
             }
         };
     },
-    '_bl': function (tree, width, height) {
+    '_bs': function (tree, width, height) {
         var maxChildren = 0, deep = 0, deepMap = {};
         var walk = function (item, level) {
             item.deep = level;
@@ -633,37 +773,37 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
         tree.deepMap = deepMap;
         walk(tree, 1, 0);
         maxChildren = Math.max(maxChildren, tree.isolated.length + 1);
-        var hRadius = width / maxChildren - Consts['_an'];
-        var vRadius = height / deep - Consts['_an'];
+        var hRadius = width / maxChildren - Consts['_aj'];
+        var vRadius = height / deep - Consts['_aj'];
         var tw = width;
-        var dMinRadius = 2 * Consts['_ao'];
+        var dMinRadius = 2 * Consts['_ak'];
         if (hRadius < dMinRadius) {
             hRadius = dMinRadius;
-            tw = dMinRadius * maxChildren + (maxChildren + 1) * Consts['_an'];
+            tw = dMinRadius * maxChildren + (maxChildren + 1) * Consts['_aj'];
             if (tw > 30000) {
                 tw = 30000;
             }
-            UI['_bc'](tw);
+            UI['_bi'](tw);
         }
         else {
-            UI['_bc'](tw);
+            UI['_bi'](tw);
         }
         var radius = Math.floor(Math.min(vRadius, hRadius) / 2);
         var band = (radius / 20).toFixed(1);
         return {
             width: tw,
-            margin: Consts['_an'],
+            margin: Consts['_aj'],
             radius: radius,
             band: band
         };
     },
     '_M': function (tree, active) {
         if (tree.id) {
-            var width_1 = Consts['_ah'], height = Consts['_ak'], g_1 = Graphics;
-            g_1['_bh']();
-            var params_1 = g_1['_bl'](tree, width_1, height);
+            var width_1 = Consts['_ad'], height = Consts['_ag'], g_1 = Graphics;
+            g_1['_bo']();
+            var params_1 = g_1['_bs'](tree, width_1, height);
             width_1 = params_1.width;
-            var ctx_1 = getNode('_aw').getContext('2d');
+            var ctx_1 = getNode('_au').getContext('2d');
             ctx_1.clearRect(0, 0, width_1, height);
             var max_1 = params_1.radius * 2 - 2 * (params_1.band + 1) - 1;
             if (!g_1.$tWidth)
@@ -724,7 +864,7 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                 ctx_1.fillStyle = item.status;
                 if (item.id == active) {
                     if (item.flag) {
-                        ctx_1.fillStyle = Status['_ag'];
+                        ctx_1.fillStyle = Status['_ac'];
                     }
                     else {
                         ctx_1.fillStyle = item.status;
@@ -848,18 +988,18 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                 x: space,
                 y: params_1.margin + params_1.radius
             });
-            UI['_ba'](tree, params_1);
+            UI['_bg'](tree, params_1);
         }
     },
     '_S': function (tree) {
         var gs = Graphics;
-        gs['_bk']();
-        var height = Consts['_ap'] * (tree.rows + 1) + tree.rows * Consts['_aq'] + (Consts['_ar'] + Consts['_ap']) * tree.groups.length;
-        UI['_bb'](height);
-        var ctx = getNode('_aA').getContext('2d');
-        ctx.clearRect(0, 0, Consts['_aj'], height);
-        var margin = Consts['_ap'];
-        var managerWidth = ((Consts['_aj'] - (1 + Consts['_H']) * Consts['_ap']) / Consts['_H']) | 0;
+        gs['_br']();
+        var height = Consts['_al'] * (tree.rows + 1) + tree.rows * Consts['_am'] + (Consts['_an'] + Consts['_al']) * tree.groups.length;
+        UI['_bh'](height);
+        var ctx = getNode('_aB').getContext('2d');
+        ctx.clearRect(0, 0, Consts['_af'], height);
+        var margin = Consts['_al'];
+        var managerWidth = ((Consts['_af'] - (1 + Consts['_H']) * Consts['_al']) / Consts['_H']) | 0;
         var oneWidth = (function () {
             ctx.font = 'normal 14px Arial';
             var width = ctx.measureText('M').width;
@@ -892,20 +1032,20 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
             /* mc-uncheck */
             for (var i = 0; i < groups.length; i++) {
                 var g = groups[i];
-                var left = Consts['_ap'];
+                var left = Consts['_al'];
                 var pad = false;
                 ctx.beginPath();
                 ctx.moveTo(left, margin);
                 ctx.font = 'normal 14px Arial';
                 ctx.fillStyle = '#282828';
                 ctx.fillText(g.name, left + 5, margin + 25);
-                margin += Consts['_ar'];
+                margin += Consts['_an'];
                 var u = void 0, one = void 0;
                 var max = Math.max(g.maxLeft, g.maxRight);
                 var maps = {};
                 var linecolorIndex = 0;
-                var leftTopSpace = ((max - g.maxLeft) / 2) * (Consts['_aq'] + Consts['_ap']);
-                var rightTopSpace = ((max - g.maxRight) / 2) * (Consts['_aq'] + Consts['_ap']);
+                var leftTopSpace = ((max - g.maxLeft) / 2) * (Consts['_am'] + Consts['_al']);
+                var rightTopSpace = ((max - g.maxRight) / 2) * (Consts['_am'] + Consts['_al']);
                 for (u = 0; u < max; u++) {
                     var lo = g.cleans.left[u];
                     var ro = g.cleans.right[u];
@@ -914,21 +1054,21 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                             left,
                             margin + leftTopSpace,
                             150,
-                            Consts['_aq']
+                            Consts['_am']
                         ], lo, g.name);
                         maps[lo.id] = lo;
                     }
                     if (ro) {
                         drawRect(ctx, [
-                            Consts['_aj'] - Consts['_ap'] - 150,
+                            Consts['_af'] - Consts['_al'] - 150,
                             margin + rightTopSpace,
                             150,
-                            Consts['_aq']
+                            Consts['_am']
                         ], ro, g.name);
                         maps[ro.id] = ro;
                         ro.lineColor = Lines[linecolorIndex++ % Lines.length];
                     }
-                    margin += Consts['_ap'] + Consts['_aq'];
+                    margin += Consts['_al'] + Consts['_am'];
                 }
                 for (var p in maps) {
                     one = maps[p];
@@ -954,60 +1094,74 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                     }
                 }
                 for (u = 0; u < g.caches.length; u++) {
-                    drawRect(ctx, [left, margin, managerWidth, Consts['_aq']], g.caches[u], g.name);
+                    drawRect(ctx, [left, margin, managerWidth, Consts['_am']], g.caches[u], g.name);
                     if ((u + 1) % Consts['_H'] === 0) {
-                        left = Consts['_ap'];
-                        margin += Consts['_ap'] + Consts['_aq'];
+                        left = Consts['_al'];
+                        margin += Consts['_al'] + Consts['_am'];
                         pad = false;
                     }
                     else {
-                        left += managerWidth + Consts['_ap'];
+                        left += managerWidth + Consts['_al'];
                         pad = true;
                     }
                 }
-                left = Consts['_ap'];
+                left = Consts['_al'];
                 if (pad) {
-                    margin += Consts['_ap'] + Consts['_aq'];
+                    margin += Consts['_al'] + Consts['_am'];
                 }
                 for (u = 0; u < g.items.length; u++) {
                     one = g.items[u];
-                    drawRect(ctx, [left, margin, managerWidth, Consts['_aq']], one, g.name);
+                    drawRect(ctx, [left, margin, managerWidth, Consts['_am']], one, g.name);
                     if ((u + 1) % Consts['_H'] === 0) {
-                        left = Consts['_ap'];
-                        margin += Consts['_ap'] + Consts['_aq'];
+                        left = Consts['_al'];
+                        margin += Consts['_al'] + Consts['_am'];
                         pad = false;
                     }
                     else {
-                        left += managerWidth + Consts['_ap'];
+                        left += managerWidth + Consts['_al'];
                         pad = true;
                     }
                 }
-                left = Consts['_ap'];
+                left = Consts['_al'];
                 if (pad) {
-                    margin += Consts['_ar'];
+                    margin += Consts['_an'];
                 }
             }
         };
         draw(tree.groups);
-        UI['_aZ'](tree);
+        UI['_be'](tree);
     },
-    '_bg': function (e) {
+    '_bm': function (e) {
         var env = Inspector['_e']();
         var vom = env['_p']();
         if (e.action == 'enter') {
-            UI['_aS'](vom.get(e.item.id), e.item);
+            Graphics['_bt'] = vom.get(e.item.id);
+            UI['_aY'](vom.get(e.item.id), e.item);
         }
         else {
-            UI['_aI']();
+            Graphics['_bt'] = null;
+            UI['_aJ']();
         }
     },
-    '_bj': function (e) {
+    '_bq': function (e) {
         if (e.action == 'enter') {
-            UI['_aW'](e.item);
+            UI['_bb'](e.item);
         }
         else {
-            UI['_aX']();
+            UI['_bc']();
         }
+    },
+    '_bn': function (e) {
+        var lastVOM = Graphics['_bt'];
+        if (!lastVOM) {
+            return;
+        }
+        var path = (lastVOM.view && lastVOM.view.path) || lastVOM.path;
+        if (!path) {
+            return;
+        }
+        var base = (window.Site && window.Site.onlineHostname) || window.location.hostname;
+        IdePort['_aa'](base, path + '.js', path + '.html');
     }
 };
 
@@ -1074,7 +1228,7 @@ var KISSYEnv = {
             }
         }
     },
-    '_Z': function (style, id) {
+    '_aV': function (style, id) {
         var node = S.require('node').one('#' + id);
         if (!node)
             return;
@@ -1146,23 +1300,23 @@ var KISSYEnv = {
         style.width = size.width + 'px';
         style.height = size.height + 'px';
     },
-    '_a_': function (id) {
+    '_aw': function (id) {
         var node = S.require('node');
         return node.one('#' + id).offset();
     },
-    '_aa': function (id, type, fn) {
+    '_at': function (id, type, fn) {
         var node = S.require('node');
         if (S.isString(id))
             id = '#' + id;
         return node.one(id).on(type, fn);
     },
-    '_ab': function (id, type, fn) {
+    '_aR': function (id, type, fn) {
         var node = S.require('node');
         if (S.isString(id))
             id = '#' + id;
         return node.one(id).detach(type, fn);
     },
-    '_ac': function (mixins) {
+    '_aW': function (mixins) {
         var mods = S.Env.mods;
         var ids = [];
         for (var i = 0; i < mixins.length; i++) {
@@ -1188,7 +1342,7 @@ var KISSYEnv = {
         }
         return ids;
     },
-    '_ad': function (r) {
+    '_aX': function (r) {
         var type = '';
         var e = r.res || r.e;
         if (e) {
@@ -1240,7 +1394,7 @@ var KISSYEnv = {
             callback();
         };
     },
-    '_ae': function (node, handle) {
+    '_ap': function (node, handle) {
         var root = S.one(node);
         var dd = Drag['_Y'](S.one, 'detach', S.isFunction);
         S.one(handle).on('mousedown', function (e) {
@@ -1274,7 +1428,7 @@ var KISSYEnv = {
             }
         }
     },
-    '_af': function (node) {
+    '_aN': function (node) {
         return S.one(node);
     },
     '_U': function (cb) {
@@ -1308,7 +1462,7 @@ var KISSYEnv = {
             });
         }
     },
-    '_bm': function (key) {
+    '_bu': function (key) {
         var ms = require.s.contexts._.defined;
         var o = ms[key] || ModuleIdMap[key];
         if (!o && ModulesFeatures[key]) {
@@ -1342,26 +1496,26 @@ var KISSYEnv = {
         }
         return o;
     },
-    '_bn': function () {
-        return this['_bm']('$') || this['_bm']('jquery') || this['_bm']('zepto');
+    '_bv': function () {
+        return this['_bu']('$') || this['_bu']('jquery') || this['_bu']('zepto');
     },
     '_o': function () {
-        var old = this['_bm']('magix/magix');
+        var old = this['_bu']('magix/magix');
         var magix;
         if (old) {
             magix = old;
         }
         else {
-            magix = this['_bm']('magix');
+            magix = this['_bu']('magix');
         }
         return magix.config('rootId');
     },
     '_p': function () {
-        var old = this['_bm']('magix/vom');
+        var old = this['_bu']('magix/vom');
         if (old) {
             return old;
         }
-        var magix = this['_bm']('magix');
+        var magix = this['_bu']('magix');
         return magix.VOM || magix.Vframe;
     },
     '_C': function () {
@@ -1379,10 +1533,10 @@ var KISSYEnv = {
         return result;
     },
     '_K': function () {
-        return this['_bm']('magix/magix') || this['_bm']('magix');
+        return this['_bu']('magix/magix') || this['_bu']('magix');
     },
-    '_Z': function (style, id) {
-        var $ = this['_bn']();
+    '_aV': function (style, id) {
+        var $ = this['_bv']();
         var node = $('#' + id);
         var n = node;
         var size = {
@@ -1452,23 +1606,23 @@ var KISSYEnv = {
         style.width = size.width + 'px';
         style.height = size.height + 'px';
     },
-    '_a_': function (id) {
-        var $ = this['_bn']();
+    '_aw': function (id) {
+        var $ = this['_bv']();
         return $('#' + id).offset();
     },
-    '_aa': function (id, type, fn) {
-        var $ = this['_bn']();
+    '_at': function (id, type, fn) {
+        var $ = this['_bv']();
         if ($.type(id) == 'string')
             id = '#' + id;
         return $(id).on(type, fn);
     },
-    '_ab': function (id, type, fn) {
-        var $ = this['_bn']();
+    '_aR': function (id, type, fn) {
+        var $ = this['_bv']();
         if ($.type(id) == 'string')
             id = '#' + id;
         return $(id).off(type, fn);
     },
-    '_ac': function (mixins) {
+    '_aW': function (mixins) {
         var mods = require.s.contexts._.defined;
         var ids = [];
         for (var i = 0; i < mixins.length; i++) {
@@ -1493,9 +1647,9 @@ var KISSYEnv = {
         }
         return ids;
     },
-    '_ad': function (r) {
+    '_aX': function (r) {
         var e = r.res || r.e;
-        var $ = this['_bn']();
+        var $ = this['_bv']();
         var type = $.type(r);
         if (e) {
             if (e.all && e.constructor && e.constructor.cached) {
@@ -1513,8 +1667,8 @@ var KISSYEnv = {
         }
         return type;
     },
-    '_ae': function (node, handle) {
-        var $ = this['_bn']();
+    '_ap': function (node, handle) {
+        var $ = this['_bv']();
         var root = $(node);
         var dd = Drag['_Y']($, 'off', $.isFunction);
         $(handle).on('mousedown', function (e) {
@@ -1537,7 +1691,7 @@ var KISSYEnv = {
         });
     },
     '_R': function (flattened) {
-        var $ = this['_bn']();
+        var $ = this['_bv']();
         for (var i = flattened.length - 1; i >= 0; i--) {
             var f = flattened[i];
             var root = $('#' + f.id);
@@ -1548,12 +1702,12 @@ var KISSYEnv = {
             }
         }
     },
-    '_af': function (node) {
-        var $ = this['_bn']();
+    '_aN': function (node) {
+        var $ = this['_bv']();
         return $(node);
     },
     '_U': function (cb) {
-        var magix = this['_bm']('magix');
+        var magix = this['_bu']('magix');
         if (magix && magix.View && magix.View.prototype.share) {
             var old_1 = magix.View.prototype.share;
             magix.View.prototype.share = function () {
@@ -1568,7 +1722,7 @@ var KISSYEnv = {
     for (var p in RequireEnv) {
         SeajsEnv[p] = SeajsSEnv[p] = MagixEnv[p] = RequireEnv[p];
     }
-    SeajsEnv['_bm'] = function (key) {
+    SeajsEnv['_bu'] = function (key) {
     // try {
     //     let entity = seajs.require(key); //seajs有别名，优先使用内置的require获取
     //     if (entity)
@@ -1632,7 +1786,7 @@ SeajsEnv['_C'] = function () {
     }
     return result;
 };
-SeajsEnv['_ac'] = function (mixins) {
+SeajsEnv['_aW'] = function (mixins) {
     var mods = seajs.cache;
     var ids = [];
     for (var i = 0; i < mixins.length; i++) {
@@ -1658,7 +1812,7 @@ SeajsEnv['_ac'] = function (mixins) {
     return ids;
 };
 
-    SeajsSEnv['_bm'] = function (key) {
+    SeajsSEnv['_bu'] = function (key) {
     var o;
     try {
         o = require(key);
@@ -1672,16 +1826,16 @@ SeajsEnv['_ac'] = function (mixins) {
 SeajsSEnv['_C'] = function () {
     return [];
 };
-SeajsSEnv['_ac'] = function (mixins) {
+SeajsSEnv['_aW'] = function (mixins) {
     return new Array(mixins.length + 2).join('unknown').slice(1);
 };
 
-    MagixEnv['_bm'] = function (k, ey) {
+    MagixEnv['_bu'] = function (k, ey) {
     if (key == 'magix') {
         return window.Magix;
     }
 };
-MagixEnv['_bn'] = function () {
+MagixEnv['_bv'] = function () {
     return window.$ || window.jQuery;
 };
 MagixEnv['_o'] = function () {
@@ -1693,7 +1847,7 @@ MagixEnv['_p'] = function () {
 MagixEnv['_C'] = function () {
     return [];
 };
-MagixEnv['_ac'] = function (mixins) {
+MagixEnv['_aW'] = function (mixins) {
     return new Array(mixins.length + 2).join('unknown').slice(1);
 };
 MagixEnv['_K'] = function () {
