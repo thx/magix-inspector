@@ -501,7 +501,7 @@ let Graphics = {
         if(!path) {
             return;
         }
-        var base = (window.Site && window.Site.onlineHostname) || window.location.hostname;
+        var base = (W.Site && W.Site.onlineHostname) || W.location.hostname;
         IdePort['@{connectAllPromise}'](base, path + '.js', path + '.html');
     }
 };

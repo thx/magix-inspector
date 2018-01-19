@@ -1,12 +1,12 @@
 //#snippet;
 //#exclude(loader)
-MagixEnv['@{getMod}'] = (k => ey) {
+MagixEnv['@{getMod}'] = (key) => {
     if (key == 'magix') {
-        return window.Magix;
+        return W.Magix;
     }
 };
 MagixEnv['@{getDL}'] = () => {
-    return window.$ || window.jQuery;
+    return W.$ || W.jQuery || W.Zepto;
 };
 
 MagixEnv['@{getRootId}'] = () => {

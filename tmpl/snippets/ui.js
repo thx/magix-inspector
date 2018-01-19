@@ -75,7 +75,7 @@ let UI = {
         env['@{bind}']('@{mx_log_console}', 'click', () => {
             let logNode = getNode('@{mx_log_console}');
             if (logNode.checked)
-                window.console.dir(env['@{getVOM}']().all());
+                W.console.dir(env['@{getVOM}']().all());
         });
         env['@{bind}']('@{mx_com_view}', 'click', () => {
             Inspector['@{drawTree}']();
@@ -149,7 +149,7 @@ let UI = {
         clearTimeout(UI['@{$hideTimer}']);
         let logNode = getNode('@{mx_log_console}');
         if (logNode.checked) {
-            window.console.log(vf);
+            W.console.log(vf);
         }
         let cover = getNode('@{mx_cover}');
         if (!cover) {

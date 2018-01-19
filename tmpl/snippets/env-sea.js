@@ -23,7 +23,7 @@ SeajsEnv['@{getMod}'] = key => {
         /* mc-uncheck */
         for (let p in mods) {
             let found = false;
-            for (let i = rules.length - 1; i >= 0; i--) {
+            for (let i = rules.length; i--;) {
                 let r = rules[i];
                 let parts = r.split('.');
                 let root = mods[p].exports;

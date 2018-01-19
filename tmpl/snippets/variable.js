@@ -57,12 +57,12 @@ let ManagerColors = {
     '@{normal}': '#CCCC99'
 };
 let ApplyStyle = (x, h) => {
-    let i = document.createElement('style');
-    document.documentElement.appendChild(i);
+    let i = D.createElement('style');
+    D.documentElement.appendChild(i);
     if (i.styleSheet) {
         i.styleSheet.cssText = h;
     } else {
-        i.appendChild(document.createTextNode(h));
+        i.appendChild(D.createTextNode(h));
     }
 };
 let IconsMap = {

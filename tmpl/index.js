@@ -1,4 +1,5 @@
 //kissy drawIcons  removeClass报错
+//2014.7.29第一次以helper名称发布
 let D = document;
 let W = window;
 if (D['@{magix}']) {
@@ -36,22 +37,22 @@ if (D['@{magix}']) {
     '@snippets/env-magix.js';
     var Inspector = {
         '@{getEnv}'() {
-            if (window.KISSY) {
-                return KISSYEnv;
-            }
-            if (window.requirejs) {
-                return RequireEnv;
-            }
-            if (window.seajs) {
-                return SeajsEnv;
-            }
-            if (window.define && window.require) {
-                return SeajsSEnv;
-            }
-            if (window.Magix) {
+            if (W.Magix) {
                 return MagixEnv;
             }
-            window.console.error('getEnvError:无法在当前环境下启动Magix Inspector，如需更多帮助，请钉钉联系：行列');
+            if (W.KISSY) {
+                return KISSYEnv;
+            }
+            if (W.requirejs) {
+                return RequireEnv;
+            }
+            if (W.seajs) {
+                return SeajsEnv;
+            }
+            if (W.define && W.require) {
+                return SeajsSEnv;
+            }
+            W.console.error('getEnvError:无法在当前环境下启动Magix Inspector，如需更多帮助，请钉钉联系：行列');
         },
         '@{getEvents}'(vf) {
             let evts = [],
@@ -83,6 +84,9 @@ if (D['@{magix}']) {
                     evts.push('&lt;' + commons + '&gt;');
                 }
                 let list = vf.$v && vf.$v.$el;
+                if (vf.$v && vf.$v.constructor && vf.$v.constructor.prototype.$el) {
+                    list = vf.$v.constructor.prototype.$el;
+                }
                 let globalWins = [],
                     globalDocs = [],
                     selectors = [],
@@ -92,9 +96,9 @@ if (D['@{magix}']) {
                         one = list[i];
                         total++;
                         if (one.e) {
-                            if (one.e == window) {
+                            if (one.e == W) {
                                 globalWins.push(one.n);
-                            } else if (one.e == document) {
+                            } else if (one.e == D) {
                                 globalDocs.push(one.n);
                             }
                         } else {
@@ -464,7 +468,7 @@ if (D['@{magix}']) {
             let poll = () => {
                 max--;
                 if (!max) {
-                    window.console.error('prepareError:无法在当前环境下启动Magix Inspector(需要的模块如jquery,magix等检测不到)，如需更多帮助，请钉钉联系：行列');
+                    W.console.error('prepareError:无法在当前环境下启动Magix Inspector(需要的模块如jquery,magix等检测不到)，如需更多帮助，请钉钉联系：行列');
                 } else {
                     if (D.body) {
                         if (env['@{isReady}']()) {
@@ -510,7 +514,7 @@ if (D['@{magix}']) {
                     }
                 };
 
-                document.onmouseout = document.onmouseover = e => {
+                D.onmouseout = D.onmouseover = e => {
                     clearTimeout(moveTimer);
                     moveTimer = setTimeout(() => {
                         let vfs = vom.all();
@@ -520,6 +524,9 @@ if (D['@{magix}']) {
                             let id = begin.id;
                             if (id && vfs[id]) {
                                 fId = id;
+                                break;
+                            } else if (begin.vframe) {
+                                fId = begin.vframe.id;
                                 break;
                             }
                             begin = begin.parentNode;
@@ -579,16 +586,22 @@ if (D['@{magix}']) {
                     if (e) {
                         if (e.type == 'remove') {
                             if (e.vframe) {
-                                let path = e.vframe.path;
-                                if (!path && e.vframe.view) {
-                                    path = e.vframe.view.path;
+                                let vf = e.vframe;
+                                vf.off('created');
+                                vf.off('alter');
+                                vf.off('viewInited');
+                                vf.off('viewUnmounted');
+                                vf.off('viewMounted');
+                                let path = vf.path;
+                                if (!path && vf.view) {
+                                    path = vf.view.path;
                                 }
                                 if (path) {
                                     path = '(' + path + ')';
                                 } else {
                                     path = '';
                                 }
-                                Tracer['@{log}']('从VOM中移除vframe:' + e.vframe.id + path, Status['@{remove}']);
+                                Tracer['@{log}']('从VOM中移除vframe:' + vf.id + path, Status['@{remove}']);
                             } else {
                                 Tracer['@{log}']('remove:', e);
                             }

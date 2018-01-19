@@ -3,13 +3,13 @@
 let RequireEnv = {
     '@{prepare}'() { },
     '@{hookAttachMod}'(cb) {
-        if (window.MutationObserver) {
+        if (W.MutationObserver) {
             let timer;
-            let o = new window.MutationObserver(() => {
+            let o = new W.MutationObserver(() => {
                 clearTimeout(timer);
                 setTimeout(cb, 1000);
             });
-            o.observe(document.body, {
+            o.observe(D.body, {
                 subtree: true,
                 childList: true,
                 characterData: true
@@ -90,6 +90,10 @@ let RequireEnv = {
     '@{updateDOMStyle}'(style, id) {
         let $ = this['@{getDL}']();
         let node = $('#' + id);
+        let prev = node.prev();
+        if (node.css('position') == 'absolute' && prev.prop('tagName') == 'INPUT') {
+            node = prev;
+        }
         let n = node;
         let size = {
             height: n.outerHeight ? n.outerHeight() : n.height(),
@@ -140,7 +144,7 @@ let RequireEnv = {
             let z = parseInt(node.css('z-index')) || 1;
             if (z && z > zIndex) zIndex = z;
             node = node.parent();
-        } while (node.length && $.contains(document.body, node[0]));
+        } while (node.length && $.contains(D.body, node[0]));
         if (hide) {
             size = {
                 width: 0,

@@ -2,12 +2,12 @@
 //#exclude(loader)
 let Drag = {
     '@{get}'($, off, isFn) {
-        let Win = $(window);
-        let Doc = $(document);
+        let Win = $(W);
+        let Doc = $(D);
         let ClearSelection = t => {
-            if ((t = window.getSelection)) {
+            if ((t = W.getSelection)) {
                 t().removeAllRanges();
-            } else if ((t = window.document.selection)) {
+            } else if ((t = D.selection)) {
                 if (t.empty) t.empty();
                 else t = null;
             }

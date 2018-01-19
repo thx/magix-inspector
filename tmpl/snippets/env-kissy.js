@@ -1,6 +1,6 @@
 //#snippet;
 //#exclude(loader)
-let S = window.KISSY;
+let S = W.KISSY;
 let KISSYEnv = {
     '@{prepare}'() {
         S.use('node');
@@ -55,6 +55,10 @@ let KISSYEnv = {
     '@{updateDOMStyle}'(style, id) {
         let node = S.require('node').one('#' + id);
         if (!node) return;
+        let prev = node.prev();
+        if (node.css('position') == 'absolute' && prev && prev.nodeName() == 'input') {
+            node = prev;
+        }
         let n = node;
         let size = {
             height: n.outerHeight ? n.outerHeight() : n.height(),
@@ -246,7 +250,7 @@ let KISSYEnv = {
             magix = S.require('magix');
             if (magix && magix.View && magix.View.prototype.share) {
                 let old = magix.View.prototype.share;
-                magix.View.prototype.share = function() {
+                magix.View.prototype.share = function () {
                     old.apply(this, arguments);
                     cb();
                 };
