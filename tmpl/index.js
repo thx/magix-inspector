@@ -37,9 +37,6 @@ if (D['@{magix}']) {
     '@snippets/env-magix.js';
     var Inspector = {
         '@{getEnv}'() {
-            if (W.Magix) {
-                return MagixEnv;
-            }
             if (W.KISSY) {
                 return KISSYEnv;
             }
@@ -48,6 +45,9 @@ if (D['@{magix}']) {
             }
             if (W.seajs) {
                 return SeajsEnv;
+            }
+            if (W.Magix) {
+                return MagixEnv;
             }
             if (W.define && W.require) {
                 return SeajsSEnv;
@@ -376,9 +376,9 @@ if (D['@{magix}']) {
             for (let i = 0; i < managers.length; i++) {
                 let t = managers[i];
                 let o = t.exports.$mMetas || t.exports.$mm || t.exports.$m;
-                if (!o._$id) o._$id = 't' + id++;
-                if (temp[o._$id]) temp[o._$id].continued = true;
-                temp[o._$id] = t;
+                if (!o['@{temp.guid}']) o['@{temp.guid}'] = 't' + id++;
+                if (temp[o['@{temp.guid}']]) temp[o['@{temp.guid}']].continued = true;
+                temp[o['@{temp.guid}']] = t;
             }
             for (let j = 0; j < managers.length; j++) {
                 let m = managers[j];
@@ -393,7 +393,7 @@ if (D['@{magix}']) {
                     maxRight = 0,
                     p, info;
                 let metas = m.exports.$mMetas || m.exports.$mm || m.exports.$m;
-                delete metas._$id;
+                delete metas['@{temp.guid}'];
                 if (!m.continued) {
                     /* mc-uncheck */
                     for (p in metas) {

@@ -1,5 +1,5 @@
 /*
-    generate by magix-combine@3.8.3: https://github.com/thx/magix-combine
+    generate by magix-combine@3.11.0: https://github.com/thx/magix-combine
     author: kooboy_li@163.com
     loader: iife
  */
@@ -60,7 +60,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var IdePort = {
-    '__Z': function (url) {
+    '__a_': function (url) {
         return new Promise(function (resolve, reject) {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url, true);
@@ -77,28 +77,28 @@ var IdePort = {
             xhr.send();
         });
     },
-    '__aa': function (inputHostname) {
+    '__ab': function (inputHostname) {
         var files = [];
         for (var _i = 1; _i < arguments.length; _i++) {
             files[_i - 1] = arguments[_i];
         }
-        IdePort['__a_'](inputHostname)
+        IdePort['__aa'](inputHostname)
             .then(function (determinedURL) {
             return Promise.all(files.map(function (file) {
-                return IdePort['__Z'](determinedURL + encodeURIComponent(file));
+                return IdePort['__a_'](determinedURL + encodeURIComponent(file));
             }));
         })
             .then(function (determinedURL) {
             console.info("Files(" + files.length + ") all opened.");
         })["catch"](function (err) { return console.error(err); });
     },
-    '__a_': function (inputHostname) {
+    '__aa': function (inputHostname) {
         if (IdePort.determinedURL && IdePort.determinedBase == inputHostname) {
             return Promise.resolve(IdePort.determinedURL);
         }
-        return IdePort['__ab'](inputHostname);
+        return IdePort['__ac'](inputHostname);
     },
-    '__ab': function (inputHostname) {
+    '__ac': function (inputHostname) {
         return __awaiter(this, void 0, void 0, function () {
             function hashStr(str, max) {
                 // SDBM Algorithm from http://www.cse.yorku.ca/~oz/hash.html
@@ -123,7 +123,7 @@ var IdePort = {
                         _a.label = 2;
                     case 2:
                         _a.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, IdePort['__Z'](location)];
+                        return [4 /*yield*/, IdePort['__a_'](location)];
                     case 3:
                         responseHostname = _a.sent();
                         if (responseHostname != inputHostname) {
@@ -161,24 +161,24 @@ var IdePort = {
     '__s': '#FF3030',
     '__r': '#BC8F8F',
     '__A': '#FF3030',
-    '__O': '#9AC0CD',
-    '__P': '#8B5F65',
-    '__Q': '#EED5B7',
-    '__ac': '#94d694'
+    '__P': '#9AC0CD',
+    '__Q': '#8B5F65',
+    '__R': '#EED5B7',
+    '__ad': '#94d694'
 };
 var Consts = {
-    '__ad': 550,
-    '__ae': 470,
-    '__af': 530,
-    '__ag': 400,
-    '__ah': 490,
-    '__ai': 34,
-    '__aj': 6,
-    '__ak': 15,
-    '__H': 5,
-    '__al': 5,
-    '__am': 40,
+    '__ae': 550,
+    '__af': 470,
+    '__ag': 530,
+    '__ah': 400,
+    '__ai': 490,
+    '__aj': 34,
+    '__ak': 6,
+    '__al': 15,
+    '__I': 5,
+    '__am': 5,
     '__an': 40,
+    '__ao': 40,
     '__i': {
         r: 0,
         g: 153,
@@ -207,10 +207,10 @@ var Lines = [
     'EE7AE9'
 ];
 var ManagerColors = {
-    '__G': '#CC9966',
-    '__F': '#99CCCC',
-    '__E': '#FF9999',
-    '__D': '#CCCC99'
+    '__H': '#CC9966',
+    '__G': '#99CCCC',
+    '__F': '#FF9999',
+    '__E': '#CCCC99'
 };
 var ApplyStyle = function (x, h) {
     var i = D.createElement('style');
@@ -231,7 +231,7 @@ var getNode = function (id) {
 };
 
     var Drag = {
-    '__Y': function ($, off, isFn) {
+    '__Z': function ($, off, isFn) {
         var Win = $(W);
         var Doc = $(D);
         var ClearSelection = function (t) {
@@ -272,7 +272,7 @@ var getNode = function (id) {
             }
         };
         return {
-            '__W': function (node, moveCallback, endCallback) {
+            '__X': function (node, moveCallback, endCallback) {
                 DragStop();
                 if (node) {
                     ClearSelection();
@@ -293,7 +293,7 @@ var getNode = function (id) {
                     $(node).on('losecapture', DragStop);
                 }
             },
-            '__X': ClearSelection
+            '__Y': ClearSelection
         };
     }
 };
@@ -307,166 +307,166 @@ var ehMap = {
 var encodeHTML = function (src) {
     return src.replace(ehReg, function (m) { return '&' + ehMap[m] + ';'; });
 };
-var main = "<div class=\"mie\" id=\"__aq\"><ul class=\"mip mid\" id=\"__ar\"><li class=\"mil min mim\" id=\"__aE\">△</li><li class=\"mik min mim\">VOM</li><li class=\"mik min mim\">Tracer</li><li class=\"mik min mim\">Manager</li></ul><div id=\"__aG\"><div style=\"width:{__ad}px;height:{__ag}px;overflow-x:auto;overflow-y:hidden\" id=\"__aL\"><canvas width=\"{__ad}\" height=\"{__ag}\" id=\"__au\"></canvas></div><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"__aD\">控制台显示view信息</label><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"__z\" checked=\"checked\">显示组件view</label><ul class=\"mip mik\" id=\"__aW\"></ul></div><div id=\"__aH\" style=\"height:{__ag}px;overflow:scroll;overflow-x:auto;display:none;padding:8px;\"></div><div id=\"__aI\" style=\"display:none\"><div style=\"height:{__ag}px;overflow:scroll;overflow-x:auto;\" id=\"__aR\"><canvas width=\"{__af}\" height=\"{__ag}\" id=\"__az\"></canvas></div><ul class=\"mip min\" id=\"__aU\"></ul></div><div id=\"__aB\" class=\"mir\"></div><div id=\"__aQ\" class=\"mir\"></div></div>";
-var moreInfo = "<ul><li><b class=\"mic\">id:</b>{id}</li><li><b class=\"mic\">view:</b>{view}</li>{events} {location} {share} {mixins} {state}<li class=\"mio\">{ex}</li><li><b class=\"mic\">resources</b></li><li style=\"{__ah}px;overflow:auto;max-height:200px;\">{res}</li></ul>";
+var main = "<div class=\"mie\" id=\"__ar\"><ul class=\"mip mid\" id=\"__as\"><li class=\"mil min mim\" id=\"__aF\">△</li><li class=\"mik min mim\">VOM</li><li class=\"mik min mim\">Tracer</li><li class=\"mik min mim\">Manager</li></ul><div id=\"__aH\"><div style=\"width:{__ae}px;height:{__ah}px;overflow-x:auto;overflow-y:hidden\" id=\"__aM\"><canvas width=\"{__ae}\" height=\"{__ah}\" id=\"__av\"></canvas></div><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"__aE\"/>控制台显示view信息</label><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"__z\" checked=\"checked\"/>显示组件view</label><ul class=\"mip mik\" id=\"__aX\"></ul></div><div id=\"__aI\" style=\"height:{__ah}px;overflow:scroll;overflow-x:auto;display:none;padding:8px;\"></div><div id=\"__aJ\" style=\"display:none\"><div style=\"height:{__ah}px;overflow:scroll;overflow-x:auto;\" id=\"__aS\"><canvas width=\"{__ag}\" height=\"{__ah}\" id=\"__aA\"></canvas></div><ul class=\"mip min\" id=\"__aV\"></ul></div><div id=\"__aC\" class=\"mir\"></div><div id=\"__aR\" class=\"mir\"></div></div>";
+var moreInfo = "<ul><li><b class=\"mic\">id:</b>{id}</li><li><b class=\"mic\">view:</b>{view}</li>{events} {location} {share} {mixins} {state}<li class=\"mio\">{ex}</li><li><b class=\"mic\">resources</b></li><li style=\"{__ai}px;overflow:auto;max-height:200px;\">{res}</li></ul>";
 var moreManagerInfo = "<ul><li><b>key:</b>{id}</li><li><b>url:</b>{url}</li><li><b>描述:</b>{desc}</li><li><b>缓存:</b>{cache}</li><li><b>清理缓存:</b>{cleans}</li><li><b>预处理:</b>{hasAfter}</li></ul>";
 var total = "<li class=\"mik mig mii\">view统计:[{count}]</li>";
 var managerTotal = "<li class=\"mik mig\">{groups}个接口文件，共{total}个接口</li>";
 var UI = {
-    '__L': function () {
+    '__M': function () {
         var div = D.createElement('div');
         div.innerHTML = main.replace(/\{(\w+|(?:@\{[^\}]+\}))\}/g, function (m, v) {
             return Consts[v] || m;
         });
         D.documentElement.appendChild(div);
-        UI['__ao']();
+        UI['__ap']();
         var env = Inspector['__e']();
-        env['__ap']('#__aq', '#__ar');
+        env['__aq']('#__ar', '#__as');
     },
-    '__ao': function () {
-        UI['__as']();
+    '__ap': function () {
+        UI['__at']();
         var moveTimer;
         var env = Inspector['__e']();
-        env['__at']('__au', 'mousemove', UI['@{$mousemove}'] = function (e) {
+        env['__au']('__av', 'mousemove', UI['@{$mousemove}'] = function (e) {
             clearTimeout(moveTimer);
             moveTimer = setTimeout(function () {
-                var offset = env['__av']('__au');
-                UI['__aw']({
+                var offset = env['__aw']('__av');
+                UI['__ax']({
                     x: e.pageX - offset.left,
                     y: e.pageY - offset.top
                 });
             }, 10);
         });
-        env['__at']('__au', 'click', UI['__ax'] = function (e) {
-            UI['__ay'](e);
+        env['__au']('__av', 'click', UI['__ay'] = function (e) {
+            UI['__az'](e);
         });
-        env['__at']('__au', 'mouseout', UI['@{$mouseout}'] = function () {
+        env['__au']('__av', 'mouseout', UI['@{$mouseout}'] = function () {
             clearTimeout(moveTimer);
-            UI['__aw']({
+            UI['__ax']({
                 x: -1,
                 y: -1
             });
         });
-        env['__at']('__az', 'mousemove', UI['@{$mangerMousemove}'] = function (e) {
+        env['__au']('__aA', 'mousemove', UI['@{$mangerMousemove}'] = function (e) {
             clearTimeout(moveTimer);
             moveTimer = setTimeout(function () {
-                var offset = env['__av']('__az');
-                UI['__aA']({
+                var offset = env['__aw']('__aA');
+                UI['__aB']({
                     x: e.pageX - offset.left,
                     y: e.pageY - offset.top
                 });
             }, 10);
         });
-        env['__at']('__az', 'mouseout', UI['@{$managerMouseout}'] = function () {
+        env['__au']('__aA', 'mouseout', UI['@{$managerMouseout}'] = function () {
             clearTimeout(moveTimer);
-            UI['__aA']({
+            UI['__aB']({
                 x: -1,
                 y: -1
             });
         });
-        env['__at']('__aB', 'mouseover', UI['@{$imouseover}'] = function () {
+        env['__au']('__aC', 'mouseover', UI['@{$imouseover}'] = function () {
             clearTimeout(UI['@{$hideTimer}']);
         });
-        env['__at']('__aB', 'mouseout', UI['@{$imouseout}'] = function () {
-            UI['__aC']();
+        env['__au']('__aC', 'mouseout', UI['@{$imouseout}'] = function () {
+            UI['__aD']();
         });
-        env['__at']('__aD', 'click', function () {
-            var logNode = getNode('__aD');
+        env['__au']('__aE', 'click', function () {
+            var logNode = getNode('__aE');
             if (logNode.checked)
                 W.console.dir(env['__p']().all());
         });
-        env['__at']('__z', 'click', function () {
-            Inspector['__M']();
+        env['__au']('__z', 'click', function () {
+            Inspector['__N']();
         });
-        env['__at']('__aq', 'click', UI['@{$click}'] = function (e) {
+        env['__au']('__ar', 'click', UI['@{$click}'] = function (e) {
             var node;
-            if (e.target.id == '__aE') {
-                node = getNode('__aq');
+            if (e.target.id == '__aF') {
+                node = getNode('__ar');
                 if (e.target.innerHTML == '△') {
-                    node.style.height = Consts['__ai'] + 'px';
+                    node.style.height = Consts['__aj'] + 'px';
                     node.style.width = '40px';
                     node.style.overflow = 'hidden';
                     e.target.innerHTML = '▽';
-                    env['__aF']('#__ar').addClass('mis');
+                    env['__aG']('#__as').addClass('mis');
                 }
                 else {
-                    node.style.height = Consts['__ae'] + 'px';
-                    node.style.width = Consts['__ad'] + 'px';
+                    node.style.height = Consts['__af'] + 'px';
+                    node.style.width = Consts['__ae'] + 'px';
                     node.style.overflow = 'inherit';
                     e.target.innerHTML = '△';
-                    env['__aF']('#__ar').removeClass('mis');
+                    env['__aG']('#__as').removeClass('mis');
                 }
             }
             else if (e.target.innerHTML == 'VOM') {
-                node = getNode('__aG');
-                node.style.display = 'block';
                 node = getNode('__aH');
-                node.style.display = 'none';
+                node.style.display = 'block';
                 node = getNode('__aI');
+                node.style.display = 'none';
+                node = getNode('__aJ');
                 node.style.display = 'none';
             }
             else if (e.target.innerHTML == 'Tracer') {
-                node = getNode('__aG');
+                node = getNode('__aH');
+                node.style.display = 'none';
+                node = getNode('__aJ');
                 node.style.display = 'none';
                 node = getNode('__aI');
-                node.style.display = 'none';
-                node = getNode('__aH');
                 node.style.display = 'block';
             }
             else if (e.target.innerHTML == 'Manager') {
-                node = getNode('__aG');
-                node.style.display = 'none';
                 node = getNode('__aH');
                 node.style.display = 'none';
                 node = getNode('__aI');
+                node.style.display = 'none';
+                node = getNode('__aJ');
                 node.style.display = 'block';
             }
         });
     },
     '__c': function () {
-        var min = getNode('__aE');
+        var min = getNode('__aF');
         var env = Inspector['__e']();
         if (min.innerHTML == '▽') {
-            var node = getNode('__aq');
-            node.style.height = Consts['__ae'] + 'px';
-            node.style.width = Consts['__ad'] + 'px';
+            var node = getNode('__ar');
+            node.style.height = Consts['__af'] + 'px';
+            node.style.width = Consts['__ae'] + 'px';
             node.style.overflow = 'inherit';
             min.innerHTML = '△';
-            env['__aF']('#__ar').removeClass('mis');
+            env['__aG']('#__as').removeClass('mis');
         }
     },
-    '__as': function () {
+    '__at': function () {
         var env = Inspector['__e']();
-        env['__aJ']('__au', 'mousemove', UI['@{$mousemove}']);
-        env['__aJ']('__au', 'mouseout', UI['@{$mouseout}']);
-        env['__aJ']('__au', 'click', UI['__ax']);
-        env['__aJ']('__az', 'mousemove', UI['@{$managerMousemove}']);
-        env['__aJ']('__az', 'mouseout', UI['@{$managerMouseout}']);
-        env['__aJ']('__aE', 'click', UI['@{$click}']);
-        env['__aJ']('__aB', 'mouseoout', UI['@{$imouseout}']);
-        env['__aJ']('__aB', 'mouseover', UI['@{$imouseover}']);
+        env['__aK']('__av', 'mousemove', UI['@{$mousemove}']);
+        env['__aK']('__av', 'mouseout', UI['@{$mouseout}']);
+        env['__aK']('__av', 'click', UI['__ay']);
+        env['__aK']('__aA', 'mousemove', UI['@{$managerMousemove}']);
+        env['__aK']('__aA', 'mouseout', UI['@{$managerMouseout}']);
+        env['__aK']('__aF', 'click', UI['@{$click}']);
+        env['__aK']('__aC', 'mouseoout', UI['@{$imouseout}']);
+        env['__aK']('__aC', 'mouseover', UI['@{$imouseover}']);
         //env['@{unbind}']('mx_mover', 'mousedown', UI['@{$mousedown}']);
     },
-    '__aP': function (vf, item) {
+    '__aQ': function (vf, item) {
         clearTimeout(UI['@{$hideTimer}']);
-        var logNode = getNode('__aD');
+        var logNode = getNode('__aE');
         if (logNode.checked) {
             W.console.log(vf);
         }
-        var cover = getNode('__aK');
+        var cover = getNode('__aL');
         if (!cover) {
             cover = D.createElement('div');
             cover.className = 'mif';
-            cover.id = '__aK';
+            cover.id = '__aL';
             D.body.appendChild(cover);
         }
-        var node = getNode('__aB');
+        var node = getNode('__aC');
         node.style.display = 'block';
-        var left = item.center.x - Consts['__ah'] / 2 - getNode('__aL').scrollLeft;
+        var left = item.center.x - Consts['__ai'] / 2 - getNode('__aM').scrollLeft;
         node.style.left = left + 'px';
-        node.style.top = item.center.y + item.radius + Consts['__ai'] + 5 + 'px';
+        node.style.top = item.center.y + item.radius + Consts['__aj'] + 5 + 'px';
         var env = Inspector['__e']();
-        env['__aM'](cover.style, vf.id);
+        env['__aN'](cover.style, vf.id);
         cover.style.display = 'block';
         node.innerHTML = moreInfo.replace(/\{(\w+|(?:@\{[^\}]+\}))\}/g, function (m, v) {
             switch (v) {
@@ -505,7 +505,7 @@ var UI = {
                 case 'mixins':
                     var mixins = Inspector['__m'](vf);
                     if (mixins.length) {
-                        var list = env['__aN'](mixins);
+                        var list = env['__aO'](mixins);
                         list = list.join(',');
                         return '<li><b class="mic">mixins:</b>' + list + '</li>';
                     }
@@ -560,7 +560,7 @@ var UI = {
                         if (hasRrs) {
                             t.push('<table style="width:100%"><tr><td>key</td><td>type</td></tr>');
                             for (var p in res) {
-                                t.push('<tr><td>', p, '</td><td>', env['__aO'](res[p]), '</td></tr>');
+                                t.push('<tr><td>', p, '</td><td>', env['__aP'](res[p]), '</td></tr>');
                             }
                             t.push('</table>');
                         }
@@ -571,21 +571,21 @@ var UI = {
             }
         });
     },
-    '__aC': function () {
-        var node = getNode('__aB');
-        var cover = getNode('__aK');
+    '__aD': function () {
+        var node = getNode('__aC');
+        var cover = getNode('__aL');
         UI['@{$hideTimer}'] = setTimeout(function () {
             node.style.display = 'none';
             cover.style.display = 'none';
         }, 150);
     },
-    '__aS': function (item) {
+    '__aT': function (item) {
         clearTimeout(UI['@{$hideManagerTimer}']);
-        var node = getNode('__aQ');
+        var node = getNode('__aR');
         node.style.display = 'block';
         node.style.left = item.rect[0] + 'px';
-        var top = item.rect[1] + item.rect[3] + Consts['__ai'];
-        var st = getNode('__aR').scrollTop;
+        var top = item.rect[1] + item.rect[3] + Consts['__aj'];
+        var st = getNode('__aS').scrollTop;
         top -= st;
         node.style.top = top + 'px';
         node.innerHTML = moreManagerInfo.replace(/\{(\w+)\}/g, function (m, v) {
@@ -597,14 +597,14 @@ var UI = {
             }
         });
     },
-    '__aT': function () {
-        var node = getNode('__aQ');
+    '__aU': function () {
+        var node = getNode('__aR');
         UI['@{$hideManagerTimer}'] = setTimeout(function () {
             node.style.display = 'none';
         }, 150);
     },
-    '__aV': function (tree) {
-        var node = getNode('__aU');
+    '__aW': function (tree) {
+        var node = getNode('__aV');
         node.innerHTML = managerTotal.replace(/\{(\w+)\}/g, function (m, v) {
             switch (v) {
                 case 'groups':
@@ -616,8 +616,8 @@ var UI = {
             }
         });
     },
-    '__aX': function (tree) {
-        var node = getNode('__aW');
+    '__aY': function (tree) {
+        var node = getNode('__aX');
         node.innerHTML = total.replace(/\{(\w+)\}/g, function (m, v) {
             switch (v) {
                 case 'count':
@@ -627,34 +627,34 @@ var UI = {
             }
         });
     },
-    '__aY': function (height) {
-        getNode('__az').height = height | 0;
+    '__aZ': function (height) {
+        getNode('__aA').height = height | 0;
     },
-    '__aZ': function (width) {
-        var c = getNode('__au');
+    '__b_': function (width) {
+        var c = getNode('__av');
         c.width = width | 0;
-        c.parentNode.scrollLeft = (c.width - Consts['__af']) / 2;
+        c.parentNode.scrollLeft = (c.width - Consts['__ag']) / 2;
     },
-    '__aw': function (e) {
+    '__ax': function (e) {
         console.log(e);
     },
-    '__aA': function (e) {
+    '__aB': function (e) {
         console.log(e);
     },
-    '__ay': function (e) {
+    '__az': function (e) {
         console.log(e);
     }
 };
-ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mia:before{background-color:#ff3030}.mib:before{background-color:#bc8f8f}.mic{padding-right:5px}.mid{background:#eee;cursor:move;margin:0;padding:0}.mie{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;-webkit-box-shadow:0 0 5px #b9b9b9;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mif{position:absolute;opacity:.7;background-color:#90ee90}.mie ul{list-style:none;padding:0;margin:0}.mig{padding:5px}.mih{height:28px;line-height:28px;margin:0 0 0 5px;padding:0}.mii{color:#bbb}.mij{margin-right:3px}.mik{float:left}.mil{float:right}.mim{cursor:pointer}.min{padding:8px}.mio{color:red}.mip:after,.mip:before{content:\"\";display:table}.mip:after{clear:both}.mip{*zoom:1}.miq{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}.mir{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;-webkit-box-shadow:0 2px 2px 2px #b9b9b9;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}.mis:before{left:4px;bottom:5px}.mis:after,.mis:before{content:\" \";position:absolute;top:10px;border:2px dotted #b9b1b1;height:10px;cursor:move}.mis:after{left:9px}");
+ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mia:before{background-color:#ff3030}.mib:before{background-color:#bc8f8f}.mic{padding-right:5px}.mid{background:#eee;cursor:move;margin:0;padding:0}.mie{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mif{position:absolute;opacity:.7;background-color:#90ee90}.mie ul{list-style:none;padding:0;margin:0}.mig{padding:5px}.mih{height:28px;line-height:28px;margin:0 0 0 5px;padding:0}.mii{color:#bbb}.mij{margin-right:3px}.mik{float:left}.mil{float:right}.mim{cursor:pointer}.min{padding:8px}.mio{color:red}.mip:after,.mip:before{content:\"\";display:table}.mip:after{clear:both}.mip{*zoom:1}.miq{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,hsla(270,6%,49%,.33)),to(rgba(165,69,243,0)))}.mir{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}.mis:before{left:4px;bottom:5px}.mis:after,.mis:before{content:\" \";position:absolute;top:10px;border:2px dotted #b9b1b1;height:10px;cursor:move}.mis:after{left:9px}");
 
     var Tracer = {
-    '__N': function (info, color) {
-        var node = getNode('__aH');
-        if (Tracer['__b_']) {
+    '__O': function (info, color) {
+        var node = getNode('__aI');
+        if (Tracer['__ba']) {
             var t = D.createElement('hr');
             t.className = 'miq';
             node.insertBefore(t, node.firstChild);
-            delete Tracer['__b_'];
+            delete Tracer['__ba'];
         }
         var d = D.createElement('div');
         d.innerHTML = info;
@@ -665,29 +665,29 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
             node.removeChild(node.lastChild);
             node.removeChild(node.lastChild);
         }
-        clearTimeout(Tracer['__ba']);
-        Tracer['__ba'] = setTimeout(function () {
-            Tracer['__b_'] = true;
+        clearTimeout(Tracer['__bb']);
+        Tracer['__bb'] = setTimeout(function () {
+            Tracer['__ba'] = true;
         }, 1500);
     }
 };
 
     var Graphics = {
-    '__be': function () {
+    '__bf': function () {
         var g = Graphics;
         g.list = [];
-        delete g['__bb'];
-        UI['__aw'] = function (e) {
+        delete g['__bc'];
+        UI['__ax'] = function (e) {
             var loop, one, dis;
-            if (g['__bb']) {
-                one = g['__bb'];
+            if (g['__bc']) {
+                one = g['__bc'];
                 dis = Math.pow(Math.pow(one.center.x - e.x, 2) + Math.pow(one.center.y - e.y, 2), 1 / 2);
                 if (dis > one.radius) {
-                    g['__bc']({
+                    g['__bd']({
                         item: one,
                         action: 'leave'
                     });
-                    delete g['__bb'];
+                    delete g['__bc'];
                     loop = true;
                 }
             }
@@ -699,9 +699,9 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                     one = g.list[i];
                     dis = Math.pow(Math.pow(one.center.x - e.x, 2) + Math.pow(one.center.y - e.y, 2), 1 / 2);
                     if (dis <= one.radius) {
-                        if (g['__bb'] != one) {
-                            g['__bb'] = one;
-                            g['__bc']({
+                        if (g['__bc'] != one) {
+                            g['__bc'] = one;
+                            g['__bd']({
                                 item: one,
                                 action: 'enter'
                             });
@@ -711,23 +711,23 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                 }
             }
         };
-        UI['__ay'] = g['__bd'];
+        UI['__az'] = g['__be'];
     },
-    '__bh': function () {
+    '__bi': function () {
         var g = Graphics;
         g.managerList = [];
-        delete g['__bf'];
-        UI['__aA'] = function (e) {
+        delete g['__bg'];
+        UI['__aB'] = function (e) {
             var loop, one, rect;
-            if (g['__bf']) {
-                one = g['__bf'];
+            if (g['__bg']) {
+                one = g['__bg'];
                 rect = one.rect;
                 if (e.x < rect[0] || e.y < rect[1] || e.x > (rect[0] + rect[2]) || e.y > (rect[1] + rect[3])) {
-                    g['__bg']({
+                    g['__bh']({
                         item: one,
                         action: 'leave'
                     });
-                    delete g['__bf'];
+                    delete g['__bg'];
                     loop = true;
                 }
             }
@@ -739,9 +739,9 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                     one = g.managerList[i];
                     rect = one.rect;
                     if (e.x >= rect[0] && e.y >= rect[1] && e.x <= (rect[0] + rect[2]) && e.y <= (rect[1] + rect[3])) {
-                        if (g['__bf'] != one) {
-                            g['__bf'] = one;
-                            g['__bg']({
+                        if (g['__bg'] != one) {
+                            g['__bg'] = one;
+                            g['__bh']({
                                 item: one,
                                 action: 'enter'
                             });
@@ -751,7 +751,7 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
             }
         };
     },
-    '__bi': function (tree, width, height) {
+    '__bj': function (tree, width, height) {
         var maxChildren = 0, deep = 0, deepMap = {};
         var walk = function (item, level) {
             item.deep = level;
@@ -774,47 +774,47 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
         tree.deepMap = deepMap;
         walk(tree, 1, 0);
         maxChildren = Math.max(maxChildren, tree.isolated.length + 1);
-        var hRadius = width / maxChildren - Consts['__aj'];
-        var vRadius = height / deep - Consts['__aj'];
+        var hRadius = width / maxChildren - Consts['__ak'];
+        var vRadius = height / deep - Consts['__ak'];
         var tw = width;
-        var dMinRadius = 2 * Consts['__ak'];
+        var dMinRadius = 2 * Consts['__al'];
         if (hRadius < dMinRadius) {
             hRadius = dMinRadius;
-            tw = dMinRadius * maxChildren + (maxChildren + 1) * Consts['__aj'];
+            tw = dMinRadius * maxChildren + (maxChildren + 1) * Consts['__ak'];
             if (tw > 30000) {
                 tw = 30000;
             }
-            UI['__aZ'](tw);
+            UI['__b_'](tw);
         }
         else {
-            UI['__aZ'](tw);
+            UI['__b_'](tw);
         }
         var radius = Math.floor(Math.min(vRadius, hRadius) / 2);
         var band = (radius / 20).toFixed(1);
         return {
             width: tw,
-            margin: Consts['__aj'],
+            margin: Consts['__ak'],
             radius: radius,
             band: band
         };
     },
-    '__M': function (tree, active) {
+    '__N': function (tree, active) {
         if (tree.id) {
-            var width_1 = Consts['__ad'], height = Consts['__ag'], g_1 = Graphics;
-            g_1['__be']();
-            var params_1 = g_1['__bi'](tree, width_1, height);
+            var width_1 = Consts['__ae'], height = Consts['__ah'], g_1 = Graphics;
+            g_1['__bf']();
+            var params_1 = g_1['__bj'](tree, width_1, height);
             width_1 = params_1.width;
-            var ctx_1 = getNode('__au').getContext('2d');
+            var ctx_1 = getNode('__av').getContext('2d');
             ctx_1.clearRect(0, 0, width_1, height);
             var max_1 = params_1.radius * 2 - 2 * (params_1.band + 1) - 1;
-            if (!g_1['__bj'])
-                g_1['__bj'] = {};
+            if (!g_1['__bk'])
+                g_1['__bk'] = {};
             var getWidth_1 = function (text) {
-                if (!g_1['__bj'][text]) {
+                if (!g_1['__bk'][text]) {
                     ctx_1.font = 'normal 12px Arial';
-                    g_1['__bj'][text] = ctx_1.measureText(text).width;
+                    g_1['__bk'][text] = ctx_1.measureText(text).width;
                 }
-                return g_1['__bj'][text];
+                return g_1['__bk'][text];
             };
             var cutText_1 = function (text) {
                 var len = 1, width = 0;
@@ -865,7 +865,7 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                 ctx_1.fillStyle = item.status;
                 if (item.id == active) {
                     if (item.flag) {
-                        ctx_1.fillStyle = Status['__ac'];
+                        ctx_1.fillStyle = Status['__ad'];
                     }
                     else {
                         ctx_1.fillStyle = item.status;
@@ -989,18 +989,18 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                 x: space,
                 y: params_1.margin + params_1.radius
             });
-            UI['__aX'](tree, params_1);
+            UI['__aY'](tree, params_1);
         }
     },
-    '__S': function (tree) {
+    '__T': function (tree) {
         var gs = Graphics;
-        gs['__bh']();
-        var height = Consts['__al'] * (tree.rows + 1) + tree.rows * Consts['__am'] + (Consts['__an'] + Consts['__al']) * tree.groups.length;
-        UI['__aY'](height);
-        var ctx = getNode('__az').getContext('2d');
-        ctx.clearRect(0, 0, Consts['__af'], height);
-        var margin = Consts['__al'];
-        var managerWidth = ((Consts['__af'] - (1 + Consts['__H']) * Consts['__al']) / Consts['__H']) | 0;
+        gs['__bi']();
+        var height = Consts['__am'] * (tree.rows + 1) + tree.rows * Consts['__an'] + (Consts['__ao'] + Consts['__am']) * tree.groups.length;
+        UI['__aZ'](height);
+        var ctx = getNode('__aA').getContext('2d');
+        ctx.clearRect(0, 0, Consts['__ag'], height);
+        var margin = Consts['__am'];
+        var managerWidth = ((Consts['__ag'] - (1 + Consts['__I']) * Consts['__am']) / Consts['__I']) | 0;
         var oneWidth = (function () {
             ctx.font = 'normal 14px Arial';
             var width = ctx.measureText('M').width;
@@ -1033,20 +1033,20 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
             /* mc-uncheck */
             for (var i = 0; i < groups.length; i++) {
                 var g = groups[i];
-                var left = Consts['__al'];
+                var left = Consts['__am'];
                 var pad = false;
                 ctx.beginPath();
                 ctx.moveTo(left, margin);
                 ctx.font = 'normal 14px Arial';
                 ctx.fillStyle = '#282828';
                 ctx.fillText(g.name, left + 5, margin + 25);
-                margin += Consts['__an'];
+                margin += Consts['__ao'];
                 var u = void 0, one = void 0;
                 var max = Math.max(g.maxLeft, g.maxRight);
                 var maps = {};
                 var linecolorIndex = 0;
-                var leftTopSpace = ((max - g.maxLeft) / 2) * (Consts['__am'] + Consts['__al']);
-                var rightTopSpace = ((max - g.maxRight) / 2) * (Consts['__am'] + Consts['__al']);
+                var leftTopSpace = ((max - g.maxLeft) / 2) * (Consts['__an'] + Consts['__am']);
+                var rightTopSpace = ((max - g.maxRight) / 2) * (Consts['__an'] + Consts['__am']);
                 for (u = 0; u < max; u++) {
                     var lo = g.cleans.left[u];
                     var ro = g.cleans.right[u];
@@ -1055,21 +1055,21 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                             left,
                             margin + leftTopSpace,
                             150,
-                            Consts['__am']
+                            Consts['__an']
                         ], lo, g.name);
                         maps[lo.id] = lo;
                     }
                     if (ro) {
                         drawRect(ctx, [
-                            Consts['__af'] - Consts['__al'] - 150,
+                            Consts['__ag'] - Consts['__am'] - 150,
                             margin + rightTopSpace,
                             150,
-                            Consts['__am']
+                            Consts['__an']
                         ], ro, g.name);
                         maps[ro.id] = ro;
                         ro.lineColor = Lines[linecolorIndex++ % Lines.length];
                     }
-                    margin += Consts['__al'] + Consts['__am'];
+                    margin += Consts['__am'] + Consts['__an'];
                 }
                 for (var p in maps) {
                     one = maps[p];
@@ -1095,65 +1095,65 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
                     }
                 }
                 for (u = 0; u < g.caches.length; u++) {
-                    drawRect(ctx, [left, margin, managerWidth, Consts['__am']], g.caches[u], g.name);
-                    if ((u + 1) % Consts['__H'] === 0) {
-                        left = Consts['__al'];
-                        margin += Consts['__al'] + Consts['__am'];
+                    drawRect(ctx, [left, margin, managerWidth, Consts['__an']], g.caches[u], g.name);
+                    if ((u + 1) % Consts['__I'] === 0) {
+                        left = Consts['__am'];
+                        margin += Consts['__am'] + Consts['__an'];
                         pad = false;
                     }
                     else {
-                        left += managerWidth + Consts['__al'];
+                        left += managerWidth + Consts['__am'];
                         pad = true;
                     }
                 }
-                left = Consts['__al'];
+                left = Consts['__am'];
                 if (pad) {
-                    margin += Consts['__al'] + Consts['__am'];
+                    margin += Consts['__am'] + Consts['__an'];
                 }
                 for (u = 0; u < g.items.length; u++) {
                     one = g.items[u];
-                    drawRect(ctx, [left, margin, managerWidth, Consts['__am']], one, g.name);
-                    if ((u + 1) % Consts['__H'] === 0) {
-                        left = Consts['__al'];
-                        margin += Consts['__al'] + Consts['__am'];
+                    drawRect(ctx, [left, margin, managerWidth, Consts['__an']], one, g.name);
+                    if ((u + 1) % Consts['__I'] === 0) {
+                        left = Consts['__am'];
+                        margin += Consts['__am'] + Consts['__an'];
                         pad = false;
                     }
                     else {
-                        left += managerWidth + Consts['__al'];
+                        left += managerWidth + Consts['__am'];
                         pad = true;
                     }
                 }
-                left = Consts['__al'];
+                left = Consts['__am'];
                 if (pad) {
-                    margin += Consts['__an'];
+                    margin += Consts['__ao'];
                 }
             }
         };
         draw(tree.groups);
-        UI['__aV'](tree);
+        UI['__aW'](tree);
     },
-    '__bc': function (e) {
+    '__bd': function (e) {
         var env = Inspector['__e']();
         var vom = env['__p']();
         if (e.action == 'enter') {
-            Graphics['__bk'] = vom.get(e.item.id);
-            UI['__aP'](vom.get(e.item.id), e.item);
+            Graphics['__bl'] = vom.get(e.item.id);
+            UI['__aQ'](vom.get(e.item.id), e.item);
         }
         else {
-            Graphics['__bk'] = null;
-            UI['__aC']();
+            Graphics['__bl'] = null;
+            UI['__aD']();
         }
     },
-    '__bg': function (e) {
+    '__bh': function (e) {
         if (e.action == 'enter') {
-            UI['__aS'](e.item);
+            UI['__aT'](e.item);
         }
         else {
-            UI['__aT']();
+            UI['__aU']();
         }
     },
-    '__bd': function (e) {
-        var lastVOM = Graphics['__bk'];
+    '__be': function (e) {
+        var lastVOM = Graphics['__bl'];
         if (!lastVOM) {
             return;
         }
@@ -1162,7 +1162,7 @@ ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";heig
             return;
         }
         var base = (W.Site && W.Site.onlineHostname) || W.location.hostname;
-        IdePort['__aa'](base, path + '.js', path + '.html');
+        IdePort['__ab'](base, path + '.js', path + '.html');
     }
 };
 
@@ -1176,7 +1176,7 @@ var ModuleIdMap = {};
 
     var S = W.KISSY;
 var KISSYEnv = {
-    '__J': function () {
+    '__K': function () {
         S.use('node');
     },
     '__o': function () {
@@ -1212,7 +1212,7 @@ var KISSYEnv = {
         }
         return result;
     },
-    '__K': function () {
+    '__L': function () {
         var magix = S.Env.mods['magix/magix'];
         var node = S.Env.mods.node;
         if (magix) {
@@ -1229,7 +1229,7 @@ var KISSYEnv = {
             }
         }
     },
-    '__aM': function (style, id) {
+    '__aN': function (style, id) {
         var node = S.require('node').one('#' + id);
         if (!node)
             return;
@@ -1305,23 +1305,23 @@ var KISSYEnv = {
         style.width = size.width + 'px';
         style.height = size.height + 'px';
     },
-    '__av': function (id) {
+    '__aw': function (id) {
         var node = S.require('node');
         return node.one('#' + id).offset();
     },
-    '__at': function (id, type, fn) {
+    '__au': function (id, type, fn) {
         var node = S.require('node');
         if (S.isString(id))
             id = '#' + id;
         return node.one(id).on(type, fn);
     },
-    '__aJ': function (id, type, fn) {
+    '__aK': function (id, type, fn) {
         var node = S.require('node');
         if (S.isString(id))
             id = '#' + id;
         return node.one(id).detach(type, fn);
     },
-    '__aN': function (mixins) {
+    '__aO': function (mixins) {
         var mods = S.Env.mods;
         var ids = [];
         for (var i = 0; i < mixins.length; i++) {
@@ -1347,7 +1347,7 @@ var KISSYEnv = {
         }
         return ids;
     },
-    '__aO': function (r) {
+    '__aP': function (r) {
         var type = '';
         var e = r.res || r.e;
         if (e) {
@@ -1392,16 +1392,16 @@ var KISSYEnv = {
         }
         return type;
     },
-    '__T': function (callback) {
+    '__U': function (callback) {
         var old = S.Loader.Utils.attachMod;
         S.Loader.Utils.attachMod = function () {
             old.apply(S.Loader.Utils, arguments);
             callback();
         };
     },
-    '__ap': function (node, handle) {
+    '__aq': function (node, handle) {
         var root = S.one(node);
-        var dd = Drag['__Y'](S.one, 'detach', S.isFunction);
+        var dd = Drag['__Z'](S.one, 'detach', S.isFunction);
         S.one(handle).on('mousedown', function (e) {
             if (e.target.id != handle.slice(1))
                 return;
@@ -1409,8 +1409,8 @@ var KISSYEnv = {
             var top = parseInt(root.css('top'), 10);
             var x = e.pageX;
             var y = e.pageY;
-            dd['__W'](e.target, function (e) {
-                dd['__X']();
+            dd['__X'](e.target, function (e) {
+                dd['__Y']();
                 var fx = e.pageX - x, fy = e.pageY - y;
                 if (top + fy < 0)
                     fy = -top;
@@ -1421,7 +1421,7 @@ var KISSYEnv = {
             });
         });
     },
-    '__R': function (flattened) {
+    '__S': function (flattened) {
         for (var i = flattened.length - 1; i >= 0; i--) {
             var f = flattened[i];
             var root = S.one('#' + f.id);
@@ -1433,10 +1433,10 @@ var KISSYEnv = {
             }
         }
     },
-    '__aF': function (node) {
+    '__aG': function (node) {
         return S.one(node);
     },
-    '__U': function (cb) {
+    '__V': function (cb) {
         var magix = S.Env.mods.magix;
         if (magix) {
             magix = S.require('magix');
@@ -1452,8 +1452,8 @@ var KISSYEnv = {
 };
 
     var RequireEnv = {
-    '__J': function () { },
-    '__T': function (cb) {
+    '__K': function () { },
+    '__U': function (cb) {
         if (W.MutationObserver) {
             var timer_1;
             var o = new W.MutationObserver(function () {
@@ -1467,7 +1467,7 @@ var KISSYEnv = {
             });
         }
     },
-    '__bl': function (key) {
+    '__bm': function (key) {
         var ms = require.s.contexts._.defined;
         var o = ms[key] || ModuleIdMap[key];
         if (!o && ModulesFeatures[key]) {
@@ -1501,26 +1501,26 @@ var KISSYEnv = {
         }
         return o;
     },
-    '__bm': function () {
-        return this['__bl']('$') || this['__bl']('jquery') || this['__bl']('zepto');
+    '__bn': function () {
+        return this['__bm']('$') || this['__bm']('jquery') || this['__bm']('zepto');
     },
     '__o': function () {
-        var old = this['__bl']('magix/magix');
+        var old = this['__bm']('magix/magix');
         var magix;
         if (old) {
             magix = old;
         }
         else {
-            magix = this['__bl']('magix');
+            magix = this['__bm']('magix');
         }
         return magix.config('rootId');
     },
     '__p': function () {
-        var old = this['__bl']('magix/vom');
+        var old = this['__bm']('magix/vom');
         if (old) {
             return old;
         }
-        var magix = this['__bl']('magix');
+        var magix = this['__bm']('magix');
         return magix.VOM || magix.Vframe;
     },
     '__C': function () {
@@ -1537,11 +1537,11 @@ var KISSYEnv = {
         }
         return result;
     },
-    '__K': function () {
-        return this['__bl']('magix/magix') || this['__bl']('magix');
+    '__L': function () {
+        return this['__bm']('magix/magix') || this['__bm']('magix');
     },
-    '__aM': function (style, id) {
-        var $ = this['__bm']();
+    '__aN': function (style, id) {
+        var $ = this['__bn']();
         var node = $('#' + id);
         var prev = node.prev();
         if (node.css('position') == 'absolute' && prev.prop('tagName') == 'INPUT') {
@@ -1615,23 +1615,23 @@ var KISSYEnv = {
         style.width = size.width + 'px';
         style.height = size.height + 'px';
     },
-    '__av': function (id) {
-        var $ = this['__bm']();
+    '__aw': function (id) {
+        var $ = this['__bn']();
         return $('#' + id).offset();
     },
-    '__at': function (id, type, fn) {
-        var $ = this['__bm']();
+    '__au': function (id, type, fn) {
+        var $ = this['__bn']();
         if ($.type(id) == 'string')
             id = '#' + id;
         return $(id).on(type, fn);
     },
-    '__aJ': function (id, type, fn) {
-        var $ = this['__bm']();
+    '__aK': function (id, type, fn) {
+        var $ = this['__bn']();
         if ($.type(id) == 'string')
             id = '#' + id;
         return $(id).off(type, fn);
     },
-    '__aN': function (mixins) {
+    '__aO': function (mixins) {
         var mods = require.s.contexts._.defined;
         var ids = [];
         for (var i = 0; i < mixins.length; i++) {
@@ -1656,9 +1656,9 @@ var KISSYEnv = {
         }
         return ids;
     },
-    '__aO': function (r) {
+    '__aP': function (r) {
         var e = r.res || r.e;
-        var $ = this['__bm']();
+        var $ = this['__bn']();
         var type = $.type(r);
         if (e) {
             if (e.all && e.constructor && e.constructor.cached) {
@@ -1676,10 +1676,10 @@ var KISSYEnv = {
         }
         return type;
     },
-    '__ap': function (node, handle) {
-        var $ = this['__bm']();
+    '__aq': function (node, handle) {
+        var $ = this['__bn']();
         var root = $(node);
-        var dd = Drag['__Y']($, 'off', $.isFunction);
+        var dd = Drag['__Z']($, 'off', $.isFunction);
         $(handle).on('mousedown', function (e) {
             if (e.target.id != handle.slice(1))
                 return;
@@ -1687,8 +1687,8 @@ var KISSYEnv = {
             var top = parseInt(root.css('top'), 10);
             var x = e.pageX;
             var y = e.pageY;
-            dd['__W'](e.target, function (e) {
-                dd['__X']();
+            dd['__X'](e.target, function (e) {
+                dd['__Y']();
                 var fx = e.pageX - x, fy = e.pageY - y;
                 if (top + fy < 0)
                     fy = -top;
@@ -1699,8 +1699,8 @@ var KISSYEnv = {
             });
         });
     },
-    '__R': function (flattened) {
-        var $ = this['__bm']();
+    '__S': function (flattened) {
+        var $ = this['__bn']();
         for (var i = flattened.length - 1; i >= 0; i--) {
             var f = flattened[i];
             var root = $('#' + f.id);
@@ -1711,12 +1711,12 @@ var KISSYEnv = {
             }
         }
     },
-    '__aF': function (node) {
-        var $ = this['__bm']();
+    '__aG': function (node) {
+        var $ = this['__bn']();
         return $(node);
     },
-    '__U': function (cb) {
-        var magix = this['__bl']('magix');
+    '__V': function (cb) {
+        var magix = this['__bm']('magix');
         if (magix && magix.View && magix.View.prototype.share) {
             var old_1 = magix.View.prototype.share;
             magix.View.prototype.share = function () {
@@ -1731,7 +1731,7 @@ var KISSYEnv = {
     for (var p in RequireEnv) {
         SeajsEnv[p] = SeajsSEnv[p] = MagixEnv[p] = RequireEnv[p];
     }
-    SeajsEnv['__bl'] = function (key) {
+    SeajsEnv['__bm'] = function (key) {
     // try {
     //     let entity = seajs.require(key); //seajs有别名，优先使用内置的require获取
     //     if (entity)
@@ -1795,7 +1795,7 @@ SeajsEnv['__C'] = function () {
     }
     return result;
 };
-SeajsEnv['__aN'] = function (mixins) {
+SeajsEnv['__aO'] = function (mixins) {
     var mods = seajs.cache;
     var ids = [];
     for (var i = 0; i < mixins.length; i++) {
@@ -1821,7 +1821,7 @@ SeajsEnv['__aN'] = function (mixins) {
     return ids;
 };
 
-    SeajsSEnv['__bl'] = function (key) {
+    SeajsSEnv['__bm'] = function (key) {
     var o;
     try {
         o = require(key);
@@ -1835,16 +1835,16 @@ SeajsEnv['__aN'] = function (mixins) {
 SeajsSEnv['__C'] = function () {
     return [];
 };
-SeajsSEnv['__aN'] = function (mixins) {
+SeajsSEnv['__aO'] = function (mixins) {
     return new Array(mixins.length + 2).join('unknown').slice(1);
 };
 
-    MagixEnv['__bl'] = function (key) {
+    MagixEnv['__bm'] = function (key) {
     if (key == 'magix') {
         return W.Magix;
     }
 };
-MagixEnv['__bm'] = function () {
+MagixEnv['__bn'] = function () {
     return W.$ || W.jQuery || W.Zepto;
 };
 MagixEnv['__o'] = function () {
@@ -1856,18 +1856,15 @@ MagixEnv['__p'] = function () {
 MagixEnv['__C'] = function () {
     return [];
 };
-MagixEnv['__aN'] = function (mixins) {
+MagixEnv['__aO'] = function (mixins) {
     return new Array(mixins.length + 2).join('unknown').slice(1);
 };
-MagixEnv['__K'] = function () {
+MagixEnv['__L'] = function () {
     return true;
 };
 
     var Inspector = {
         '__e': function () {
-            if (W.Magix) {
-                return MagixEnv;
-            }
             if (W.KISSY) {
                 return KISSYEnv;
             }
@@ -1876,6 +1873,9 @@ MagixEnv['__K'] = function () {
             }
             if (W.seajs) {
                 return SeajsEnv;
+            }
+            if (W.Magix) {
+                return MagixEnv;
             }
             if (W.define && W.require) {
                 return SeajsSEnv;
@@ -2196,18 +2196,18 @@ MagixEnv['__K'] = function () {
                 map: map
             };
         },
-        '__I': function (env) {
+        '__J': function (env) {
             var managers = env['__C']();
             var result = [], rows = 0, cleanedMap = {}, total = 0;
             var temp = {}, id = 0;
             for (var i = 0; i < managers.length; i++) {
                 var t = managers[i];
                 var o = t.exports.$mMetas || t.exports.$mm || t.exports.$m;
-                if (!o._$id)
-                    o._$id = 't' + id++;
-                if (temp[o._$id])
-                    temp[o._$id].continued = true;
-                temp[o._$id] = t;
+                if (!o['__D'])
+                    o['__D'] = 't' + id++;
+                if (temp[o['__D']])
+                    temp[o['__D']].continued = true;
+                temp[o['__D']] = t;
             }
             for (var j = 0; j < managers.length; j++) {
                 var m = managers[j];
@@ -2219,7 +2219,7 @@ MagixEnv['__K'] = function () {
                 var caches = [];
                 var counter = 0, maxLeft = 0, maxRight = 0, p = void 0, info = void 0;
                 var metas = m.exports.$mMetas || m.exports.$mm || m.exports.$m;
-                delete metas._$id;
+                delete metas['__D'];
                 if (!m.continued) {
                     /* mc-uncheck */
                     for (p in metas) {
@@ -2234,7 +2234,7 @@ MagixEnv['__K'] = function () {
                     }
                     for (p in metas) {
                         info = metas[p];
-                        var c = ManagerColors['__D'];
+                        var c = ManagerColors['__E'];
                         var ti = {
                             id: p,
                             color: c,
@@ -2246,20 +2246,20 @@ MagixEnv['__K'] = function () {
                             hasAfter: (info.after ? (info.after + '').substr(0, 200) : '')
                         };
                         if (info.cleans) {
-                            c = ManagerColors['__E'];
+                            c = ManagerColors['__F'];
                             ti.color = c;
                             cleans.left.push(ti);
                             maxLeft++;
                         }
                         else if (cleanedMap[p]) {
-                            c = ManagerColors['__F'];
+                            c = ManagerColors['__G'];
                             ti.color = c;
                             cleans.right.push(ti);
                             maxRight++;
                         }
                         else {
                             if (info.cache || info.cacheTime) {
-                                c = ManagerColors['__G'];
+                                c = ManagerColors['__H'];
                                 ti.color = c;
                                 caches.push(ti);
                             }
@@ -2271,9 +2271,9 @@ MagixEnv['__K'] = function () {
                         total++;
                     }
                 }
-                rows += Math.ceil(counter / Consts['__H']);
+                rows += Math.ceil(counter / Consts['__I']);
                 rows += Math.max(maxLeft, maxRight);
-                rows += Math.ceil(caches.length / Consts['__H']);
+                rows += Math.ceil(caches.length / Consts['__I']);
                 result.push({
                     name: m.name,
                     rows: rows,
@@ -2290,9 +2290,9 @@ MagixEnv['__K'] = function () {
                 total: total
             };
         },
-        '__J': function (callback) {
+        '__K': function (callback) {
             var env = Inspector['__e']();
-            env['__J']();
+            env['__K']();
             var max = 50;
             var poll = function () {
                 max--;
@@ -2301,7 +2301,7 @@ MagixEnv['__K'] = function () {
                 }
                 else {
                     if (D.body) {
-                        if (env['__K']()) {
+                        if (env['__L']()) {
                             callback();
                         }
                         else {
@@ -2315,16 +2315,16 @@ MagixEnv['__K'] = function () {
             };
             poll();
         },
-        '__V': function () {
-            Inspector['__J'](function () {
-                UI['__L']();
+        '__W': function () {
+            Inspector['__K'](function () {
+                UI['__M']();
                 var env = Inspector['__e']();
                 var vom = env['__p']();
                 var drawTimer, intervalTimer, moveTimer, activeId, treeInfo, blinkCount = 0;
                 var stopActive = function () {
                     if (activeId && intervalTimer) {
                         blinkCount = 0;
-                        Graphics['__M'](treeInfo.tree);
+                        Graphics['__N'](treeInfo.tree);
                         clearInterval(intervalTimer);
                         activeId = intervalTimer = '';
                     }
@@ -2332,14 +2332,14 @@ MagixEnv['__K'] = function () {
                 var startActive = function () {
                     blinkCount = 16;
                     if (activeId && !intervalTimer) {
-                        Graphics['__M'](treeInfo.tree, activeId);
+                        Graphics['__N'](treeInfo.tree, activeId);
                         intervalTimer = setInterval(function () {
                             if (!blinkCount) {
                                 stopActive();
                             }
                             else {
                                 blinkCount--;
-                                Graphics['__M'](treeInfo.tree, activeId);
+                                Graphics['__N'](treeInfo.tree, activeId);
                             }
                         }, 600);
                     }
@@ -2375,7 +2375,7 @@ MagixEnv['__K'] = function () {
                 };
                 var attachVframe = function (vf) {
                     vf.on('created', function () {
-                        Tracer['__N']('vframe:' + vf.id + '[' + (vf.path || vf.view.path || '') + ']渲染完毕', Status['__q']);
+                        Tracer['__O']('vframe:' + vf.id + '[' + (vf.path || vf.view.path || '') + ']渲染完毕', Status['__q']);
                         drawTree();
                     });
                     vf.on('alter', function (e) {
@@ -2383,24 +2383,24 @@ MagixEnv['__K'] = function () {
                             e.logged = 1;
                             var f = vom.get(e.id);
                             if (f) {
-                                Tracer['__N']('从vframe:' + f.id + '[' + (f.path || f.view.path || '') + '] 发起界面变更', Status['__O']);
+                                Tracer['__O']('从vframe:' + f.id + '[' + (f.path || f.view.path || '') + '] 发起界面变更', Status['__P']);
                             }
                         }
-                        Tracer['__N']('vframe:' + vf.id + '收到变更消息', Status['__r']);
+                        Tracer['__O']('vframe:' + vf.id + '收到变更消息', Status['__r']);
                         drawTree();
                     });
                     vf.on('viewInited', function () {
-                        Tracer['__N']('vframe:' + vf.id + '的view[' + vf.view.path + ']，init调用完毕', Status['__q']);
+                        Tracer['__O']('vframe:' + vf.id + '的view[' + vf.view.path + ']，init调用完毕', Status['__q']);
                     });
                     vf.on('viewUnmounted', function () {
                         var path = (vf.path || (vf.view && vf.view.path || ''));
                         if (path) {
                             path = '[' + path + ']';
                         }
-                        Tracer['__N']('vframe:' + vf.id + '的view' + path + '销毁完毕', Status['__P']);
+                        Tracer['__O']('vframe:' + vf.id + '的view' + path + '销毁完毕', Status['__Q']);
                     });
                     vf.on('viewMounted', function () {
-                        Tracer['__N']('vframe:' + vf.id + '的view[' + (vf.path || vf.view.path ||
+                        Tracer['__O']('vframe:' + vf.id + '的view[' + (vf.path || vf.view.path ||
                             '') + ']，首次渲染完毕', Status['__q']);
                     });
                     vf.___mh = true;
@@ -2434,10 +2434,10 @@ MagixEnv['__K'] = function () {
                                 else {
                                     path = '';
                                 }
-                                Tracer['__N']('从VOM中移除vframe:' + vf.id + path, Status['__Q']);
+                                Tracer['__O']('从VOM中移除vframe:' + vf.id + path, Status['__R']);
                             }
                             else {
-                                Tracer['__N']('remove:', e);
+                                Tracer['__O']('remove:', e);
                             }
                         }
                         else if (e.type == 'created') {
@@ -2448,17 +2448,17 @@ MagixEnv['__K'] = function () {
                     drawTimer = setTimeout(function () {
                         stopActive();
                         treeInfo = Inspector['__B'](env);
-                        Graphics['__M'](treeInfo.tree);
+                        Graphics['__N'](treeInfo.tree);
                         startActive();
-                        env['__R'](treeInfo.flattened);
+                        env['__S'](treeInfo.flattened);
                     }, 0);
                 };
                 vom.on('add', function (e) {
                     drawTree();
                     if (e.vframe.pId) {
-                        Tracer['__N']('找到vframe:' + e.vframe.pId + '的子vframe:' + e.vframe.id, Status['__O']);
+                        Tracer['__O']('找到vframe:' + e.vframe.pId + '的子vframe:' + e.vframe.id, Status['__P']);
                     }
-                    Tracer['__N']('创建vframe:' + e.vframe.id, Status['__O']);
+                    Tracer['__O']('创建vframe:' + e.vframe.id, Status['__P']);
                     attachVframe(e.vframe);
                 });
                 vom.on('remove', drawTree);
@@ -2468,22 +2468,22 @@ MagixEnv['__K'] = function () {
                 }
                 attachVframes();
                 drawTree();
-                Inspector['__M'] = drawTree;
+                Inspector['__N'] = drawTree;
                 var managerTimer;
                 var drawManagerTree = function () {
                     clearTimeout(managerTimer);
                     managerTimer = setTimeout(function () {
-                        var tree = Inspector['__I'](env);
-                        Graphics['__S'](tree);
+                        var tree = Inspector['__J'](env);
+                        Graphics['__T'](tree);
                     }, 500);
                 };
-                env['__T'](drawManagerTree);
-                env['__U'](drawTree);
+                env['__U'](drawManagerTree);
+                env['__V'](drawTree);
                 drawManagerTree();
             });
         }
     };
-    Inspector['__V']();
+    Inspector['__W']();
 }
 
 })();

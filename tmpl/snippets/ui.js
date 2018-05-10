@@ -9,11 +9,11 @@ let ehMap = {
 let encodeHTML = src => {
     return src.replace(ehReg, m => '&' + ehMap[m] + ';');
 };
-let main = '@ui-main.html';
-let moreInfo = '@ui-more.html';
-let moreManagerInfo = '@ui-manager.html';
-let total = '@ui-total.html';
-let managerTotal = '@ui-mtotal.html';
+let main = 'raw@ui-main.html';
+let moreInfo = 'raw@ui-more.html';
+let moreManagerInfo = 'raw@ui-manager.html';
+let total = 'raw@ui-total.html';
+let managerTotal = 'raw@ui-mtotal.html';
 let UI = {
     '@{setup}'() {
         let div = D.createElement('div');
