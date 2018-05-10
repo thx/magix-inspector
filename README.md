@@ -24,7 +24,7 @@ Magix项目的调试分析工具，直观的展示区块间的层级关系、事
 或通过书签的方式添加一段js代码：
 
 ```js
-javascript:void(((d,l,s,b)=>{b=(x,e,g)=>{s=d.createElement('script');s.src=l.pop();g=()=>{clearTimeout(x)};e=()=>{g();if(l.length)b();else alert('load magix inspector error')};s.onerror=e;s.onload=g;x=setTimeout(b,5e3);s.charset='utf-8';d.body.appendChild(s)};b()})(document,['https://thx.github.io/magix-inspector/index.js','https://unpkg.com/magix-inspector@latest/build/index.js','https://unpkg.alibaba-inc.com/magix-inspector@latest/build/index.js','https://cdn.jsdelivr.net/npm/magix-inspector@latest/build/index.js']))
+javascript:void(((d,l,s,b)=>{b=(x,e,g)=>{s=d.createElement('script');s.src=l.pop();g=()=>{clearTimeout(x)};e=()=>{g();if(l.length)b();else alert('load magix inspector error')};s.onerror=e;s.onload=g;x=setTimeout(b,5e3);s.charset='utf-8';d.body.appendChild(s)};b()})(document,['https://thx.github.io/magix-inspector/index.js','https://unpkg.com/magix-inspector','https://unpkg.alibaba-inc.com/magix-inspector','https://cdn.jsdelivr.net/npm/magix-inspector']))
 ```
 
 在运行Magix项目的页面上点击添加的书签，既可使用线上的Magix Inspector来查看区块间关系
