@@ -50,7 +50,7 @@ let RequireEnv = {
         return o;
     },
     '@{getDL}'() {
-        return this['@{getMod}']('$') || this['@{getMod}']('jquery') || this['@{getMod}']('zepto');
+        return this['@{getMod}']('$') || this['@{getMod}']('jquery') || this['@{getMod}']('zepto') || LiteQ;
     },
     '@{getRootId}'() {
         let old = this['@{getMod}']('magix/magix');

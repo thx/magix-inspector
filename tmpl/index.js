@@ -23,6 +23,7 @@ if (D['@{magix}']) {
     '@snippets/ui.js';
     '@snippets/tracer.js';
     '@snippets/graphics.js';
+    '@snippets/liteq.js';
     '@snippets/env-modules.js';
     '@snippets/env-kissy.js';
     '@snippets/env-require.js';
