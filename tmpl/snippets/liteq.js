@@ -69,7 +69,7 @@ Query.prototype = {
         return this;
     },
     offset() {
-        let dom = this['@{doms}'][0] as HTMLElement;
+        let dom = this['@{doms}'][0];
         if (dom) {
             let rect = dom.getBoundingClientRect();
             return rect;
@@ -77,7 +77,7 @@ Query.prototype = {
         return null;
     },
     prev() {
-        let dom = this['@{doms}'][0] as HTMLElement;
+        let dom = this['@{doms}'][0];
         if (dom) {
             while (dom.nodeType != 1) {
                 dom = dom.previousSibling;
@@ -87,28 +87,28 @@ Query.prototype = {
         return null;
     },
     height() {
-        let dom = this['@{doms}'][0] as HTMLElement;
+        let dom = this['@{doms}'][0];
         if (dom) {
             return dom.clientHeight;
         }
         return 0;
     },
     width() {
-        let dom = this['@{doms}'][0] as HTMLElement;
+        let dom = this['@{doms}'][0];
         if (dom) {
             return dom.clientWidth;
         }
         return 0;
     },
     children() {
-        let dom = this['@{doms}'][0] as HTMLElement;
+        let dom = this['@{doms}'][0];
         if (dom) {
             return new Query(dom.children);
         }
         return 0;
     },
     parent() {
-        let dom = this['@{doms}'][0] as HTMLElement;
+        let dom = this['@{doms}'][0];
         if (dom) {
             return dom.parentElement;
         }

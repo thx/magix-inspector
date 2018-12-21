@@ -312,7 +312,8 @@ if (D['@{magix}']) {
                     let path = vf.path;
                     //组件识别
                     //没有模板或在gallery目录下
-                    if (info.inline || (path && path.indexOf('/gallery/') > 0)) {
+                    if (info.inline || (path && (path.indexOf('gallery/') > 0 ||
+                        path.indexOf('/gallery') > 0))) {
                         rewalk = true;
                         info.component = true;
                         tree.comTotal++;

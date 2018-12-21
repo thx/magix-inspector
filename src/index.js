@@ -1,5 +1,5 @@
 /*
-    generate by magix-combine@3.11.22: https://github.com/thx/magix-combine
+    generate by magix-combine@3.11.25: https://github.com/thx/magix-combine
     author: kooboy_li@163.com
     loader: iife
  */
@@ -39,8 +39,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
         while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
                 case 0: case 1: t = op; break;
                 case 4: _.label++; return { value: op[1], done: false };
@@ -307,7 +307,7 @@ var ehMap = {
 var encodeHTML = function (src) {
     return src.replace(ehReg, function (m) { return '&' + ehMap[m] + ';'; });
 };
-var main = "<div class=\"mie\" id=\"__ar\"><ul class=\"mip mid\" id=\"__as\"><li class=\"mil min mim\" id=\"__aF\">△</li><li class=\"mik min mim\">VOM</li><li class=\"mik min mim\">Tracer</li><li class=\"mik min mim\">Manager</li></ul><div id=\"__aH\"><div style=\"width:{__ab}px;height:{__ae}px;overflow-x:auto;overflow-y:hidden\" id=\"__aM\"><canvas width=\"{__ab}\" height=\"{__ae}\" id=\"__av\"></canvas></div><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"__aE\"/>控制台显示view信息</label><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"__z\" checked=\"checked\"/>显示组件view</label><ul class=\"mip mik\" id=\"__aX\"></ul></div><div id=\"__aI\" style=\"height:{__ae}px;overflow:scroll;overflow-x:auto;display:none;padding:8px;\"></div><div id=\"__aJ\" style=\"display:none\"><div style=\"height:{__ae}px;overflow:scroll;overflow-x:auto;\" id=\"__aS\"><canvas width=\"{__ad}\" height=\"{__ae}\" id=\"__aA\"></canvas></div><ul class=\"mip min\" id=\"__aV\"></ul></div><div id=\"__aC\" class=\"mir\"></div><div id=\"__aR\" class=\"mir\"></div></div>";
+var main = "<div class=\"mie\" id=\"__ar\"><ul class=\"mip mid\" id=\"__as\"><li class=\"mil min mim\" id=\"__aF\">△</li><li class=\"mik min mim\">VOM</li><li class=\"mik min mim\">Tracer</li><li class=\"mik min mim\">Manager</li></ul><div id=\"__aH\"><div style=\"width:{__ab}px;height:{__ae}px;overflow-x:auto;overflow-y:hidden\" id=\"__aM\"><canvas width=\"{__ab}\" height=\"{__ae}\" id=\"__av\"></canvas></div><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"__aE\"/>控制台显示view信息</label><label class=\"mik mih\"><input type=\"checkbox\" class=\"mij\" id=\"__z\"/>显示组件view</label><ul class=\"mip mik\" id=\"__aX\"></ul></div><div id=\"__aI\" style=\"height:{__ae}px;overflow:scroll;overflow-x:auto;display:none;padding:8px;\"></div><div id=\"__aJ\" style=\"display:none\"><div style=\"height:{__ae}px;overflow:scroll;overflow-x:auto;\" id=\"__aS\"><canvas width=\"{__ad}\" height=\"{__ae}\" id=\"__aA\"></canvas></div><ul class=\"mip min\" id=\"__aV\"></ul></div><div id=\"__aC\" class=\"mir\"></div><div id=\"__aR\" class=\"mir\"></div></div>";
 var moreInfo = "<ul><li><b class=\"mic\">id:</b>{id}</li><li><b class=\"mic\">view:</b>{view}</li>{events} {location} {share} {mixins} {state}<li class=\"mio\">{ex}</li><li><b class=\"mic\">resources</b></li><li style=\"{__af}px;overflow:auto;max-height:200px;\">{res}</li></ul>";
 var moreManagerInfo = "<ul><li><b>key:</b>{id}</li><li><b>url:</b>{url}</li><li><b>描述:</b>{desc}</li><li><b>缓存:</b>{cache}</li><li><b>清理缓存:</b>{cleans}</li><li><b>预处理:</b>{hasAfter}</li></ul>";
 var total = "<li class=\"mik mig mii\">view统计:[{count}]</li>";
@@ -645,7 +645,7 @@ var UI = {
         console.log(e);
     }
 };
-ApplyStyle("mi_","vframe{display:block}.mi_:before{background-color:#008b00;border-radius:6px;color:#fff;content:\"M\";font-size:10px;height:12px;line-height:12px;opacity:.4;position:absolute;text-align:center;width:12px}.mia:before{background-color:#ff3030}.mib:before{background-color:#bc8f8f}.mic{padding-right:5px}.mid{background:#eee;cursor:move;margin:0;padding:0}.mie{background-color:#fff;box-shadow:0 0 5px #b9b9b9;font-size:12px;height:470px;line-height:1.5;position:fixed;right:20px;top:20px;width:550px;z-index:2147483647}.mif{background-color:#90ee90;opacity:.7;position:absolute}.mie ul{list-style:none;margin:0;padding:0}.mig{padding:5px}.mih{height:28px;line-height:28px;margin:0 0 0 5px;padding:0}.mii{color:#bbb}.mij{margin-right:3px}.mik{float:left}.mil{float:right}.mim{cursor:pointer}.min{padding:8px}.mio{color:red}.mip:after,.mip:before{content:\"\";display:table}.mip:after{clear:both}.mip{*zoom:1}.miq{background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,rgba(125,118,132,.33)),to(rgba(165,69,243,0)));border:0;height:1px;margin:5px;padding:0}.mir{background-color:#eee;box-shadow:0 2px 2px 2px #b9b9b9;display:none;padding:8px;position:absolute;width:440px;word-break:break-all}.mis:before{bottom:5px;left:4px}.mis:after,.mis:before{border:2px dotted #b9b1b1;content:\" \";cursor:move;height:10px;position:absolute;top:10px}.mis:after{left:9px}");
+ApplyStyle("mi_","vframe{display:block}.mi_:before{width:12px;content:\"M\";height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.mia:before{background-color:#ff3030}.mib:before{background-color:#bc8f8f}.mic{padding-right:5px}.mid{background:#eee;cursor:move;margin:0;padding:0}.mie{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.mif{position:absolute;opacity:.7;background-color:#90ee90}.mie ul{list-style:none;padding:0;margin:0}.mig{padding:5px}.mih{height:28px;line-height:28px;margin:0 0 0 5px;padding:0}.mii{color:#bbb}.mij{margin-right:3px}.mik{float:left}.mil{float:right}.mim{cursor:pointer}.min{padding:8px}.mio{color:red}.mip:after,.mip:before{content:\"\";display:table}.mip:after{clear:both}.mip{*zoom:1}.miq{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,rgba(125,118,132,.33)),to(rgba(165,69,243,0)))}.mir{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}.mis:before{left:4px;bottom:5px}.mis:after,.mis:before{content:\" \";position:absolute;top:10px;border:2px dotted #b9b1b1;height:10px;cursor:move}.mis:after{left:9px}");
 
     var Tracer = {
     '__O': function (info, color) {
@@ -2089,7 +2089,7 @@ MagixEnv['__L'] = function () {
                         selectors.push('$' + p + '&lt;' + sMap[p] + '&gt;');
                     }
                 }
-                if (globalWins.length) {
+                if (globalWins.length) { //1 3 4
                     evts.push('<span style="color:#' + Lines[1] + '">$win&lt;' + globalWins + '&gt;</span>');
                 }
                 if (globalDocs.length) {
@@ -2269,7 +2269,8 @@ MagixEnv['__L'] = function () {
                     var path = vf.path;
                     //组件识别
                     //没有模板或在gallery目录下
-                    if (info.inline || (path && path.indexOf('/gallery/') > 0)) {
+                    if (info.inline || (path && (path.indexOf('gallery/') > 0 ||
+                        path.indexOf('/gallery') > 0))) {
                         rewalk = true;
                         info.component = true;
                         tree.comTotal++;
