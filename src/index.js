@@ -61,7 +61,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var IdePort = {
-    '__Y': function (url) {
+    '__aa': function (url) {
         return new Promise(function (resolve, reject) {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url, true);
@@ -78,28 +78,28 @@ var IdePort = {
             xhr.send();
         });
     },
-    '__a_': function (inputHostname) {
+    '__ac': function (inputHostname) {
         var files = [];
         for (var _i = 1; _i < arguments.length; _i++) {
             files[_i - 1] = arguments[_i];
         }
-        IdePort['__Z'](inputHostname)
+        IdePort['__ab'](inputHostname)
             .then(function (determinedURL) {
             return Promise.all(files.map(function (file) {
-                return IdePort['__Y'](determinedURL + encodeURIComponent(file));
+                return IdePort['__aa'](determinedURL + encodeURIComponent(file));
             }));
         })
             .then(function (determinedURL) {
             console.info("Files(" + files.length + ") all opened.");
         })["catch"](function (err) { return console.error(err); });
     },
-    '__Z': function (inputHostname) {
+    '__ab': function (inputHostname) {
         if (IdePort.determinedURL && IdePort.determinedBase == inputHostname) {
             return Promise.resolve(IdePort.determinedURL);
         }
-        return IdePort['__aa'](inputHostname);
+        return IdePort['__ad'](inputHostname);
     },
-    '__aa': function (inputHostname) {
+    '__ad': function (inputHostname) {
         return __awaiter(this, void 0, void 0, function () {
             function hashStr(str, max) {
                 // SDBM Algorithm from http://www.cse.yorku.ca/~oz/hash.html
@@ -124,7 +124,7 @@ var IdePort = {
                         _a.label = 2;
                     case 2:
                         _a.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, IdePort['__Y'](location)];
+                        return [4 /*yield*/, IdePort['__aa'](location)];
                     case 3:
                         responseHostname = _a.sent();
                         if (responseHostname != inputHostname) {
@@ -165,21 +165,21 @@ var IdePort = {
     '__Q': '#9AC0CD',
     '__R': '#8B5F65',
     '__S': '#EED5B7',
-    '__ab': '#94d694'
+    '__ae': '#94d694'
 };
 var Consts = {
-    '__ac': 550,
-    '__ad': 470,
-    '__ae': 530,
-    '__af': 400,
-    '__ag': 490,
-    '__ah': 34,
-    '__ai': 6,
-    '__aj': 15,
+    '__af': 550,
+    '__ag': 470,
+    '__ah': 530,
+    '__ai': 400,
+    '__aj': 490,
+    '__ak': 34,
+    '__al': 6,
+    '__am': 15,
     '__I': 5,
-    '__ak': 5,
-    '__al': 40,
-    '__am': 40,
+    '__an': 5,
+    '__ao': 40,
+    '__ap': 40,
     '__i': {
         r: 0,
         g: 153,
@@ -224,15 +224,15 @@ var ApplyStyle = function (x, h) {
     }
 };
 var IconsMap = {
-    '__r': 'MsCPjFb',
-    '__t': 'MsCPjFa'
+    '__r': 'MsCPoEb',
+    '__t': 'MsCPoEa'
 };
 var getNode = function (id) {
     return D.getElementById(id);
 };
 
     var Drag = {
-    '__ap': function ($, off, isFn) {
+    '__a_': function ($, off, isFn) {
         var Win = $(W);
         var Doc = $(D);
         var ClearSelection = function (t) {
@@ -273,7 +273,7 @@ var getNode = function (id) {
             }
         };
         return {
-            '__an': function (node, moveCallback, endCallback) {
+            '__Y': function (node, moveCallback, endCallback) {
                 DragStop();
                 if (node) {
                     ClearSelection();
@@ -294,7 +294,7 @@ var getNode = function (id) {
                     $(node).on('losecapture', DragStop);
                 }
             },
-            '__ao': ClearSelection
+            '__Z': ClearSelection
         };
     }
 };
@@ -308,11 +308,11 @@ var ehMap = {
 var encodeHTML = function (src) {
     return src.replace(ehReg, function (m) { return '&' + ehMap[m] + ';'; });
 };
-var main = "<div class=\"MsCPjFe\" id=\"__av\"><ul class=\"MsCPjFp MsCPjFd\" id=\"__aw\"><li class=\"MsCPjFl MsCPjFn MsCPjFm\" id=\"__aJ\">△</li><li class=\"MsCPjFk MsCPjFn MsCPjFm\">VOM</li><li class=\"MsCPjFk MsCPjFn MsCPjFm\">Tracer</li><li class=\"MsCPjFk MsCPjFn MsCPjFm\">Manager</li></ul><div id=\"__aL\"><div style=\"width:{__ac}px;height:{__af}px;overflow-x:auto;overflow-y:hidden\" id=\"__aP\"><canvas width=\"{__ac}\" height=\"{__af}\" id=\"__az\"></canvas></div><label class=\"MsCPjFk MsCPjFh\"><input type=\"checkbox\" class=\"MsCPjFj\" id=\"__aI\"/>控制台显示view信息</label><label class=\"MsCPjFk MsCPjFh\"><input type=\"checkbox\" class=\"MsCPjFj\" id=\"__z\"/>显示组件view</label><ul class=\"MsCPjFp MsCPjFk\" id=\"__b_\"></ul></div><div id=\"__aq\" style=\"height:{__af}px;overflow:scroll;overflow-x:auto;display:none;padding:8px;\"></div><div id=\"__aM\" style=\"display:none\"><div style=\"height:{__af}px;overflow:scroll;overflow-x:auto;\" id=\"__aV\"><canvas width=\"{__ae}\" height=\"{__af}\" id=\"__aE\"></canvas></div><ul class=\"MsCPjFp MsCPjFn\" id=\"__aY\"></ul></div><div id=\"__aG\" class=\"MsCPjFr\"></div><div id=\"__aU\" class=\"MsCPjFr\"></div></div>";
-var moreInfo = "<ul><li><b class=\"MsCPjFc\">id:</b>{id}</li><li><b class=\"MsCPjFc\">view:</b>{view}</li>{events} {location} {share} {mixins} {state}<li class=\"MsCPjFo\">{ex}</li><li><b class=\"MsCPjFc\">resources</b></li><li style=\"{__ag}px;overflow:auto;max-height:200px;\">{res}</li></ul>";
+var main = "<div class=\"MsCPoEe\" id=\"__as\"><ul class=\"MsCPoEp MsCPoEd\" id=\"__at\"><li class=\"MsCPoEl MsCPoEn MsCPoEm\" id=\"__aG\">△</li><li class=\"MsCPoEk MsCPoEn MsCPoEm\">VOM</li><li class=\"MsCPoEk MsCPoEn MsCPoEm\">Tracer</li><li class=\"MsCPoEk MsCPoEn MsCPoEm\">Manager</li></ul><div id=\"__aI\"><div style=\"width:{__af}px;height:{__ai}px;overflow-x:auto;overflow-y:hidden\" id=\"__aN\"><canvas width=\"{__af}\" height=\"{__ai}\" id=\"__aw\"></canvas></div><label class=\"MsCPoEk MsCPoEh\"><input type=\"checkbox\" class=\"MsCPoEj\" id=\"__aF\"/>控制台显示view信息</label><label class=\"MsCPoEk MsCPoEh\"><input type=\"checkbox\" class=\"MsCPoEj\" id=\"__z\"/>显示组件view</label><ul class=\"MsCPoEp MsCPoEk\" id=\"__aY\"></ul></div><div id=\"__aJ\" style=\"height:{__ai}px;overflow:scroll;overflow-x:auto;display:none;padding:8px;\"></div><div id=\"__aK\" style=\"display:none\"><div style=\"height:{__ai}px;overflow:scroll;overflow-x:auto;\" id=\"__aT\"><canvas width=\"{__ah}\" height=\"{__ai}\" id=\"__aB\"></canvas></div><ul class=\"MsCPoEp MsCPoEn\" id=\"__aW\"></ul></div><div id=\"__aD\" class=\"MsCPoEr\"></div><div id=\"__aS\" class=\"MsCPoEr\"></div></div>";
+var moreInfo = "<ul><li><b class=\"MsCPoEc\">id:</b>{id}</li><li><b class=\"MsCPoEc\">view:</b>{view}</li>{events} {location} {share} {mixins} {state}<li class=\"MsCPoEo\">{ex}</li><li><b class=\"MsCPoEc\">resources</b></li><li style=\"{__aj}px;overflow:auto;max-height:200px;\">{res}</li></ul>";
 var moreManagerInfo = "<ul><li><b>key:</b>{id}</li><li><b>url:</b>{url}</li><li><b>描述:</b>{desc}</li><li><b>缓存:</b>{cache}</li><li><b>清理缓存:</b>{cleans}</li><li><b>预处理:</b>{hasAfter}</li></ul>";
-var total = "<li class=\"MsCPjFk MsCPjFg MsCPjFi\">view统计:[{count}]</li>";
-var managerTotal = "<li class=\"MsCPjFk MsCPjFg\">{groups}个接口文件，共{total}个接口</li>";
+var total = "<li class=\"MsCPoEk MsCPoEg MsCPoEi\">view统计:[{count}]</li>";
+var managerTotal = "<li class=\"MsCPoEk MsCPoEg\">{groups}个接口文件，共{total}个接口</li>";
 var UI = {
     '__M': function () {
         var div = D.createElement('div');
@@ -320,166 +320,166 @@ var UI = {
             return Consts[v] || m;
         });
         D.documentElement.appendChild(div);
-        UI['__at']();
+        UI['__aq']();
         var env = Inspector['__e']();
-        env['__au']('#__av', '#__aw');
+        env['__ar']('#__as', '#__at');
     },
-    '__at': function () {
-        UI['__ax']();
+    '__aq': function () {
+        UI['__au']();
         var moveTimer;
         var env = Inspector['__e']();
-        env['__ay']('__az', 'mousemove', UI['@{$mousemove}'] = function (e) {
+        env['__av']('__aw', 'mousemove', UI['@{$mousemove}'] = function (e) {
             clearTimeout(moveTimer);
             moveTimer = setTimeout(function () {
-                var offset = env['__aA']('__az');
-                UI['__aB']({
+                var offset = env['__ax']('__aw');
+                UI['__ay']({
                     x: e.pageX - offset.left,
                     y: e.pageY - offset.top
                 });
             }, 10);
         });
-        env['__ay']('__az', 'click', UI['__aC'] = function (e) {
-            UI['__aD'](e);
+        env['__av']('__aw', 'click', UI['__az'] = function (e) {
+            UI['__aA'](e);
         });
-        env['__ay']('__az', 'mouseout', UI['@{$mouseout}'] = function () {
+        env['__av']('__aw', 'mouseout', UI['@{$mouseout}'] = function () {
             clearTimeout(moveTimer);
-            UI['__aB']({
+            UI['__ay']({
                 x: -1,
                 y: -1
             });
         });
-        env['__ay']('__aE', 'mousemove', UI['@{$mangerMousemove}'] = function (e) {
+        env['__av']('__aB', 'mousemove', UI['@{$mangerMousemove}'] = function (e) {
             clearTimeout(moveTimer);
             moveTimer = setTimeout(function () {
-                var offset = env['__aA']('__aE');
-                UI['__aF']({
+                var offset = env['__ax']('__aB');
+                UI['__aC']({
                     x: e.pageX - offset.left,
                     y: e.pageY - offset.top
                 });
             }, 10);
         });
-        env['__ay']('__aE', 'mouseout', UI['@{$managerMouseout}'] = function () {
+        env['__av']('__aB', 'mouseout', UI['@{$managerMouseout}'] = function () {
             clearTimeout(moveTimer);
-            UI['__aF']({
+            UI['__aC']({
                 x: -1,
                 y: -1
             });
         });
-        env['__ay']('__aG', 'mouseover', UI['@{$imouseover}'] = function () {
+        env['__av']('__aD', 'mouseover', UI['@{$imouseover}'] = function () {
             clearTimeout(UI['@{$hideTimer}']);
         });
-        env['__ay']('__aG', 'mouseout', UI['@{$imouseout}'] = function () {
-            UI['__aH']();
+        env['__av']('__aD', 'mouseout', UI['@{$imouseout}'] = function () {
+            UI['__aE']();
         });
-        env['__ay']('__aI', 'click', function () {
-            var logNode = getNode('__aI');
+        env['__av']('__aF', 'click', function () {
+            var logNode = getNode('__aF');
             if (logNode.checked)
                 W.console.dir(env['__p']().all());
         });
-        env['__ay']('__z', 'click', function () {
+        env['__av']('__z', 'click', function () {
             Inspector['__O']();
         });
-        env['__ay']('__av', 'click', UI['@{$click}'] = function (e) {
+        env['__av']('__as', 'click', UI['@{$click}'] = function (e) {
             var node;
-            if (e.target.id == '__aJ') {
-                node = getNode('__av');
+            if (e.target.id == '__aG') {
+                node = getNode('__as');
                 if (e.target.innerHTML == '△') {
-                    node.style.height = Consts['__ah'] + 'px';
+                    node.style.height = Consts['__ak'] + 'px';
                     node.style.width = '40px';
                     node.style.overflow = 'hidden';
                     e.target.innerHTML = '▽';
-                    env['__aK']('#__aw').addClass('MsCPjFs');
+                    env['__aH']('#__at').addClass('MsCPoEs');
                 }
                 else {
-                    node.style.height = Consts['__ad'] + 'px';
-                    node.style.width = Consts['__ac'] + 'px';
+                    node.style.height = Consts['__ag'] + 'px';
+                    node.style.width = Consts['__af'] + 'px';
                     node.style.overflow = 'inherit';
                     e.target.innerHTML = '△';
-                    env['__aK']('#__aw').removeClass('MsCPjFs');
+                    env['__aH']('#__at').removeClass('MsCPoEs');
                 }
             }
             else if (e.target.innerHTML == 'VOM') {
-                node = getNode('__aL');
+                node = getNode('__aI');
                 node.style.display = 'block';
-                node = getNode('__aq');
+                node = getNode('__aJ');
                 node.style.display = 'none';
-                node = getNode('__aM');
+                node = getNode('__aK');
                 node.style.display = 'none';
             }
             else if (e.target.innerHTML == 'Tracer') {
-                node = getNode('__aL');
+                node = getNode('__aI');
                 node.style.display = 'none';
-                node = getNode('__aM');
+                node = getNode('__aK');
                 node.style.display = 'none';
-                node = getNode('__aq');
+                node = getNode('__aJ');
                 node.style.display = 'block';
             }
             else if (e.target.innerHTML == 'Manager') {
-                node = getNode('__aL');
+                node = getNode('__aI');
                 node.style.display = 'none';
-                node = getNode('__aq');
+                node = getNode('__aJ');
                 node.style.display = 'none';
-                node = getNode('__aM');
+                node = getNode('__aK');
                 node.style.display = 'block';
             }
         });
     },
     '__c': function () {
-        var min = getNode('__aJ');
+        var min = getNode('__aG');
         var env = Inspector['__e']();
         if (min.innerHTML == '▽') {
-            var node = getNode('__av');
-            node.style.height = Consts['__ad'] + 'px';
-            node.style.width = Consts['__ac'] + 'px';
+            var node = getNode('__as');
+            node.style.height = Consts['__ag'] + 'px';
+            node.style.width = Consts['__af'] + 'px';
             node.style.overflow = 'inherit';
             min.innerHTML = '△';
-            env['__aK']('#__aw').removeClass('MsCPjFs');
+            env['__aH']('#__at').removeClass('MsCPoEs');
         }
     },
     '__N': function () {
-        var min = getNode('__aJ');
+        var min = getNode('__aG');
         var env = Inspector['__e']();
         if (min.innerHTML == '△') {
-            var node = getNode('__av');
-            node.style.height = Consts['__ah'] + 'px';
+            var node = getNode('__as');
+            node.style.height = Consts['__ak'] + 'px';
             node.style.width = '40px';
             node.style.overflow = 'hidden';
             min.innerHTML = '▽';
-            env['__aK']('#__aw').addClass('MsCPjFs');
+            env['__aH']('#__at').addClass('MsCPoEs');
         }
     },
-    '__ax': function () {
+    '__au': function () {
         var env = Inspector['__e']();
-        env['__aN']('__az', 'mousemove', UI['@{$mousemove}']);
-        env['__aN']('__az', 'mouseout', UI['@{$mouseout}']);
-        env['__aN']('__az', 'click', UI['__aC']);
-        env['__aN']('__aE', 'mousemove', UI['@{$managerMousemove}']);
-        env['__aN']('__aE', 'mouseout', UI['@{$managerMouseout}']);
-        env['__aN']('__aJ', 'click', UI['@{$click}']);
-        env['__aN']('__aG', 'mouseoout', UI['@{$imouseout}']);
-        env['__aN']('__aG', 'mouseover', UI['@{$imouseover}']);
+        env['__aL']('__aw', 'mousemove', UI['@{$mousemove}']);
+        env['__aL']('__aw', 'mouseout', UI['@{$mouseout}']);
+        env['__aL']('__aw', 'click', UI['__az']);
+        env['__aL']('__aB', 'mousemove', UI['@{$managerMousemove}']);
+        env['__aL']('__aB', 'mouseout', UI['@{$managerMouseout}']);
+        env['__aL']('__aG', 'click', UI['@{$click}']);
+        env['__aL']('__aD', 'mouseoout', UI['@{$imouseout}']);
+        env['__aL']('__aD', 'mouseover', UI['@{$imouseover}']);
         //env['@{unbind}']('mx_mover', 'mousedown', UI['@{$mousedown}']);
     },
-    '__aT': function (vf, item) {
+    '__aR': function (vf, item) {
         clearTimeout(UI['@{$hideTimer}']);
-        var logNode = getNode('__aI');
+        var logNode = getNode('__aF');
         if (logNode.checked) {
             W.console.log(vf);
         }
-        var cover = getNode('__aO');
+        var cover = getNode('__aM');
         if (!cover) {
             cover = D.createElement('div');
-            cover.className = 'MsCPjFf';
-            cover.id = '__aO';
+            cover.className = 'MsCPoEf';
+            cover.id = '__aM';
             D.body.appendChild(cover);
         }
-        var node = getNode('__aG');
+        var node = getNode('__aD');
         node.style.display = 'block';
-        var left = item.center.x - Consts['__ag'] / 2 - getNode('__aP').scrollLeft;
+        var left = item.center.x - Consts['__aj'] / 2 - getNode('__aN').scrollLeft;
         node.style.left = left + 'px';
-        node.style.top = item.center.y + item.radius + Consts['__ah'] + 5 + 'px';
+        node.style.top = item.center.y + item.radius + Consts['__ak'] + 5 + 'px';
         var env = Inspector['__e']();
-        env['__aQ'](cover.style, vf.id);
+        env['__aO'](cover.style, vf.id);
         cover.style.display = 'block';
         node.innerHTML = moreInfo.replace(/\{(\w+|(?:@\{[^\}]+\}))\}/g, function (m, v) {
             switch (v) {
@@ -497,10 +497,10 @@ var UI = {
                     return '';
                 case 'events':
                     var evts = Inspector['__f'](vf);
-                    return evts.total ? '<li><b class="MsCPjFc">listen:</b>' + evts.list + '</li>' : '';
+                    return evts.total ? '<li><b class="MsCPoEc">listen:</b>' + evts.list + '</li>' : '';
                 case 'share':
                     var s = Inspector['__g'](vf);
-                    return s.length ? '<li><b class="MsCPjFc">share:</b>' + s + '</li>' : '';
+                    return s.length ? '<li><b class="MsCPoEc">share:</b>' + s + '</li>' : '';
                 case 'location':
                     var l = Inspector['__h'](vf);
                     var f = l.path || (l.keys && l.keys.length);
@@ -512,21 +512,21 @@ var UI = {
                         if (l.keys) {
                             r = r.concat(l.keys);
                         }
-                        return '<li><b class="MsCPjFc">location:</b>' + r + '</li>';
+                        return '<li><b class="MsCPoEc">location:</b>' + r + '</li>';
                     }
                     return '';
                 case 'mixins':
                     var mixins = Inspector['__m'](vf);
                     if (mixins.length) {
-                        var list = env['__aR'](mixins);
+                        var list = env['__aP'](mixins);
                         list = list.join(',');
-                        return '<li><b class="MsCPjFc">mixins:</b>' + list + '</li>';
+                        return '<li><b class="MsCPoEc">mixins:</b>' + list + '</li>';
                     }
                     return '';
                 case 'state':
                     var state = Inspector['__n'](vf);
                     if (state.length) {
-                        return '<li><b class="MsCPjFc">state:</b>' + state.join(',') + '</li>';
+                        return '<li><b class="MsCPoEc">state:</b>' + state.join(',') + '</li>';
                     }
                     return '';
                 case 'ex':
@@ -573,7 +573,7 @@ var UI = {
                         if (hasRrs) {
                             t.push('<table style="width:100%"><tr><td>key</td><td>type</td></tr>');
                             for (var p in res) {
-                                t.push('<tr><td>', p, '</td><td>', env['__aS'](res[p]), '</td></tr>');
+                                t.push('<tr><td>', p, '</td><td>', env['__aQ'](res[p]), '</td></tr>');
                             }
                             t.push('</table>');
                         }
@@ -584,21 +584,21 @@ var UI = {
             }
         });
     },
-    '__aH': function () {
-        var node = getNode('__aG');
-        var cover = getNode('__aO');
+    '__aE': function () {
+        var node = getNode('__aD');
+        var cover = getNode('__aM');
         UI['@{$hideTimer}'] = setTimeout(function () {
             node.style.display = 'none';
             cover.style.display = 'none';
         }, 150);
     },
-    '__aW': function (item) {
+    '__aU': function (item) {
         clearTimeout(UI['@{$hideManagerTimer}']);
-        var node = getNode('__aU');
+        var node = getNode('__aS');
         node.style.display = 'block';
         node.style.left = item.rect[0] + 'px';
-        var top = item.rect[1] + item.rect[3] + Consts['__ah'];
-        var st = getNode('__aV').scrollTop;
+        var top = item.rect[1] + item.rect[3] + Consts['__ak'];
+        var st = getNode('__aT').scrollTop;
         top -= st;
         node.style.top = top + 'px';
         node.innerHTML = moreManagerInfo.replace(/\{(\w+)\}/g, function (m, v) {
@@ -610,14 +610,14 @@ var UI = {
             }
         });
     },
-    '__aX': function () {
-        var node = getNode('__aU');
+    '__aV': function () {
+        var node = getNode('__aS');
         UI['@{$hideManagerTimer}'] = setTimeout(function () {
             node.style.display = 'none';
         }, 150);
     },
-    '__aZ': function (tree) {
-        var node = getNode('__aY');
+    '__aX': function (tree) {
+        var node = getNode('__aW');
         node.innerHTML = managerTotal.replace(/\{(\w+)\}/g, function (m, v) {
             switch (v) {
                 case 'groups':
@@ -629,8 +629,8 @@ var UI = {
             }
         });
     },
-    '__ba': function (tree) {
-        var node = getNode('__b_');
+    '__aZ': function (tree) {
+        var node = getNode('__aY');
         node.innerHTML = total.replace(/\{(\w+)\}/g, function (m, v) {
             switch (v) {
                 case 'count':
@@ -640,34 +640,34 @@ var UI = {
             }
         });
     },
-    '__bb': function (height) {
-        getNode('__aE').height = height | 0;
+    '__b_': function (height) {
+        getNode('__aB').height = height | 0;
     },
-    '__bc': function (width) {
-        var c = getNode('__az');
+    '__ba': function (width) {
+        var c = getNode('__aw');
         c.width = width | 0;
-        c.parentNode.scrollLeft = (c.width - Consts['__ae']) / 2;
+        c.parentNode.scrollLeft = (c.width - Consts['__ah']) / 2;
     },
-    '__aB': function (e) {
+    '__ay': function (e) {
         console.log(e);
     },
-    '__aF': function (e) {
+    '__aC': function (e) {
         console.log(e);
     },
-    '__aD': function (e) {
+    '__aA': function (e) {
         console.log(e);
     }
 };
-ApplyStyle("MsCPjF_","vframe{display:block}.MsCPjF_:before{width:12px;content:\"M\";height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.MsCPjFa:before{background-color:#ff3030}.MsCPjFb:before{background-color:#bc8f8f}.MsCPjFc{padding-right:5px}.MsCPjFd{background:#eee;cursor:move;margin:0;padding:0}.MsCPjFe{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.MsCPjFf{position:absolute;opacity:.7;background-color:#90ee90}.MsCPjFe ul{list-style:none;padding:0;margin:0}.MsCPjFg{padding:5px}.MsCPjFh{height:28px;line-height:28px;margin:0 0 0 5px;padding:0}.MsCPjFi{color:#bbb}.MsCPjFj{margin-right:3px}.MsCPjFk{float:left}.MsCPjFl{float:right}.MsCPjFm{cursor:pointer}.MsCPjFn{padding:8px}.MsCPjFo{color:red}.MsCPjFp:after,.MsCPjFp:before{content:\"\";display:table}.MsCPjFp:after{clear:both}.MsCPjFp{*zoom:1}.MsCPjFq{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,rgba(125,118,132,.33)),to(rgba(165,69,243,0)))}.MsCPjFr{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}.MsCPjFs:before{left:4px;bottom:5px}.MsCPjFs:after,.MsCPjFs:before{content:\" \";position:absolute;top:10px;border:2px dotted #b9b1b1;height:10px;cursor:move}.MsCPjFs:after{left:9px}");
+ApplyStyle("MsCPoE_","vframe{display:block}.MsCPoE_:before{width:12px;content:\"M\";height:12px;border-radius:6px;position:absolute;background-color:#008b00;opacity:.4;font-size:10px;line-height:12px;text-align:center;color:#fff}.MsCPoEa:before{background-color:#ff3030}.MsCPoEb:before{background-color:#bc8f8f}.MsCPoEc{padding-right:5px}.MsCPoEd{background:#eee;cursor:move;margin:0;padding:0}.MsCPoEe{position:fixed;right:20px;top:20px;width:550px;height:470px;z-index:2147483647;box-shadow:0 0 5px #b9b9b9;background-color:#fff;font-size:12px;line-height:1.5}.MsCPoEf{position:absolute;opacity:.7;background-color:#90ee90}.MsCPoEe ul{list-style:none;padding:0;margin:0}.MsCPoEg{padding:5px}.MsCPoEh{height:28px;line-height:28px;margin:0 0 0 5px;padding:0}.MsCPoEi{color:#bbb}.MsCPoEj{margin-right:3px}.MsCPoEk{float:left}.MsCPoEl{float:right}.MsCPoEm{cursor:pointer}.MsCPoEn{padding:8px}.MsCPoEo{color:red}.MsCPoEp:after,.MsCPoEp:before{content:\"\";display:table}.MsCPoEp:after{clear:both}.MsCPoEp{*zoom:1}.MsCPoEq{height:1px;border:0;padding:0;margin:5px;background:rgba(0,0,0,.2);background:-webkit-gradient(linear,left top,right top,from(rgba(165,69,243,0)),color-stop(.5,rgba(125,118,132,.33)),to(rgba(165,69,243,0)))}.MsCPoEr{position:absolute;background-color:#eee;padding:8px;width:440px;display:none;box-shadow:0 2px 2px 2px #b9b9b9;word-break:break-all}.MsCPoEs:before{left:4px;bottom:5px}.MsCPoEs:after,.MsCPoEs:before{content:\" \";position:absolute;top:10px;border:2px dotted #b9b1b1;height:10px;cursor:move}.MsCPoEs:after{left:9px}");
 
     var Tracer = {
     '__P': function (info, color) {
-        var node = getNode('__aq');
-        if (Tracer['__ar']) {
+        var node = getNode('__aJ');
+        if (Tracer['__bb']) {
             var t = D.createElement('hr');
-            t.className = 'MsCPjFq';
+            t.className = 'MsCPoEq';
             node.insertBefore(t, node.firstChild);
-            delete Tracer['__ar'];
+            delete Tracer['__bb'];
         }
         var d = D.createElement('div');
         d.innerHTML = info;
@@ -678,9 +678,9 @@ ApplyStyle("MsCPjF_","vframe{display:block}.MsCPjF_:before{width:12px;content:\"
             node.removeChild(node.lastChild);
             node.removeChild(node.lastChild);
         }
-        clearTimeout(Tracer['__as']);
-        Tracer['__as'] = setTimeout(function () {
-            Tracer['__ar'] = true;
+        clearTimeout(Tracer['__bc']);
+        Tracer['__bc'] = setTimeout(function () {
+            Tracer['__bb'] = true;
         }, 1500);
     }
 };
@@ -690,7 +690,7 @@ ApplyStyle("MsCPjF_","vframe{display:block}.MsCPjF_:before{width:12px;content:\"
         var g = Graphics;
         g.list = [];
         delete g['__bd'];
-        UI['__aB'] = function (e) {
+        UI['__ay'] = function (e) {
             var loop, one, dis;
             if (g['__bd']) {
                 one = g['__bd'];
@@ -724,13 +724,13 @@ ApplyStyle("MsCPjF_","vframe{display:block}.MsCPjF_:before{width:12px;content:\"
                 }
             }
         };
-        UI['__aD'] = g['__bf'];
+        UI['__aA'] = g['__bf'];
     },
     '__bj': function () {
         var g = Graphics;
         g.managerList = [];
         delete g['__bh'];
-        UI['__aF'] = function (e) {
+        UI['__aC'] = function (e) {
             var loop, one, rect;
             if (g['__bh']) {
                 one = g['__bh'];
@@ -787,37 +787,37 @@ ApplyStyle("MsCPjF_","vframe{display:block}.MsCPjF_:before{width:12px;content:\"
         tree.deepMap = deepMap;
         walk(tree, 1, 0);
         maxChildren = Math.max(maxChildren, tree.isolated.length + 1);
-        var hRadius = width / maxChildren - Consts['__ai'];
-        var vRadius = height / deep - Consts['__ai'];
+        var hRadius = width / maxChildren - Consts['__al'];
+        var vRadius = height / deep - Consts['__al'];
         var tw = width;
-        var dMinRadius = 2 * Consts['__aj'];
+        var dMinRadius = 2 * Consts['__am'];
         if (hRadius < dMinRadius) {
             hRadius = dMinRadius;
-            tw = dMinRadius * maxChildren + (maxChildren + 1) * Consts['__ai'];
+            tw = dMinRadius * maxChildren + (maxChildren + 1) * Consts['__al'];
             if (tw > 30000) {
                 tw = 30000;
             }
-            UI['__bc'](tw);
+            UI['__ba'](tw);
         }
         else {
-            UI['__bc'](tw);
+            UI['__ba'](tw);
         }
         var radius = Math.floor(Math.min(vRadius, hRadius) / 2);
         var band = (radius / 20).toFixed(1);
         return {
             width: tw,
-            margin: Consts['__ai'],
+            margin: Consts['__al'],
             radius: radius,
             band: band
         };
     },
     '__O': function (tree, active) {
         if (tree.id) {
-            var width_1 = Consts['__ac'], height = Consts['__af'], g_1 = Graphics;
+            var width_1 = Consts['__af'], height = Consts['__ai'], g_1 = Graphics;
             g_1['__bg']();
             var params_1 = g_1['__bk'](tree, width_1, height);
             width_1 = params_1.width;
-            var ctx_1 = getNode('__az').getContext('2d');
+            var ctx_1 = getNode('__aw').getContext('2d');
             ctx_1.clearRect(0, 0, width_1, height);
             var max_1 = params_1.radius * 2 - 2 * (params_1.band + 1) - 1;
             if (!g_1['__bl'])
@@ -878,7 +878,7 @@ ApplyStyle("MsCPjF_","vframe{display:block}.MsCPjF_:before{width:12px;content:\"
                 ctx_1.fillStyle = item.status;
                 if (item.id == active) {
                     if (item.flag) {
-                        ctx_1.fillStyle = Status['__ab'];
+                        ctx_1.fillStyle = Status['__ae'];
                     }
                     else {
                         ctx_1.fillStyle = item.status;
@@ -1002,18 +1002,18 @@ ApplyStyle("MsCPjF_","vframe{display:block}.MsCPjF_:before{width:12px;content:\"
                 x: space,
                 y: params_1.margin + params_1.radius
             });
-            UI['__ba'](tree, params_1);
+            UI['__aZ'](tree, params_1);
         }
     },
     '__U': function (tree) {
         var gs = Graphics;
         gs['__bj']();
-        var height = Consts['__ak'] * (tree.rows + 1) + tree.rows * Consts['__al'] + (Consts['__am'] + Consts['__ak']) * tree.groups.length;
-        UI['__bb'](height);
-        var ctx = getNode('__aE').getContext('2d');
-        ctx.clearRect(0, 0, Consts['__ae'], height);
-        var margin = Consts['__ak'];
-        var managerWidth = ((Consts['__ae'] - (1 + Consts['__I']) * Consts['__ak']) / Consts['__I']) | 0;
+        var height = Consts['__an'] * (tree.rows + 1) + tree.rows * Consts['__ao'] + (Consts['__ap'] + Consts['__an']) * tree.groups.length;
+        UI['__b_'](height);
+        var ctx = getNode('__aB').getContext('2d');
+        ctx.clearRect(0, 0, Consts['__ah'], height);
+        var margin = Consts['__an'];
+        var managerWidth = ((Consts['__ah'] - (1 + Consts['__I']) * Consts['__an']) / Consts['__I']) | 0;
         var oneWidth = (function () {
             ctx.font = 'normal 14px Arial';
             var width = ctx.measureText('M').width;
@@ -1046,20 +1046,20 @@ ApplyStyle("MsCPjF_","vframe{display:block}.MsCPjF_:before{width:12px;content:\"
             /* mc-uncheck */
             for (var i = 0; i < groups.length; i++) {
                 var g = groups[i];
-                var left = Consts['__ak'];
+                var left = Consts['__an'];
                 var pad = false;
                 ctx.beginPath();
                 ctx.moveTo(left, margin);
                 ctx.font = 'normal 14px Arial';
                 ctx.fillStyle = '#282828';
                 ctx.fillText(g.name, left + 5, margin + 25);
-                margin += Consts['__am'];
+                margin += Consts['__ap'];
                 var u = void 0, one = void 0;
                 var max = Math.max(g.maxLeft, g.maxRight);
                 var maps = {};
                 var linecolorIndex = 0;
-                var leftTopSpace = ((max - g.maxLeft) / 2) * (Consts['__al'] + Consts['__ak']);
-                var rightTopSpace = ((max - g.maxRight) / 2) * (Consts['__al'] + Consts['__ak']);
+                var leftTopSpace = ((max - g.maxLeft) / 2) * (Consts['__ao'] + Consts['__an']);
+                var rightTopSpace = ((max - g.maxRight) / 2) * (Consts['__ao'] + Consts['__an']);
                 for (u = 0; u < max; u++) {
                     var lo = g.cleans.left[u];
                     var ro = g.cleans.right[u];
@@ -1068,21 +1068,21 @@ ApplyStyle("MsCPjF_","vframe{display:block}.MsCPjF_:before{width:12px;content:\"
                             left,
                             margin + leftTopSpace,
                             150,
-                            Consts['__al']
+                            Consts['__ao']
                         ], lo, g.name);
                         maps[lo.id] = lo;
                     }
                     if (ro) {
                         drawRect(ctx, [
-                            Consts['__ae'] - Consts['__ak'] - 150,
+                            Consts['__ah'] - Consts['__an'] - 150,
                             margin + rightTopSpace,
                             150,
-                            Consts['__al']
+                            Consts['__ao']
                         ], ro, g.name);
                         maps[ro.id] = ro;
                         ro.lineColor = Lines[linecolorIndex++ % Lines.length];
                     }
-                    margin += Consts['__ak'] + Consts['__al'];
+                    margin += Consts['__an'] + Consts['__ao'];
                 }
                 for (var p in maps) {
                     one = maps[p];
@@ -1108,61 +1108,61 @@ ApplyStyle("MsCPjF_","vframe{display:block}.MsCPjF_:before{width:12px;content:\"
                     }
                 }
                 for (u = 0; u < g.caches.length; u++) {
-                    drawRect(ctx, [left, margin, managerWidth, Consts['__al']], g.caches[u], g.name);
+                    drawRect(ctx, [left, margin, managerWidth, Consts['__ao']], g.caches[u], g.name);
                     if ((u + 1) % Consts['__I'] === 0) {
-                        left = Consts['__ak'];
-                        margin += Consts['__ak'] + Consts['__al'];
+                        left = Consts['__an'];
+                        margin += Consts['__an'] + Consts['__ao'];
                         pad = false;
                     }
                     else {
-                        left += managerWidth + Consts['__ak'];
+                        left += managerWidth + Consts['__an'];
                         pad = true;
                     }
                 }
-                left = Consts['__ak'];
+                left = Consts['__an'];
                 if (pad) {
-                    margin += Consts['__ak'] + Consts['__al'];
+                    margin += Consts['__an'] + Consts['__ao'];
                 }
                 for (u = 0; u < g.items.length; u++) {
                     one = g.items[u];
-                    drawRect(ctx, [left, margin, managerWidth, Consts['__al']], one, g.name);
+                    drawRect(ctx, [left, margin, managerWidth, Consts['__ao']], one, g.name);
                     if ((u + 1) % Consts['__I'] === 0) {
-                        left = Consts['__ak'];
-                        margin += Consts['__ak'] + Consts['__al'];
+                        left = Consts['__an'];
+                        margin += Consts['__an'] + Consts['__ao'];
                         pad = false;
                     }
                     else {
-                        left += managerWidth + Consts['__ak'];
+                        left += managerWidth + Consts['__an'];
                         pad = true;
                     }
                 }
-                left = Consts['__ak'];
+                left = Consts['__an'];
                 if (pad) {
-                    margin += Consts['__am'];
+                    margin += Consts['__ap'];
                 }
             }
         };
         draw(tree.groups);
-        UI['__aZ'](tree);
+        UI['__aX'](tree);
     },
     '__be': function (e) {
         var env = Inspector['__e']();
         var vom = env['__p']();
         if (e.action == 'enter') {
             Graphics['__bm'] = vom.get(e.item.id);
-            UI['__aT'](vom.get(e.item.id), e.item);
+            UI['__aR'](vom.get(e.item.id), e.item);
         }
         else {
             Graphics['__bm'] = null;
-            UI['__aH']();
+            UI['__aE']();
         }
     },
     '__bi': function (e) {
         if (e.action == 'enter') {
-            UI['__aW'](e.item);
+            UI['__aU'](e.item);
         }
         else {
-            UI['__aX']();
+            UI['__aV']();
         }
     },
     '__bf': function (e) {
@@ -1175,7 +1175,7 @@ ApplyStyle("MsCPjF_","vframe{display:block}.MsCPjF_:before{width:12px;content:\"
             return;
         }
         var base = (W.Site && W.Site.onlineHostname) || W.location.hostname;
-        IdePort['__a_'](base, path + '.js', path + '.html');
+        IdePort['__ac'](base, path + '.js', path + '.html');
     }
 };
 
@@ -1187,11 +1187,11 @@ var Query = function (selector) {
     if (type(selector) == 'string') {
         doms = document.querySelectorAll(selector);
     }
-    this['__bp'] = doms;
+    this['__bn'] = doms;
 };
 Query.prototype = {
     off: function (type, fn) {
-        var doms = this['__bp'];
+        var doms = this['__bn'];
         for (var _i = 0, doms_1 = doms; _i < doms_1.length; _i++) {
             var d = doms_1[_i];
             var evts = type.split(/\s+/);
@@ -1203,7 +1203,7 @@ Query.prototype = {
         return this;
     },
     on: function (type, fn) {
-        var doms = this['__bp'];
+        var doms = this['__bn'];
         for (var _i = 0, doms_2 = doms; _i < doms_2.length; _i++) {
             var d = doms_2[_i];
             var evts = type.split(/\s+/);
@@ -1215,7 +1215,7 @@ Query.prototype = {
         return this;
     },
     removeClass: function (name) {
-        var doms = this['__bp'];
+        var doms = this['__bn'];
         for (var _i = 0, doms_3 = doms; _i < doms_3.length; _i++) {
             var d = doms_3[_i];
             d.classList.remove(name);
@@ -1223,7 +1223,7 @@ Query.prototype = {
         return this;
     },
     addClass: function (name) {
-        var doms = this['__bp'];
+        var doms = this['__bn'];
         for (var _i = 0, doms_4 = doms; _i < doms_4.length; _i++) {
             var d = doms_4[_i];
             d.classList.add(name);
@@ -1231,7 +1231,7 @@ Query.prototype = {
         return this;
     },
     css: function (styles) {
-        var doms = this['__bp'];
+        var doms = this['__bn'];
         if (type(styles) == 'string') {
             var dom = doms[0];
             if (dom) {
@@ -1254,7 +1254,7 @@ Query.prototype = {
         return this;
     },
     offset: function () {
-        var dom = this['__bp'][0];
+        var dom = this['__bn'][0];
         if (dom) {
             var rect = dom.getBoundingClientRect();
             return rect;
@@ -1262,7 +1262,7 @@ Query.prototype = {
         return null;
     },
     prev: function () {
-        var dom = this['__bp'][0];
+        var dom = this['__bn'][0];
         if (dom) {
             while (dom.nodeType != 1) {
                 dom = dom.previousSibling;
@@ -1272,28 +1272,28 @@ Query.prototype = {
         return null;
     },
     height: function () {
-        var dom = this['__bp'][0];
+        var dom = this['__bn'][0];
         if (dom) {
             return dom.clientHeight;
         }
         return 0;
     },
     width: function () {
-        var dom = this['__bp'][0];
+        var dom = this['__bn'][0];
         if (dom) {
             return dom.clientWidth;
         }
         return 0;
     },
     children: function () {
-        var dom = this['__bp'][0];
+        var dom = this['__bn'][0];
         if (dom) {
             return new Query(dom.children);
         }
         return 0;
     },
     parent: function () {
-        var dom = this['__bp'][0];
+        var dom = this['__bn'][0];
         if (dom) {
             return dom.parentElement;
         }
@@ -1369,7 +1369,7 @@ var KISSYEnv = {
             }
         }
     },
-    '__aQ': function (style, id) {
+    '__aO': function (style, id) {
         var node = S.require('node').one('#' + id);
         if (!node)
             return;
@@ -1445,23 +1445,23 @@ var KISSYEnv = {
         style.width = size.width + 'px';
         style.height = size.height + 'px';
     },
-    '__aA': function (id) {
+    '__ax': function (id) {
         var node = S.require('node');
         return node.one('#' + id).offset();
     },
-    '__ay': function (id, type, fn) {
+    '__av': function (id, type, fn) {
         var node = S.require('node');
         if (S.isString(id))
             id = '#' + id;
         return node.one(id).on(type, fn);
     },
-    '__aN': function (id, type, fn) {
+    '__aL': function (id, type, fn) {
         var node = S.require('node');
         if (S.isString(id))
             id = '#' + id;
         return node.one(id).detach(type, fn);
     },
-    '__aR': function (mixins) {
+    '__aP': function (mixins) {
         var mods = S.Env.mods;
         var ids = [];
         for (var i = 0; i < mixins.length; i++) {
@@ -1487,7 +1487,7 @@ var KISSYEnv = {
         }
         return ids;
     },
-    '__aS': function (r) {
+    '__aQ': function (r) {
         var type = '';
         var e = r.res || r.e;
         if (e) {
@@ -1539,9 +1539,9 @@ var KISSYEnv = {
             callback();
         };
     },
-    '__au': function (node, handle) {
+    '__ar': function (node, handle) {
         var root = S.one(node);
-        var dd = Drag['__ap'](S.one, 'detach', S.isFunction);
+        var dd = Drag['__a_'](S.one, 'detach', S.isFunction);
         S.one(handle).on('mousedown', function (e) {
             if (e.target.id != handle.slice(1))
                 return;
@@ -1549,8 +1549,8 @@ var KISSYEnv = {
             var top = parseInt(root.css('top'), 10);
             var x = e.pageX;
             var y = e.pageY;
-            dd['__an'](e.target, function (e) {
-                dd['__ao']();
+            dd['__Y'](e.target, function (e) {
+                dd['__Z']();
                 var fx = e.pageX - x, fy = e.pageY - y;
                 if (top + fy < 0)
                     fy = -top;
@@ -1566,14 +1566,14 @@ var KISSYEnv = {
             var f = flattened[i];
             var root = S.one('#' + f.id);
             if (root) {
-                root.removeClass('MsCPjFa').removeClass('MsCPjFb').addClass('MsCPjF_');
+                root.removeClass('MsCPoEa').removeClass('MsCPoEb').addClass('MsCPoE_');
             }
             if (f.cls && root) {
                 root.addClass(IconsMap[f.cls]);
             }
         }
     },
-    '__aK': function (node) {
+    '__aH': function (node) {
         return S.one(node);
     },
     '__W': function (cb) {
@@ -1607,7 +1607,7 @@ var KISSYEnv = {
             });
         }
     },
-    '__bn': function (key) {
+    '__bo': function (key) {
         var ms = require.s.contexts._.defined;
         var o = ms[key] || ModuleIdMap[key];
         if (!o && ModulesFeatures[key]) {
@@ -1641,26 +1641,26 @@ var KISSYEnv = {
         }
         return o;
     },
-    '__bo': function () {
-        return this['__bn']('$') || this['__bn']('jquery') || this['__bn']('zepto') || LiteQ;
+    '__bp': function () {
+        return this['__bo']('$') || this['__bo']('jquery') || this['__bo']('zepto') || LiteQ;
     },
     '__o': function () {
-        var old = this['__bn']('magix/magix');
+        var old = this['__bo']('magix/magix');
         var magix;
         if (old) {
             magix = old;
         }
         else {
-            magix = this['__bn']('magix');
+            magix = this['__bo']('magix');
         }
         return magix.config('rootId');
     },
     '__p': function () {
-        var old = this['__bn']('magix/vom');
+        var old = this['__bo']('magix/vom');
         if (old) {
             return old;
         }
-        var magix = this['__bn']('magix');
+        var magix = this['__bo']('magix');
         return magix.VOM || magix.Vframe;
     },
     '__C': function () {
@@ -1678,10 +1678,10 @@ var KISSYEnv = {
         return result;
     },
     '__L': function () {
-        return this['__bn']('magix/magix') || this['__bn']('magix');
+        return this['__bo']('magix/magix') || this['__bo']('magix');
     },
-    '__aQ': function (style, id) {
-        var $ = this['__bo']();
+    '__aO': function (style, id) {
+        var $ = this['__bp']();
         var node = $('#' + id);
         var prev = node.prev();
         if (node.css('position') == 'absolute' && prev.prop('tagName') == 'INPUT') {
@@ -1755,23 +1755,23 @@ var KISSYEnv = {
         style.width = size.width + 'px';
         style.height = size.height + 'px';
     },
-    '__aA': function (id) {
-        var $ = this['__bo']();
+    '__ax': function (id) {
+        var $ = this['__bp']();
         return $('#' + id).offset();
     },
-    '__ay': function (id, type, fn) {
-        var $ = this['__bo']();
+    '__av': function (id, type, fn) {
+        var $ = this['__bp']();
         if ($.type(id) == 'string')
             id = '#' + id;
         return $(id).on(type, fn);
     },
-    '__aN': function (id, type, fn) {
-        var $ = this['__bo']();
+    '__aL': function (id, type, fn) {
+        var $ = this['__bp']();
         if ($.type(id) == 'string')
             id = '#' + id;
         return $(id).off(type, fn);
     },
-    '__aR': function (mixins) {
+    '__aP': function (mixins) {
         var mods = require.s.contexts._.defined;
         var ids = [];
         for (var i = 0; i < mixins.length; i++) {
@@ -1796,9 +1796,9 @@ var KISSYEnv = {
         }
         return ids;
     },
-    '__aS': function (r) {
+    '__aQ': function (r) {
         var e = r.res || r.e;
-        var $ = this['__bo']();
+        var $ = this['__bp']();
         var type = $.type(r);
         if (e) {
             if (e.all && e.constructor && e.constructor.cached) {
@@ -1816,10 +1816,10 @@ var KISSYEnv = {
         }
         return type;
     },
-    '__au': function (node, handle) {
-        var $ = this['__bo']();
+    '__ar': function (node, handle) {
+        var $ = this['__bp']();
         var root = $(node);
-        var dd = Drag['__ap']($, 'off', $.isFunction);
+        var dd = Drag['__a_']($, 'off', $.isFunction);
         $(handle).on('mousedown', function (e) {
             if (e.target.id != handle.slice(1))
                 return;
@@ -1827,8 +1827,8 @@ var KISSYEnv = {
             var top = parseInt(root.css('top'), 10);
             var x = e.pageX;
             var y = e.pageY;
-            dd['__an'](e.target, function (e) {
-                dd['__ao']();
+            dd['__Y'](e.target, function (e) {
+                dd['__Z']();
                 var fx = e.pageX - x, fy = e.pageY - y;
                 if (top + fy < 0)
                     fy = -top;
@@ -1840,23 +1840,23 @@ var KISSYEnv = {
         });
     },
     '__T': function (flattened) {
-        var $ = this['__bo']();
+        var $ = this['__bp']();
         for (var i = flattened.length - 1; i >= 0; i--) {
             var f = flattened[i];
             var root = $('#' + f.id);
             if (root)
-                root.removeClass('MsCPjFa').removeClass('MsCPjFb').addClass('MsCPjF_');
+                root.removeClass('MsCPoEa').removeClass('MsCPoEb').addClass('MsCPoE_');
             if (f.cls && root) {
                 root.addClass(IconsMap[f.cls]);
             }
         }
     },
-    '__aK': function (node) {
-        var $ = this['__bo']();
+    '__aH': function (node) {
+        var $ = this['__bp']();
         return $(node);
     },
     '__W': function (cb) {
-        var magix = this['__bn']('magix');
+        var magix = this['__bo']('magix');
         if (magix && magix.View && magix.View.prototype.share) {
             var old_1 = magix.View.prototype.share;
             magix.View.prototype.share = function () {
@@ -1871,7 +1871,7 @@ var KISSYEnv = {
     for (var p in RequireEnv) {
         SeajsEnv[p] = SeajsSEnv[p] = MagixEnv[p] = RequireEnv[p];
     }
-    SeajsEnv['__bn'] = function (key) {
+    SeajsEnv['__bo'] = function (key) {
     // try {
     //     let entity = seajs.require(key); //seajs有别名，优先使用内置的require获取
     //     if (entity)
@@ -1935,7 +1935,7 @@ SeajsEnv['__C'] = function () {
     }
     return result;
 };
-SeajsEnv['__aR'] = function (mixins) {
+SeajsEnv['__aP'] = function (mixins) {
     var mods = seajs.cache;
     var ids = [];
     for (var i = 0; i < mixins.length; i++) {
@@ -1961,7 +1961,7 @@ SeajsEnv['__aR'] = function (mixins) {
     return ids;
 };
 
-    SeajsSEnv['__bn'] = function (key) {
+    SeajsSEnv['__bo'] = function (key) {
     var o;
     try {
         o = require(key);
@@ -1975,16 +1975,16 @@ SeajsEnv['__aR'] = function (mixins) {
 SeajsSEnv['__C'] = function () {
     return [];
 };
-SeajsSEnv['__aR'] = function (mixins) {
+SeajsSEnv['__aP'] = function (mixins) {
     return new Array(mixins.length + 2).join('unknown').slice(1);
 };
 
-    MagixEnv['__bn'] = function (key) {
+    MagixEnv['__bo'] = function (key) {
     if (key == 'magix') {
         return W.Magix;
     }
 };
-MagixEnv['__bo'] = function () {
+MagixEnv['__bp'] = function () {
     return W.$ || W.jQuery || W.Zepto;
 };
 MagixEnv['__o'] = function () {
@@ -1996,7 +1996,7 @@ MagixEnv['__p'] = function () {
 MagixEnv['__C'] = function () {
     return [];
 };
-MagixEnv['__aR'] = function (mixins) {
+MagixEnv['__aP'] = function (mixins) {
     return new Array(mixins.length + 2).join('unknown').slice(1);
 };
 MagixEnv['__L'] = function () {
