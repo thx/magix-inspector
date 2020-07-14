@@ -13,12 +13,12 @@
     "inspector"
   ],
   "devDependencies": {
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-header": "^1.8.8",
-    "gulp-uglify": "^3.0.0",
-    "gulp-watch": "^4.3.11",
-    "typescript": "^2.4.2"
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-header": "^2.0.9",
+    "gulp-uglify": "^3.0.2",
+    "gulp-watch": "^5.0.1",
+    "typescript": "^3.9.6"
   },
   "author": "xinglie <xinglie.lkf@taobao.com>",
   "license": "MIT",

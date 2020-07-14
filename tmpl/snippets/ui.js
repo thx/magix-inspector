@@ -133,6 +133,18 @@ let UI = {
             env['@{getNode}']('#@{mx_tabs}').removeClass('@ui.css:shrink');
         }
     },
+    '@{shrink}'() {
+        let min = getNode('@{mx_min}');
+        let env = Inspector['@{getEnv}']();
+        if (min.innerHTML == '△') {
+            let node = getNode('@{mx}');
+            node.style.height = Consts['@{titleHeight}'] + 'px';
+            node.style.width = '40px';
+            node.style.overflow = 'hidden';
+            min.innerHTML = '▽';
+            env['@{getNode}']('#@{mx_tabs}').addClass('@ui.css:shrink');
+        }
+    },
     '@{detachEvent}'() {
         let env = Inspector['@{getEnv}']();
         env['@{unbind}']('@{mx_view_canvas}', 'mousemove', UI['@{$mousemove}']);

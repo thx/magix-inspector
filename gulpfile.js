@@ -33,7 +33,7 @@ combineTool.config({
 gulp.task('combine', function () {
     del(srcFolder).then(combineTool.combine);
 });
-gulp.task('watch', ['combine'], function () {
+gulp.task('watch', gulp.series('combine', function () {
     watch(tmplFolder + '/**/*', function (e) {
         console.log(e.path);
         if (fs.existsSync(e.path)) {
@@ -42,14 +42,14 @@ gulp.task('watch', ['combine'], function () {
             combineTool.removeFile(e.path);
         }
     });
-});
+}));
 
 let uglify = require('gulp-uglify');
 let header = require('gulp-header');
 gulp.task('cleanBuild', function () {
     return del(buildFolder);
 });
-gulp.task('build', ['cleanBuild'], function () {
+gulp.task('build', gulp.series('cleanBuild', function () {
     gulp.src(srcFolder + '/**/*.js')
         .pipe(uglify({
             compress: {
@@ -63,4 +63,4 @@ gulp.task('build', ['cleanBuild'], function () {
             ver: pkg.version
         }))
         .pipe(gulp.dest(buildFolder));
-});
+}));

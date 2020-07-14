@@ -488,6 +488,7 @@ if (D['@{magix}']) {
         '@{start}'() {
             Inspector['@{prepare}'](() => {
                 UI['@{setup}']();
+                UI['@{shrink}']();
                 let env = Inspector['@{getEnv}']();
                 let vom = env['@{getVOM}']();
                 let drawTimer, intervalTimer, moveTimer, activeId, treeInfo, blinkCount = 0;
